@@ -2,11 +2,12 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 const morgan = require('morgan');
 const sequelize = require('./config/db'); // Sequelize instance
-const authRoute = require('./routes/userRoutes')
+const authRoute = require('./routes/authRoute')
+const housedataRoute = require('./routes/houseDataRoute')
 
 const cors = require('cors'); // Import the cors middleware
 
-const User = require('./model/ConstituencyUser')
+
  // Routes
 
 const app = express();
@@ -52,7 +53,8 @@ app.use('/test', (req, res) => {
   res.send('Hello world!');
 });
 
-app.use('/api',authRoute)
+app.use('/api/auth',authRoute)
+app.use('/api/housedata',housedataRoute)
 
 // Global Error Handling Middleware
 app.use((err, req, res, next) => {

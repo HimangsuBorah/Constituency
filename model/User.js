@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes, Model, DATE } = require('sequelize');
 const sequelize = require('../config/db'); // Import Sequelize instance
 
 class User extends Model {}
@@ -12,31 +12,15 @@ User.init(
         autoIncrement:true,
         allowNull:false
     },
-    email: {
+    password: {
       type: DataTypes.STRING,
-      validate: {
-        isEmail: true,
-      },
-      allowNull:false
+      allowNull: false,
+    },
+    role: {
+      type: DataTypes.ENUM('admin', 'boothpresident','mla'),
+      defaultValue: 'boothpresident',
     },
     name:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    
-    role: {
-      type: DataTypes.ENUM('admin', 'writer','user'),
-      defaultValue: 'user',
-    },
-    Constituency:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    Booth:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    GaonPanchayat:{
       type:DataTypes.STRING,
       allowNull:false,
     },
@@ -45,30 +29,19 @@ User.init(
       allowNull:false,
       unique:true
     },
-    whatsapp:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
     isVerfied:{
         type:DataTypes.BOOLEAN,
         defaultValue:false
     },
-    profilePictureUrl:{
-      type:DataTypes.TEXT,
-      allowNull:true
-  },
-  age:{
-    type:DataTypes.INTEGER,
-    defaultValue:0,
-    allowNull:false
-  },
-  DOB:{
-    type:DataTypes.STRING,
-    allowNull:false
-  }
-  
+    booth_id:{
+        type:DataTypes.INTEGER
+    },
+    gaon_panchayat_id:{
+        type:DataTypes.INTEGER
+    }
 
   },
+
   {
     sequelize, // Pass the Sequelize instance
     modelName: 'User',

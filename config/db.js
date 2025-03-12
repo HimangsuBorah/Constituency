@@ -6,7 +6,7 @@ require('dotenv').config(); // Load environment variables
 
 // Default values, can be overridden by environment variables
 const dbHost = process.env.DB_HOST 
-const dbPort = process.env.DB_PORT || 14657;
+const dbPort = process.env.DB_PORT;
 const dbName = process.env.DB_NAME;  //Required - set in .env
 const dbUser = process.env.DB_USER;  //Required - set in .env
 const dbPassword = process.env.DB_PASSWORD;  //Required - set in .env
