@@ -89,4 +89,50 @@ const getAllBooth = async(req,res)=>{
     }
 }
 
-module.exports = {addboothDataController,addpanchayatDataController,getBoothByIdController,getPanchayatByIdController,getAllPanchayatController,getAllBooth}
+
+const addHeadController = async(req,res)=>{
+    try {
+        const { head_member_id, name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme,is_head } = req.body;
+
+        const entered_by = req.user.id
+       
+      
+        const data = {head_member_id, name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme,entered_by,is_head}
+        const headmember = await houseDataService.addHeadMember(data)
+      
+        return res.status(201).json({
+            success:true,
+            headmember,
+            message:"Head Member Created Successfully"
+        })
+
+    } catch (error) {
+        res.status(400).json({message:error.message})
+    }
+}
+
+const addFamilyMember = async(req,res)=>{
+    try {
+        
+        const { name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme } = req.body;
+    
+        const entered_by = req.user.id
+        const head_member_id=req.params.id
+      
+        const data = {head_member_id, name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme,entered_by}
+        
+        const member = await houseDataService.addMember(data)
+        
+        return res.status(201).json({
+            success:true,
+            member,
+            message:"Member created sucessfully"
+        })
+
+
+    } catch (error) {
+        res.status(400).json({message:error.message})
+    }
+}
+
+module.exports = {addboothDataController,addpanchayatDataController,getBoothByIdController,getPanchayatByIdController,getAllPanchayatController,getAllBooth,addHeadController,addFamilyMember}

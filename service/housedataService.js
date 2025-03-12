@@ -58,6 +58,33 @@ class HouseDataService{
         }
     }
 
+    async addHeadMember(data){
+        try {
+            const headMember = await housedataRepository.addHeadMember(data)
+            return headMember
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async addMember(data){
+        try {
+            if (data.head_member_id) {
+                const headMember = await housedataRepository.findMemberById(data.head_member_id);
+                if (!headMember) {
+                  throw new Error('Invalid Head Member ID: Head Member not found.');
+                }
+                if (!headMember.is_head) {
+                  throw new Error('Invalid Head Member ID:  Member is not designated as Head.');
+                }
+              }
+            const member = await housedataRepository.addMember(data)
+            return member
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 
 module.exports = new HouseDataService()

@@ -5,6 +5,7 @@ const sequelize = require('../config/db');  // Import the Sequelize instance fro
 const User = require('./User');
 const Booth = require('./Booth')
 const GaonPanchayat = require('./GaonPanchayat')
+const Member = require('./Member')
 
 
 
@@ -54,13 +55,35 @@ User.belongsTo(GaonPanchayat,{
   as:'boothpresident_panchayat'
 })
 
+Member.belongsTo(Member,{
+  foreignKey:'head_member_id',
+  as:'headMember',
+  allowNull:true
+})
+
+Member.hasMany(Member,{
+  foreignKey:'head_member_id',
+  as:'familyMembers',
+  onDelete:'SET NULL'
+})
+
+User.hasMany(Member,{
+  foreignKey:'entered_by',
+  as:'boothpresident'
+})
+
+Member.belongsTo(User,{
+  foreignKey:'entered_by',
+  as:'members'
+})
 
 
 
 const models = {
  Booth,
  User,
- GaonPanchayat
+ GaonPanchayat,
+ Member
 };
 
 // Sync models after initializing associations
