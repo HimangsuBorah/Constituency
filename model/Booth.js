@@ -25,7 +25,6 @@ Booth.init(
     sequelize,
     modelName: 'Booth',
     tableName: 'booth',
-    timestamps: true, 
     unique: {
       fields: ['booth_no','gaon_panchayat_id'], // Enforce uniqueness
       name: 'unique_booth_gaon_panchayat' // optional unique name

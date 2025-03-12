@@ -5,10 +5,10 @@ const houseDataService = require('../service/housedataService')
 const addboothDataController = async(req,res)=>{
     try {
         const data = req.body
-        const {booth_no,gaon_panchayat_id}=data
-        if(!booth_no || !gaon_panchayat_id){
-            return res.status(400).json({message:"booth no and panchayat_id is must"})
-        }
+        // const {booth_no,gaon_panchayat_id}=data
+        // if(!booth_no || !gaon_panchayat_id){
+        //     return res.status(400).json({message:"booth no and panchayat_id is must"})
+        // }
         const booth = await houseDataService.addBoothData(data)
         return res.status(201).json({
             success:true,
