@@ -92,12 +92,12 @@ const getAllBooth = async(req,res)=>{
 
 const addHeadController = async(req,res)=>{
     try {
-        const { head_member_id, name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme,is_head } = req.body;
+        const { head_member_id,house_no, name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme,is_head } = req.body;
 
         const entered_by = req.user.id
        
       
-        const data = {head_member_id, name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme,entered_by,is_head}
+        const data = {head_member_id,house_no, name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme,entered_by,is_head}
         const headmember = await houseDataService.addHeadMember(data)
       
         return res.status(201).json({
@@ -114,12 +114,12 @@ const addHeadController = async(req,res)=>{
 const addFamilyMember = async(req,res)=>{
     try {
         
-        const { name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme } = req.body;
+        const { name,house_no, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme } = req.body;
     
         const entered_by = req.user.id
         const head_member_id=req.params.id
       
-        const data = {head_member_id, name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme,entered_by}
+        const data = {head_member_id, name,house_no, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme,entered_by}
         
         const member = await houseDataService.addMember(data)
         

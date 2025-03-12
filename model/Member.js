@@ -17,6 +17,9 @@ Member.init(
       allowNull:false,
       required:true
     },
+    house_no:{
+        type:DataTypes.STRING
+    },
     voter_id:{
       type:DataTypes.STRING,
       unique:true

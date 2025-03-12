@@ -69,6 +69,7 @@ class HouseDataService{
 
     async addMember(data){
         try {
+            
             if (data.head_member_id) {
                 const headMember = await housedataRepository.findMemberById(data.head_member_id);
                 if (!headMember) {
@@ -78,7 +79,7 @@ class HouseDataService{
                   throw new Error('Invalid Head Member ID:  Member is not designated as Head.');
                 }
               }
-            const member = await housedataRepository.addMember(data)
+            const member = await housedataRepository.addMember(data,house_no)
             return member
         } catch (error) {
             throw error
