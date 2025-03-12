@@ -79,7 +79,7 @@ class HouseDataService{
                   throw new Error('Invalid Head Member ID:  Member is not designated as Head.');
                 }
               }
-            const member = await housedataRepository.addMember(data,house_no)
+            const member = await housedataRepository.addMember(data)
             return member
         } catch (error) {
             throw error
