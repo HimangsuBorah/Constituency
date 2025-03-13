@@ -44,16 +44,16 @@ Member.init(
         type:DataTypes.ENUM('Male','Female','Others')
     },
     employment_status:{
-        type:DataTypes.ENUM('Student','Employed','Unemployed','Retired','Homemaker')
+        type:DataTypes.STRING
     },
     employment_source:{
-        type:DataTypes.ENUM('State Government','Central Government','Private','Self employed','Retired','Homemaker','Agriculture')
+        type:DataTypes.STRING
     },
     caste:{
-        type:DataTypes.ENUM('General','OBC','ST','SC')
+        type:DataTypes.STRING
     },
     religion:{
-        type:DataTypes.ENUM('Hindu','Islam','Christanity','Buddhism','Jainism','Other')
+        type:DataTypes.STRING
     },
     education:{
         type:DataTypes.STRING
@@ -67,6 +67,21 @@ Member.init(
     government_scheme:{
         type:DataTypes.JSONB
     },
+    community:{
+        type:DataTypes.STRING
+    },
+    ration_card:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:false
+    },
+    electricty_available:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:false
+    },
+    water_available:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:false
+    },
     entered_by:{
         type:DataTypes.INTEGER
     },
@@ -76,6 +91,13 @@ Member.init(
     },
     head_member_id:{
         type:DataTypes.INTEGER
+    },
+    is_verified:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:false
+    },
+    mode_of_communication:{
+        type:DataTypes.STRING
     }
   },
   {
