@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const sequelize = require('./config/db'); // Sequelize instance
 const authRoute = require('./routes/authRoute')
 const housedataRoute = require('./routes/houseDataRoute')
+const communityServiceRoute=require('./routes/communityServiceRoutes')
 
 const cors = require('cors'); // Import the cors middleware
 
@@ -55,6 +56,7 @@ app.use('/test', (req, res) => {
 
 app.use('/api/auth',authRoute)
 app.use('/api/housedata',housedataRoute)
+app.use('/api/community',communityServiceRoute)
 
 // Global Error Handling Middleware
 app.use((err, req, res, next) => {
