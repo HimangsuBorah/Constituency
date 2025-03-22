@@ -25,8 +25,14 @@ Developement.init(
     status:{
       type:DataTypes.ENUM('Proposed','Under Construction','Completed')
     },
+    panchayat:{
+      type:DataTypes.STRING
+    },
     amount:{
-      type:DataTypes.DECIMAL(10,2)
+      type:DataTypes.STRING
+    },
+    year:{
+      type:DataTypes.STRING
     },
     feedback:{
       type:DataTypes.TEXT
@@ -34,7 +40,7 @@ Developement.init(
     assigned_person:{
       type:DataTypes.STRING
     },
-    assigned_person_phoneno:{
+   phone_no:{
         type:DataTypes.INTEGER
     },
     user_id:{

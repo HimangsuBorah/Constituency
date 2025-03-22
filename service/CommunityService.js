@@ -93,7 +93,7 @@ class CommunityService{
             .toBuffer();
       
           // Generate a unique filename (appending .webp extension)
-          const filename = `${asset.id}_${asset.name}_${file.originalname.split('.')[0]}_${Date.now()}.webp`;
+          const filename = `${asset.id}_${file.originalname.split('.')[0]}_${Date.now()}.webp`;
       
           // SFTP configuration for the remote server
           const sftp = new SftpClient();
