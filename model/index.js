@@ -11,6 +11,7 @@ const Assets = require('./Assets')
 const AssetsImage = require('./AssestImage')
 const Developement = require('./Developement')
 const DevelopementImage = require('./DevelopementImages')
+const Category = require('./Category')
 
 
 
@@ -142,6 +143,16 @@ DevelopementImage.belongsTo(Developement,{
   as:'project'
 })
 
+Category.hasMany(Developement,{
+  foreignKey:'category_id',
+  as:'developements'
+})
+
+Developement.belongsTo(Category,{
+  foreignKey:'category_id',
+  as:'categories'
+})
+
 const models = {
  Booth,
  User,
@@ -151,7 +162,8 @@ const models = {
  Assets,
  AssetsImage,
  Developement,
- DevelopementImage
+ DevelopementImage,
+ Category
 };
 
 // Sync models after initializing associations

@@ -45,6 +45,9 @@ Developement.init(
     },
     user_id:{
       type:DataTypes.INTEGER
+    },
+    category_id:{
+      type:DataTypes.INTEGER
     }
   },
   {

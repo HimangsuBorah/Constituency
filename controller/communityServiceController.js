@@ -1,7 +1,8 @@
 const path = require('path')
 const fs = require('fs')
 const communityService = require('../service/CommunityService')
-const multer = require('multer')
+const multer = require('multer');
+const { model } = require('mongoose');
 
 
 
@@ -125,5 +126,36 @@ const uploadDevelopementImagesController = async (req, res) => {
     }
   };
 
+const categoryController = async(req,res)=>{
+  try {
+    const data = req.body
+    const categories = await communityService.createCategory(data)
+    return res.status(200).json({
+      success:true,
+      message:"Category created successfully",
+      categories
+    })
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
 
-module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController}
+
+const getProjectsByCategoryController = async(req,res)=>{
+  try {
+    const categoryId = req.params.id
+    const {page,pageSize,year}=req.body
+    const {projects,remaining} = await communityService.getDevelopementProjectsByCategory(categoryId, page, pageSize, year)
+    return res.status(200).json({
+      success:true,
+      remaining,
+      projects,
+      message:"Projects fetched successfully"
+    })
+  } catch (error) {
+     res.status(500).json({message:error.message})
+  }
+}
+
+
+module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController}

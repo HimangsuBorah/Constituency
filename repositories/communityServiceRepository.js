@@ -89,6 +89,44 @@ class CommunityServiceRepository{
         }
     }
 
+    async createCategories(data){
+        try {
+            const category = await models.Category.create(data)
+            return category
+        } catch (error) {
+            throw error
+        }
+    }
+
+
+    async getDevelopementProjectsByCategory(categoryId,page,pageSize,year){
+        try {
+            const offset = (page-1)*pageSize
+            const category = await models.Category.findByPk(categoryId)
+            
+            if(!category){
+                throw new Error('Category does not exist')
+            } 
+            const {rows,count} = await models.Developement.findAndCountAll({
+                where:{
+                    category_id:categoryId,
+                    year:year
+                },
+                include: [{
+                    model:models.DevelopementImage,
+                    as:'images'
+                }],
+                offset:offset,
+                limit:pageSize
+            })
+
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+            return {projects:rows,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 
 module.exports= new CommunityServiceRepository()

@@ -4,6 +4,7 @@ const path = require('path'); // Import path
 const fs = require('fs').promises;  //Import promises
 const {NodeSSH} = require('node-ssh') // Import node-ssh
 const SftpClient = require('ssh2-sftp-client');
+const stream = require('stream');
 
 // const imageUrl = `https://barhampu.udbhabanai.in/images/compressed-${filename}`
 class CommunityService{
@@ -121,11 +122,19 @@ class CommunityService{
               }
             }
       
-            // Upload the image buffer directly to the remote server
-            await sftp.put(processedBuffer, remoteFilePath);
+            const passThrough = new stream.PassThrough();
+
+    // Start piping the processed image into the stream
+    sharp(file.buffer)
+      .resize({ width: 800, height: 600, fit: 'inside' })
+      .webp({ quality: 80 })
+      .pipe(passThrough);
+
+    // Upload the stream directly
+    await sftp.put(passThrough, remoteFilePath);
       
             // Construct the remote URL (adjust the domain/path as needed)
-            const imageUrl = `https://barhampu.udbhabanai.in/images/${filename}`;
+            const imageUrl = `https://barhampu.udbhabanai.in//${filename}`;
       
             // Create a record in your database (passing an array for img_url)
             const assetImage = await communityRepository.createImage(developementid, [imageUrl], description, isPrimary);
@@ -175,6 +184,24 @@ class CommunityService{
         } catch (error) {
             throw error
         }
+    }
+
+    async createCategory(data){
+      try {
+        const category = await communityRepository.createCategories(data)
+        return category
+      } catch (error) {
+        throw error
+      }
+    }
+
+    async getDevelopementProjectsByCategory(categoryId, page, pageSize, year){
+      try {
+        const {projects,remaining} = await communityRepository.getDevelopementProjectsByCategory(categoryId, page, pageSize, year)
+        return {projects,remaining}
+      } catch (error) {
+        throw error
+      }
     }
 }
 

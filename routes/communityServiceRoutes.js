@@ -57,5 +57,7 @@ router.get('/getall-assettypes',communityController.getAssetController)
 router.post('/create-developement', isAuthenticated,communityController.createDevelopementController);
 router.post('/upload-developement-image/:id',upload.array('images', 10), communityController.uploadDevelopementImagesController);
 router.get('/getall-assettypes',communityController.getAssetController)
+router.post('/create-category',communityController.categoryController)
+router.get('/getprojectsbycategory/:id',communityController.getProjectsByCategoryController)
 
 module.exports = router;
