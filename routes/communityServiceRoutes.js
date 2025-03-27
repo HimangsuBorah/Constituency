@@ -59,5 +59,8 @@ router.post('/upload-developement-image/:id',upload.array('images', 10), communi
 router.get('/getall-assettypes',communityController.getAssetController)
 router.post('/create-category',communityController.categoryController)
 router.get('/getprojectsbycategory/:id',communityController.getProjectsByCategoryController)
-
+router.post('/create-communitycategory',communityController.addCommunityCategoryController)
+router.post('/add-communitylead',isAuthenticated,communityController.addCommunityLeader)
+router.post('/add-communitymember',isAuthenticated,communityController.addCommunityMemberController)
+router.get('/getcommunitygroup/:id',communityController.getCommunityByLeaderid)
 module.exports = router;

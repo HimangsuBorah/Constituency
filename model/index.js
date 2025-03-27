@@ -12,6 +12,8 @@ const AssetsImage = require('./AssestImage')
 const Developement = require('./Developement')
 const DevelopementImage = require('./DevelopementImages')
 const Category = require('./Category')
+const CommunityGroups = require('./CommunityGroups')
+const CommunityGroupCategory = require('./CommunityGroupCategory')
 
 
 
@@ -153,6 +155,38 @@ Developement.belongsTo(Category,{
   as:'categories'
 })
 
+CommunityGroupCategory.hasMany(CommunityGroups,{
+  foreignKey:'community_category_id',
+  as:'community_category'
+})
+
+CommunityGroups.belongsTo(CommunityGroupCategory,{
+  foreignKey:'community_category_id',
+  as:'community_groups'
+})
+
+User.hasMany(CommunityGroups,{
+  foreignKey:'user_id',
+  as:'booth_president'
+})
+
+CommunityGroups.belongsTo(User,{
+  foreignKey:'user_id',
+  as:'entered_by'
+})
+
+CommunityGroups.belongsTo(CommunityGroups,{
+  foreignKey:'leader_id',
+  as:'leader',
+  allowNull:true
+})
+
+Member.hasMany(Member,{
+  foreignKey:'leader_id',
+  as:'group_members',
+  onDelete:'SET NULL'
+})
+
 const models = {
  Booth,
  User,
@@ -163,7 +197,9 @@ const models = {
  AssetsImage,
  Developement,
  DevelopementImage,
- Category
+ Category,
+ CommunityGroupCategory,
+ CommunityGroups
 };
 
 // Sync models after initializing associations

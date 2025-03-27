@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "udbhaban",
+    "database": "Barhampur_Data",
+    "host": "148.113.47.31",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "udbhaban",
+    "database": "Barhampur_Data",
+    "host": "148.113.47.31",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "udbhaban",
+    "database": "Barhampur_Data",
+    "host": "148.113.47.31",
+    "dialect": "postgres"
+  }
+}

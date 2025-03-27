@@ -16,7 +16,7 @@ router.get('/getallpanchayat',houseDataController.getAllPanchayatController)
 router.get('/getallbooth',houseDataController.getAllBooth)
 router.post('/addheadmember',isAuthenticated,houseDataController.addHeadController)
 router.post('/addmember/:id',isAuthenticated,houseDataController.addFamilyMember)
-
+router.get('/getfamilydetails/:id',houseDataController.getFamilyDetailsByLeader)
 
 
 

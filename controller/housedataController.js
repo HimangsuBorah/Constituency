@@ -135,4 +135,20 @@ const addFamilyMember = async(req,res)=>{
     }
 }
 
-module.exports = {addboothDataController,addpanchayatDataController,getBoothByIdController,getPanchayatByIdController,getAllPanchayatController,getAllBooth,addHeadController,addFamilyMember}
+
+const getFamilyDetailsByLeader = async(req,res)=>{
+    try {
+        const id = req.params.id
+        const {head,members} = await houseDataService.getFamilyByHeadId(id)
+        return res.status(200).json({
+            success:true,
+            head,
+            members,
+            message:"Family details fetched successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+module.exports = {addboothDataController,addpanchayatDataController,getBoothByIdController,getPanchayatByIdController,getAllPanchayatController,getAllBooth,addHeadController,addFamilyMember,getFamilyDetailsByLeader}

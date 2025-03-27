@@ -86,6 +86,15 @@ class HouseDataService{
         }
     }
 
+    async getFamilyByHeadId(id){
+        try {
+            const {head,members}= await housedataRepository.getFamilyBYHeadid(id)
+            return {head,members}
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 
 module.exports = new HouseDataService()

@@ -5,6 +5,7 @@ const fs = require('fs').promises;  //Import promises
 const {NodeSSH} = require('node-ssh') // Import node-ssh
 const SftpClient = require('ssh2-sftp-client');
 const stream = require('stream');
+const { models } = require('mongoose');
 
 // const imageUrl = `https://barhampu.udbhabanai.in/images/compressed-${filename}`
 class CommunityService{
@@ -199,6 +200,46 @@ class CommunityService{
       try {
         const {projects,remaining} = await communityRepository.getDevelopementProjectsByCategory(categoryId, page, pageSize, year)
         return {projects,remaining}
+      } catch (error) {
+        throw error
+      }
+    }
+
+
+    async addCommunityLeader(data){
+      try {
+      
+        const community = await communityRepository.createCommunityLead(data)
+        return community
+      } catch (error) {
+        throw error
+      }
+    }
+
+    async addCommunityMember(data){
+      try {
+       
+        const community = await communityRepository.addCommunityMember(data)
+        
+        return community
+      } catch (error) {
+        throw error
+      }
+    }
+
+    async addCommunityCategory(data){
+      try {
+        const category = await communityRepository.createCommunityCategory(data)
+        return category
+      } catch (error) {
+        throw error
+      }
+    }
+
+    async getCommunityByLeaderId(id){
+      try {
+        const {leader,members}= await communityRepository.getCommunityByLeader(id)
+        return {leader,members}
       } catch (error) {
         throw error
       }

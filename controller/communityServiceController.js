@@ -157,5 +157,68 @@ const getProjectsByCategoryController = async(req,res)=>{
   }
 }
 
+const addCommunityCategoryController = async(req,res)=>{
+  try {
+    const data = req.body
+    const category = await communityService.addCommunityCategory(data)
+    return res.status(200).json({
+      success:true,
+      category,
+      message:'Category created successfully'
+    })
+  } catch (error) {
+    return res.status(500).json({message:error.message})
+  }
+}
 
-module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController}
+const addCommunityLeader = async(req,res)=>{
+  try {
+    const {name,community_name,community_category_id,active_members,programs,phone_no,contribution,support_required,other_reason,is_leader,leader_id,booth_id,gaon_panchayat_id} = req.body
+    const user_id = req.user.id
+    const data = {name,community_name,community_category_id,active_members,programs,phone_no,contribution,support_required,other_reason,is_leader,leader_id,user_id,booth_id,gaon_panchayat_id}
+    const community = await communityService.addCommunityLeader(data)
+    return res.status(200).json({
+      success:true,
+      community,
+      message:"Community leader added successfully"
+    })
+  } catch (error) {
+    return res.status(500).json({message:error.message})
+  }
+}
+
+const addCommunityMemberController = async(req,res)=>{
+  try {
+    
+    const {name,community_name,community_category_id,active_members,programs,phone_no,contribution,support_required,other_reason,is_leader,leader_id} = req.body
+    const user_id = req.user.id
+    const data = {name,community_name,community_category_id,active_members,programs,phone_no,contribution,support_required,other_reason,is_leader,leader_id,user_id}
+  
+    const community = await communityService.addCommunityMember(data)
+    
+    return res.status(200).json({
+      success:true,
+      community,
+      message:"Community Member Added Successfully"
+    })
+  } catch (error) {
+    return res.status(500).json({message:error.message})
+  }
+}
+
+const getCommunityByLeaderid = async(req,res)=>{
+  try {
+    const id = req.params.id
+    const {leader,members}= await communityService.getCommunityByLeaderId(id)
+    return res.status(200).json({
+      success:true,
+      leader,
+      members,
+      message:"Community Group fetched successfully"
+    })
+  } catch (error) {
+    return res.status(500).json({message:error.message})
+  }
+}
+
+module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid}

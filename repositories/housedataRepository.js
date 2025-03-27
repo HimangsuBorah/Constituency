@@ -94,6 +94,23 @@ class HouseDataRepository{
         }
     }
 
+    async getFamilyBYHeadid(id){
+        try {
+            const head = await models.Member.findByPk(id)
+            if(!head){
+                throw new Error("Head of the family does not exists")
+            }
+            const members = await models.Member.findAll({
+                where:{
+                    head_member_id:id
+                }
+            })
+            return {head,members}
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 
 module.exports = new HouseDataRepository()

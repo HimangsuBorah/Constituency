@@ -127,6 +127,60 @@ class CommunityServiceRepository{
         }
     }
 
+    async createCommunityLead(data){
+        try {
+            const community = await models.CommunityGroups.create(data)
+            console.log(data)
+            return community
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async addCommunityMember(data){
+        try {
+            if(!data.is_leader && !data.leader_id){
+                throw new Error("Leader Id and isLeaderboth cannot be null")
+            }
+            const leader = await models.CommunityGroups.findByPk(data.leader_id)
+            if(!leader){
+                throw new Error("Group does not exists")
+            }
+
+            const member = await models.CommunityGroups.create(data)
+            
+            return member
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async createCommunityCategory(data){
+        try {
+            const category = await models.CommunityGroupCategory.create(data)
+            return category
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getCommunityByLeader(id){
+        try {
+            const leader = await models.CommunityGroups.findByPk(id)
+            if(!leader){
+                throw new Error("Group does not exists")
+            }
+            const members = await models.CommunityGroups.findAll({
+                where:{
+                    leader_id:id
+                }
+            })
+            return {leader,members}
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 
 module.exports= new CommunityServiceRepository()
