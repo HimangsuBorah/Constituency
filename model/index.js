@@ -181,11 +181,7 @@ CommunityGroups.belongsTo(CommunityGroups,{
   allowNull:true
 })
 
-Member.hasMany(Member,{
-  foreignKey:'leader_id',
-  as:'group_members',
-  onDelete:'SET NULL'
-})
+
 
 const models = {
  Booth,

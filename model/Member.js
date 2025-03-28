@@ -12,6 +12,10 @@ Member.init(
       autoIncrement:true,
       allowNull:false
     },
+    voter_id:{
+        type:DataTypes.STRING,
+        unique:true
+      },
     name: {
       type: DataTypes.STRING,
       allowNull:false,
@@ -20,13 +24,8 @@ Member.init(
     house_no:{
         type:DataTypes.STRING
     },
-    voter_id:{
-      type:DataTypes.STRING,
-      unique:true
-    },
     mobile_number:{
-        type:DataTypes.STRING,
-        unique:true
+        type:DataTypes.STRING
     },
     date_of_birth:{
         type:DataTypes.DATE

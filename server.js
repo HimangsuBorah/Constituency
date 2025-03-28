@@ -5,6 +5,10 @@ const sequelize = require('./config/db'); // Sequelize instance
 const authRoute = require('./routes/authRoute')
 const housedataRoute = require('./routes/houseDataRoute')
 const communityServiceRoute=require('./routes/communityServiceRoutes')
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger");
+
+
 
 const cors = require('cors'); // Import the cors middleware
 
@@ -22,6 +26,7 @@ if (!process.env.PORT) {
 // Middleware
 app.use(morgan('common')); // Logs all requests
 app.use(express.json()); // Parse JSON bodies
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // --- Configure CORS with specific origin ---
 const corsOptions = {
@@ -49,10 +54,10 @@ app.use(cors(corsOptions)); // Apply CORS middleware with specific options
 })();
 
 
-// Test Route
 app.use('/test', (req, res) => {
   res.send('Hello world!');
 });
+
 
 app.use('/api/auth',authRoute)
 app.use('/api/housedata',housedataRoute)
