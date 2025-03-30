@@ -14,6 +14,7 @@ const signupController = async (req, res) => {
   try {
     const data = req.body;
     await ValidatorService.validateRegistrationData(data)
+    console.log(data)
 
     const newUser = await authService.registerData(data)
    
@@ -30,7 +31,8 @@ const signupController = async (req, res) => {
         name:newUser.name,
         phoneNumber:newUser.phoneNumber,
         boothid:newUser.booth_id,
-        panchayat_id:newUser.gaon_panchayat_id
+        panchayat_id:newUser.gaon_panchayat_id,
+        village_id:newUser.village_id
       },
     });
   } catch (error) {

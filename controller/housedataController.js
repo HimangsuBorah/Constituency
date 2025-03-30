@@ -151,4 +151,45 @@ const getFamilyDetailsByLeader = async(req,res)=>{
     }
 }
 
-module.exports = {addboothDataController,addpanchayatDataController,getBoothByIdController,getPanchayatByIdController,getAllPanchayatController,getAllBooth,addHeadController,addFamilyMember,getFamilyDetailsByLeader}
+const getAllZpcController = async(req,res)=>{
+    try {
+        const zpc = await houseDataService.getAllzpc()
+        return res.status(200).json({
+            success:true,
+            zpc,
+            message:"Data fetched successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+const getPanchayatByZPCController = async(req,res)=>{
+    try {
+        const zpcid=req.params.id
+        const panchayat = await houseDataService.getPanchayatByZpc(zpcid)
+        return res.status(200).json({
+            success:true,
+            panchayat,
+            message:"Data fetched successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+const getVillageByPanchayatController = async(req,res)=>{
+    try {
+        const panchayatid=req.params.id
+        const village = await houseDataService.getVillagesByPanchayat(panchayatid)
+        return res.status(200).json({
+            success:true,
+            village,
+            message:"Data fetched successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+module.exports = {addboothDataController,addpanchayatDataController,getBoothByIdController,getPanchayatByIdController,getAllPanchayatController,getAllBooth,addHeadController,addFamilyMember,getFamilyDetailsByLeader,getAllZpcController,getPanchayatByZPCController,getVillageByPanchayatController}

@@ -7,13 +7,13 @@ class AuthRepository{
     async CreateUser(data){
      try {
        
-      
+      console.log(data)
         const user = await models.User.create(data)
         
         return user
         
      } catch (error) {
-        throw new Error(`Error in user repository: ${error.message}`);
+        throw error
 
      }
     }

@@ -111,6 +111,41 @@ class HouseDataRepository{
         }
     }
 
+    async getallZpc(){
+        try {
+            const zpcs = await models.ZPC.findAll()
+            return zpcs
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getPanchayatByZPC(zpcid){
+        try {
+            const panchayat = await models.GaonPanchayat.findAll({
+                where:{
+                    zpc_id:zpcid
+                }
+            })
+            return panchayat
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getVillageByPanchayatId(panchayatid){
+        try {
+            const villages = await models.Village.findAll({
+                where:{
+                    gaon_panchayat_id:panchayatid
+                }
+            })
+            return villages
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 
 module.exports = new HouseDataRepository()

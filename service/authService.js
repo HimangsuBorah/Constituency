@@ -11,14 +11,14 @@ class AuthService{
     async registerData(data){
         try {
             
-            const {password,phoneNumber,role,name,is_active,approval_status,booth_id,gaon_panchayat_id}=data
+            const {password,phoneNumber,role,name,is_active,approval_status,booth_id,gaon_panchayat_id,village_id}=data
             
             
           
             
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            const user = await authRepository.CreateUser({password:hashedPassword,phoneNumber,role,name,is_active,approval_status,booth_id,gaon_panchayat_id})
+            const user = await authRepository.CreateUser({password:hashedPassword,phoneNumber,role,name,is_active,approval_status,booth_id,gaon_panchayat_id,village_id})
             
 
             return user

@@ -95,6 +95,33 @@ class HouseDataService{
         }
     }
 
+    async getAllzpc(){
+        try {
+            const zpcs = await housedataRepository.getallZpc()
+            return zpcs
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getPanchayatByZpc(zpcid){
+        try {
+            const panchayat = await housedataRepository.getPanchayatByZPC(zpcid)
+            return panchayat
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getVillagesByPanchayat(panchayatid){
+        try {
+            const villages = await housedataRepository.getVillageByPanchayatId(panchayatid)
+            return villages
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 
 module.exports = new HouseDataService()
