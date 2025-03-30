@@ -238,7 +238,7 @@ class CommunityServiceRepository{
                     status:'Completed'
                 }
             })
-            const amountinLakhs= amount/1e5
+            const amountinLakhs= amount/1e7
             return amountinLakhs
         } catch (error) {
             throw error
