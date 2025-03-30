@@ -30,7 +30,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // --- Configure CORS with specific origin ---
 const corsOptions = {
-  origin: ['http://localhost:3000'], // Allow requests from your Netlify frontend domain
+  origin: ['http://localhost:3000','bhaskarsharma.yourmla.com'], // Allow requests from your Netlify frontend domain
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Specify allowed HTTP methods
   credentials: true, // If you need to send cookies in cross-origin requests (if applicable)
   allowedHeaders: 'Content-Type,Authorization', // Specify allowed headers (if needed)
