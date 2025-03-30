@@ -221,4 +221,86 @@ const getCommunityByLeaderid = async(req,res)=>{
   }
 }
 
-module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid}
+const getTotalProjects = async(req,res)=>{
+  try {
+    const count = await communityService.getAllProjects()
+    return res.status(200).json({
+      success:true,
+      count,
+      message:"Count of all projects fetched successfully"
+    })
+  } catch (error) {
+    return res.status(500).json({message:error.message})
+  }
+}
+
+
+const getTotalBudgetController = async(req,res)=>{
+  try {
+    const amount = await communityService.getTotalBudget()
+    return res.status(200).json({
+      success:true,
+      amount,
+      message:"Total budget fetched successfully"
+    })
+  } catch (error) {
+    return res.status(500).json({message:error.message})
+  }
+}
+
+const getTotalCompletedProjects = async(req,res)=>{
+  try {
+    const count = await communityService.getTotalCompletedProjectsCount()
+   
+    return res.status(200).json({
+      success:true,
+      count,
+      message:'Total completed projects count fetched successfully'
+    })
+  } catch (error) {
+    return res.status(500).json({message:error.message})
+  }
+}
+
+const getCompletedProjectsByCategory=async(req,res)=>{
+  try {
+    const categoryId=req.params.id
+    const count = await communityService.getCompletedProjectsByCategory(categoryId)
+   
+    return res.status(200).json({
+      success:true,
+      count,
+      message:"Completed projects by category fetched successfully"
+    })
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+}
+
+const getCompletedProjectBudgetByCategory = async(req,res)=>{
+  try {
+    const categoryId= req.params.id
+    const amount = await communityService.getCompletedProjectBudgetByCategory(categoryId)
+    return res.status(200).json({
+      success:true,
+      amount,
+      message:"Completed projects category budget fetched successfully"
+    })
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+}
+
+const getAllCategories = async(req,res)=>{
+  try {
+    const categories = await communityService.getAllCategories()
+    return res.status(200).json({
+      success:true,
+      categories,
+      message:"Categories fetched successfully"
+    })
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+}
+module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid,getTotalProjects,getTotalBudgetController,getTotalCompletedProjects,getCompletedProjectsByCategory,getCompletedProjectBudgetByCategory,getAllCategories}

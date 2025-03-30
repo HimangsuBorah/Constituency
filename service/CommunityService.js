@@ -138,7 +138,7 @@ class CommunityService{
             const imageUrl = `https://barhampu.udbhabanai.in//${filename}`;
       
             // Create a record in your database (passing an array for img_url)
-            const assetImage = await communityRepository.createImage(developementid, [imageUrl], description, isPrimary);
+            const assetImage = await communityRepository.createDevelopementImage(developementid, [imageUrl], description, isPrimary);
             return assetImage;
           } finally {
             // Always end the SFTP connection
@@ -240,6 +240,60 @@ class CommunityService{
       try {
         const {leader,members}= await communityRepository.getCommunityByLeader(id)
         return {leader,members}
+      } catch (error) {
+        throw error
+      }
+    }
+
+    async getAllProjects(){
+      try {
+        const count = await communityRepository.getTotalProjects()
+        return count
+      } catch (error) {
+        throw error
+      }
+    }
+
+    async getTotalBudget(){
+      try {
+        const amount = await communityRepository.getTotalBudget()
+        return amount
+      } catch (error) {
+        throw error
+      }
+    }
+
+    async getTotalCompletedProjectsCount(){
+      try {
+        const count = await communityRepository.getTotalCompletedProjects()
+        return count
+      } catch (error) {
+        throw error
+      }
+    }
+
+    async getCompletedProjectsByCategory(categoryId){
+      try {
+        const count = await communityRepository.getCompletedProjectsByCategory(categoryId)
+        return count
+      } catch (error) {
+        throw error
+      }
+    }
+
+    async getCompletedProjectBudgetByCategory(categoryId){
+      try {
+        const amount = await communityRepository.getCompletedProjectBudgetByCategory(categoryId)
+        return amount
+      } catch (error) {
+        throw error
+      }
+    }
+
+    async getAllCategories(){
+      try {
+        const categories = await communityRepository.getAllCategories()
+        return categories
       } catch (error) {
         throw error
       }

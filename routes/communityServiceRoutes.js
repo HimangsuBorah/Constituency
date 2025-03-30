@@ -63,4 +63,11 @@ router.post('/create-communitycategory',communityController.addCommunityCategory
 router.post('/add-communitylead',isAuthenticated,communityController.addCommunityLeader)
 router.post('/add-communitymember',isAuthenticated,communityController.addCommunityMemberController)
 router.get('/getcommunitygroup/:id',communityController.getCommunityByLeaderid)
+
+router.get('/total-projects-count',communityController.getTotalProjects)
+router.get('/total-budget',communityController.getTotalBudgetController)
+router.get('/total-completed-projects',communityController.getTotalCompletedProjects)
+router.get('/completedprojects-category/:id',communityController.getCompletedProjectsByCategory)
+router.get('/completedprojects-budget-category/:id',communityController.getCompletedProjectBudgetByCategory)
+router.get('/all-developement-categories',communityController.getAllCategories)
 module.exports = router;

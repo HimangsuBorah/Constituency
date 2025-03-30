@@ -29,7 +29,7 @@ Developement.init(
       type:DataTypes.STRING
     },
     amount:{
-      type:DataTypes.STRING
+      type:DataTypes.BIGINT
     },
     year:{
       type:DataTypes.STRING

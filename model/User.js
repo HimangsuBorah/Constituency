@@ -36,7 +36,7 @@ User.init(
     booth_id:{
         type:DataTypes.INTEGER
     },
-    gaon_panchayat_id:{
+    village_id:{
         type:DataTypes.INTEGER
     }
 

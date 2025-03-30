@@ -1,3 +1,4 @@
+const { where } = require('sequelize');
 const {models}=require('../model/index');
 
 class CommunityServiceRepository{
@@ -176,6 +177,78 @@ class CommunityServiceRepository{
                 }
             })
             return {leader,members}
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getTotalProjects(){
+        try {
+            const count = await models.Developement.count()
+            return count
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getTotalBudget(){
+        try {
+            const totalBudget = await models.Developement.sum('amount')
+            const amountinLakhs= totalBudget/1e7
+            return amountinLakhs
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getTotalCompletedProjects(){
+        try {
+            const count = await models.Developement.count({
+                where:{
+                    status:"Completed"
+                }
+            })
+            return count
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getCompletedProjectsByCategory(categoryId){
+        try {
+            const count = await models.Developement.count({
+                where:{
+                    category_id:categoryId,
+                    status:"Completed"
+                }
+            })
+            
+            return count
+            
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getCompletedProjectBudgetByCategory(categoryId){
+        try {
+            const amount = await models.Developement.sum('amount',{
+                where:{
+                    category_id:categoryId,
+                    status:'Completed'
+                }
+            })
+            const amountinLakhs= amount/1e5
+            return amountinLakhs
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getAllCategories(){
+        try {
+            const categories = await models.Category.findAll()
+            return categories
         } catch (error) {
             throw error
         }

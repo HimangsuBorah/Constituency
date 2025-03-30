@@ -13,7 +13,9 @@ const Developement = require('./Developement')
 const DevelopementImage = require('./DevelopementImages')
 const Category = require('./Category')
 const CommunityGroups = require('./CommunityGroups')
-const CommunityGroupCategory = require('./CommunityGroupCategory')
+const CommunityGroupCategory = require('./CommunityGroupCategory');
+const ZPC = require('./ZPC');
+const Village = require('./Village');
 
 
 
@@ -33,15 +35,50 @@ const CommunityGroupCategory = require('./CommunityGroupCategory')
 GaonPanchayat.hasMany(Booth,{
   foreignKey:'gaon_panchayat_id',
   as:'panchayats',
-  onDelete:"CASCADE",
-  onUpdate:'CASCADE'
+  onDelete:"SET NULL",
+ 
 })
 
-// Booth.hasOne(GaonPanchayat,{
-//   foreignKey:'gaon_panchayat_id',
-//   as:'booths',
-//   onDelete:"RESTRICT",
-// })
+ZPC.hasMany(GaonPanchayat,{
+  foreignKey:'zpc_id',
+  as:'zpcs',
+  onDelete:'SET NULL'
+})
+
+GaonPanchayat.belongsTo(ZPC,{
+  foreignKey:'zpc_id',
+  as:'gaonpanchayats',
+  onDelete:'SET NULL'
+})
+
+GaonPanchayat.hasMany(Village,{
+  foreignKey:'gaon_panchayat_id',
+  as:'gaonpanchayat_name',
+  onDelete:'SET NULL'
+})
+
+Village.belongsTo(GaonPanchayat,{
+  foreignKey:'gaon_panchayat_id',
+  as:'villages_p',
+  onDelete:'SET NULL'
+})
+
+Village.hasMany(User,{
+  foreignKey:'village_id',
+  as:'villages_in',
+  allowNull:true
+})
+
+User.belongsTo(Village,{
+  foreignKey:'village_id',
+  as:'users',
+  allowNull:true
+})
+Booth.hasOne(GaonPanchayat,{
+  foreignKey:'gaon_panchayat_id',
+  as:'booths',
+  onDelete:"RESTRICT",
+})
 
 Booth.hasOne(User,{
   foreignKey:'booth_id',
@@ -195,7 +232,9 @@ const models = {
  DevelopementImage,
  Category,
  CommunityGroupCategory,
- CommunityGroups
+ CommunityGroups,
+ Village,
+ ZPC
 };
 
 // Sync models after initializing associations

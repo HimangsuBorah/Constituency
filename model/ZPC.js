@@ -2,9 +2,9 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/db'); // Import Sequelize instance
 
-class GaonPanchayat extends Model {}
+class ZPC extends Model {}
 
-GaonPanchayat.init(
+ZPC.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -12,19 +12,16 @@ GaonPanchayat.init(
       autoIncrement:true,
       allowNull:false
     },
-    gaon_panchayat: {
+    zpc_name: {
       type: DataTypes.STRING,
       allowNull:false,
       required:true
-    },
-    zpc_id:{
-      type:DataTypes.INTEGER
     }
   },
   {
     sequelize,
-    modelName: 'GaonPanchayat',
-    tableName: 'gaonpanchayats',
+    modelName: 'ZPC',
+    tableName: 'zpcs',
     timestamps: true, 
     underscored: true, 
   }
@@ -33,4 +30,4 @@ GaonPanchayat.init(
 
 
 
-module.exports = GaonPanchayat;
+module.exports = ZPC;
