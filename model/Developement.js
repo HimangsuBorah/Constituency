@@ -25,8 +25,8 @@ Developement.init(
     status:{
       type:DataTypes.ENUM('Proposed','Under Construction','Completed')
     },
-    panchayat:{
-      type:DataTypes.STRING
+    panchayat_id:{
+      type:DataTypes.INTEGER
     },
     amount:{
       type:DataTypes.BIGINT

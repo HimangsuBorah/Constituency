@@ -90,15 +90,15 @@ User.belongsTo(Booth,{
   as:'boothpresident_booth'
 })
 
-GaonPanchayat.hasOne(User,{
-  foreignKey:'gaon_panchayat_id',
-  as:"gaonpanchayat"
-})
+// GaonPanchayat.hasOne(User,{
+//   foreignKey:'gaon_panchayat_id',
+//   as:"gaonpanchayat"
+// })
 
-User.belongsTo(GaonPanchayat,{
-  foreignKey:'gaon_panchayat_id',
-  as:'boothpresident_panchayat'
-})
+// User.belongsTo(GaonPanchayat,{
+//   foreignKey:'gaon_panchayat_id',
+//   as:'boothpresident_panchayat'
+// })
 
 Member.belongsTo(Member,{
   foreignKey:'head_member_id',
@@ -185,6 +185,18 @@ DevelopementImage.belongsTo(Developement,{
 Category.hasMany(Developement,{
   foreignKey:'category_id',
   as:'developements'
+})
+
+GaonPanchayat.hasMany(Developement,{
+  foreignKey:'panchayat_id',
+  as:'developement_panchayat',
+  allowNull:true
+})
+
+Developement.belongsTo(GaonPanchayat,{
+  foreignKey:'panchayat_id',
+  as:'developement_projects',
+  allowNull:true
 })
 
 Developement.belongsTo(Category,{
