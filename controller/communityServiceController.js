@@ -303,4 +303,33 @@ const getAllCategories = async(req,res)=>{
     res.status(500).json({message:error.message})
   }
 }
-module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid,getTotalProjects,getTotalBudgetController,getTotalCompletedProjects,getCompletedProjectsByCategory,getCompletedProjectBudgetByCategory,getAllCategories}
+
+const getTotalInprogressProjectsController = async(req,res)=>{
+  try {
+    const projects = await communityService.getTotalInprogressCategory()
+    return res.status(200).json({
+      success:true,
+      projects,
+      message:"Inprogess projects fetched successfully"
+    })
+
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+}
+
+const getInprogressProjectsByCategoryController = async(req,res)=>{
+  try {
+    const categoryId= req.params.id
+    const projects = await communityService.getInprogressProjectsByCategory(categoryId)
+    return res.status(200).json({
+      success:true,
+      projects,
+      message:"Inprogess projects fetched successfully"
+    })
+
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+}
+module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid,getTotalProjects,getTotalBudgetController,getTotalCompletedProjects,getCompletedProjectsByCategory,getCompletedProjectBudgetByCategory,getAllCategories,getTotalInprogressProjectsController,getInprogressProjectsByCategoryController}

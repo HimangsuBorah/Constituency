@@ -70,4 +70,6 @@ router.get('/total-completed-projects',communityController.getTotalCompletedProj
 router.get('/completedprojects-category/:id',communityController.getCompletedProjectsByCategory)
 router.get('/completedprojects-budget-category/:id',communityController.getCompletedProjectBudgetByCategory)
 router.get('/all-developement-categories',communityController.getAllCategories)
+router.get('/get-total-inprogressprojects',communityController.getTotalInprogressProjectsController)
+router.get('/get-total-projectsbycategory/:id',communityController.getInprogressProjectsByCategoryController)
 module.exports = router;

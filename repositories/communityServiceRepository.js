@@ -254,6 +254,54 @@ class CommunityServiceRepository{
         }
     }
 
+    async getTotalInprogressProjects(){
+        try {
+            const projects = await models.Developement.count({
+                where:{
+                    status:"Under Construction"
+                }
+            })
+            return projects
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getInprogressProjectsByCategory(categoryId){
+        try {
+            const projects = await models.Developement.count({
+                where:{
+                    category_id:categoryId,
+                    status:"Under Construction"
+                }
+            })
+            return projects
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async updateDevelopementProjectById(developementid,updateData){
+        try {
+            const project = await models.Developement.findByPk(developementid)
+            await project.update(updateData)
+            await project.reload()
+        } catch (error) {
+            throw error
+        }
+
+    }
+
+    // async getDevelopementProjectsByCategory(developementid){
+    //     try {
+    //         const de
+    //     } catch (error) {
+            
+    //     }
+    // }
+
+
+
 }
 
 module.exports= new CommunityServiceRepository()

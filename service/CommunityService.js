@@ -135,7 +135,7 @@ class CommunityService{
     await sftp.put(passThrough, remoteFilePath);
       
             // Construct the remote URL (adjust the domain/path as needed)
-            const imageUrl = `https://barhampu.udbhabanai.in//${filename}`;
+            const imageUrl = `https://barhampu.udbhabanai.in/developement/${filename}`;
       
             // Create a record in your database (passing an array for img_url)
             const assetImage = await communityRepository.createDevelopementImage(developementid, [imageUrl], description, isPrimary);
@@ -294,6 +294,24 @@ class CommunityService{
       try {
         const categories = await communityRepository.getAllCategories()
         return categories
+      } catch (error) {
+        throw error
+      }
+    }
+
+    async getTotalInprogressCategory(){
+      try {
+        const projects = await communityRepository.getTotalInprogressProjects()
+        return projects
+      } catch (error) {
+        throw error
+      }
+    }
+
+    async getInprogressProjectsByCategory(categoryId){
+      try {
+        const projects = await communityRepository.getInprogressProjectsByCategory(categoryId)
+        return projects
       } catch (error) {
         throw error
       }
