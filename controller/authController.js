@@ -32,7 +32,8 @@ const signupController = async (req, res) => {
         phoneNumber:newUser.phoneNumber,
         boothid:newUser.booth_id,
         panchayat_id:newUser.gaon_panchayat_id,
-        village_id:newUser.village_id
+        village_id:newUser.village_id,
+        is_verified:newUser.is_verified
       },
     });
   } catch (error) {

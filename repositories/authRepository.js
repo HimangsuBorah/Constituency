@@ -7,7 +7,7 @@ class AuthRepository{
     async CreateUser(data){
      try {
        
-      console.log(data)
+      
         const user = await models.User.create(data)
         
         return user
