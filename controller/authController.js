@@ -14,7 +14,7 @@ const signupController = async (req, res) => {
   try {
     const data = req.body;
     await ValidatorService.validateRegistrationData(data)
-    console.log(data)
+   
 
     const newUser = await authService.registerData(data)
    

@@ -29,7 +29,7 @@ User.init(
       allowNull:false,
       unique:true
     },
-    isVerfied:{
+    is_verified:{
         type:DataTypes.BOOLEAN,
         defaultValue:false
     },
