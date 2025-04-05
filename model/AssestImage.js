@@ -16,7 +16,7 @@ AssetImage.init(
         type:DataTypes.INTEGER
     },
     img_url:{
-        type:DataTypes.ARRAY(DataTypes.STRING),
+        type:DataTypes.STRING,
         // validate:{
         //     isUrl:false
         // }

@@ -20,6 +20,7 @@ router.get('/getfamilydetails/:id',houseDataController.getFamilyDetailsByLeader)
 router.get('/getallzpc',houseDataController.getAllZpcController)
 router.get('/get-panchayat-by-zpc/:id',houseDataController.getPanchayatByZPCController)
 router.get('/get-village-by-panchayat/:id',houseDataController.getVillageByPanchayatController)
+router.get('/get-panchayat-by-village/:id',houseDataController.getPanchayatByVillage)
 
 
 module.exports = router;

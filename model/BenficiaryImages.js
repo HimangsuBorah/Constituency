@@ -2,9 +2,9 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/db'); // Import Sequelize instance
 
-class DevelopementImage extends Model {}
+class BenificaryImages extends Model {}
 
-DevelopementImage.init(
+BenificaryImages.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -12,7 +12,7 @@ DevelopementImage.init(
       autoIncrement:true,
       allowNull:false
     },
-    developement_id:{
+    beneficiary_id:{
         type:DataTypes.INTEGER
     },
     img_url:{
@@ -27,16 +27,21 @@ DevelopementImage.init(
     is_primary:{
       type:DataTypes.BOOLEAN,
       defaultValue:true
+    },
+    isBefore: { // New field: Is this a "before" image?
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: false
     }
   },
   {
     sequelize,
-    modelName: 'DevelopementImage',
-    tableName: 'developement_image',
+    modelName: 'BenificaryImages',
+    tableName: 'benificary_images',
   }
 );
 
 
 
 
-module.exports = DevelopementImage;
+module.exports = BenificaryImages;

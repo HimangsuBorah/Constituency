@@ -122,6 +122,15 @@ class HouseDataService{
         }
     }
 
+    async getpanchayatByVillage(villageid){
+        try {
+            const panchayat = await housedataRepository.getPanchayatByVillage(villageid)
+            return panchayat
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 
 module.exports = new HouseDataService()

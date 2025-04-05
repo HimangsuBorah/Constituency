@@ -5,10 +5,10 @@ class CommunityServiceRepository{
 
     async createImage(assetid,url,description,isPrimary){
         try {
-            const urls = Array.isArray(url) ? url : [url];
+            
             const assetsImage = await models.AssetsImage.create({
                 asset_id:assetid,
-                img_url:urls,
+                img_url:url,
                 description:description,
                 is_primary:isPrimary
             })
@@ -67,10 +67,10 @@ class CommunityServiceRepository{
 
     async createDevelopementImage(developementid,url,description,isPrimary){
         try {
-            const urls = Array.isArray(url) ? url : [url];
+            
             const developementimage = await models.DevelopementImage.create({
                 developement_id:developementid,
-                img_url:urls,
+                img_url:url,
                 description:description,
                 is_primary:isPrimary
             })
@@ -292,13 +292,21 @@ class CommunityServiceRepository{
 
     }
 
-    // async getDevelopementProjectsByCategory(developementid){
-    //     try {
-    //         const de
-    //     } catch (error) {
-            
-    //     }
-    // }
+    async getDevelopementProjectsById(developementid){
+        try {
+            const developement = await models.Developement.findByPk({
+                where:{
+                    id:developementid
+                },
+                include: [{
+                    model:models.DevelopementImage,
+                    as:'images'
+                }],
+            })
+        } catch (error) {
+            throw error
+        }
+    }
 
 
 

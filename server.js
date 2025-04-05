@@ -5,6 +5,7 @@ const sequelize = require('./config/db'); // Sequelize instance
 const authRoute = require('./routes/authRoute')
 const housedataRoute = require('./routes/houseDataRoute')
 const communityServiceRoute=require('./routes/communityServiceRoutes')
+const benificiaryServiceRoute = require('./routes/benificiaryRoutes')
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./swagger");
 
@@ -62,6 +63,7 @@ app.use('/test', (req, res) => {
 app.use('/api/auth',authRoute)
 app.use('/api/housedata',housedataRoute)
 app.use('/api/community',communityServiceRoute)
+app.use('/api/benificary',benificiaryServiceRoute)
 
 // Global Error Handling Middleware
 app.use((err, req, res, next) => {

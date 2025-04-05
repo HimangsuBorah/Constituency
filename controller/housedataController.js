@@ -192,4 +192,18 @@ const getVillageByPanchayatController = async(req,res)=>{
     }
 }
 
-module.exports = {addboothDataController,addpanchayatDataController,getBoothByIdController,getPanchayatByIdController,getAllPanchayatController,getAllBooth,addHeadController,addFamilyMember,getFamilyDetailsByLeader,getAllZpcController,getPanchayatByZPCController,getVillageByPanchayatController}
+const getPanchayatByVillage = async(req,res)=>{
+    try {
+        const villageid = req.params.id
+        const panchayat = await houseDataService.getpanchayatByVillage(villageid)
+        return res.status(200).json({
+            success:true,
+            panchayat,
+            message:"Panchayat fetched successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+module.exports = {addboothDataController,addpanchayatDataController,getBoothByIdController,getPanchayatByIdController,getAllPanchayatController,getAllBooth,addHeadController,addFamilyMember,getFamilyDetailsByLeader,getAllZpcController,getPanchayatByZPCController,getVillageByPanchayatController,getPanchayatByVillage}

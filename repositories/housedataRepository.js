@@ -146,6 +146,23 @@ class HouseDataRepository{
         }
     }
 
+    async getPanchayatByVillage(villageid){
+        try {
+            const panchayat = await models.Village.findAll({
+                where:{
+                    id:villageid
+                },
+                include: [{
+                    model:models.GaonPanchayat,
+                    as:'panchayat_name'
+                }],
+            })
+            return panchayat
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 
 module.exports = new HouseDataRepository()

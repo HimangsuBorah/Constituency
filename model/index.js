@@ -16,6 +16,10 @@ const CommunityGroups = require('./CommunityGroups')
 const CommunityGroupCategory = require('./CommunityGroupCategory');
 const ZPC = require('./ZPC');
 const Village = require('./Village');
+const Schemes = require('./Scheme')
+const SchemeCategory = require('./SchemeCategory')
+const Benificary = require('./Beneficiary')
+const BenificaryImages = require('./BenficiaryImages')
 
 
 
@@ -53,13 +57,13 @@ GaonPanchayat.belongsTo(ZPC,{
 
 GaonPanchayat.hasMany(Village,{
   foreignKey:'gaon_panchayat_id',
-  as:'gaonpanchayat_name',
+  as:'villages_name',
   onDelete:'SET NULL'
 })
 
 Village.belongsTo(GaonPanchayat,{
   foreignKey:'gaon_panchayat_id',
-  as:'villages_p',
+  as:'panchayat_name',
   onDelete:'SET NULL'
 })
 
@@ -230,6 +234,38 @@ CommunityGroups.belongsTo(CommunityGroups,{
   allowNull:true
 })
 
+SchemeCategory.hasMany(Schemes,{
+  foreignKey:'scheme_catgory_id',
+  as:'schemes'
+})
+
+Schemes.belongsTo(SchemeCategory,{
+  foreignKey:'scheme_catgory_id',
+  as:'scheme_category'
+})
+
+Benificary.hasMany(BenificaryImages,{
+  foreignKey:'beneficiary_id',
+  as:'beneficiary_images'
+})
+
+BenificaryImages.belongsTo(Benificary,{
+  foreignKey:'beneficiary_id',
+  as:'beneficiaries'
+})
+
+User.hasMany(Benificary,{
+  foreignKey:'user_id',
+  as:'scheme_benficiaries'
+})
+
+Benificary.belongsTo(User,{
+  foreignKey:'user_id',
+  as:'scheme_booth_president'
+})
+
+
+
 
 
 const models = {
@@ -246,7 +282,11 @@ const models = {
  CommunityGroupCategory,
  CommunityGroups,
  Village,
- ZPC
+ ZPC,
+ SchemeCategory,
+ Schemes,
+ Benificary,
+ BenificaryImages
 };
 
 // Sync models after initializing associations
