@@ -20,6 +20,7 @@ const Schemes = require('./Scheme')
 const SchemeCategory = require('./SchemeCategory')
 const Benificary = require('./Beneficiary')
 const BenificaryImages = require('./BenficiaryImages')
+const ImportantPerson = require('./ImportantPerson')
 
 
 
@@ -264,7 +265,25 @@ Benificary.belongsTo(User,{
   as:'scheme_booth_president'
 })
 
+User.hasMany(ImportantPerson,{
+  foreignKey:'entered_by',
+  as:'entered_by'
+})
 
+ImportantPerson.belongsTo(User,{
+  foreignKey:'entered_by',
+  as:"important_persons"
+})
+
+Village.hasMany(ImportantPerson,{
+  foreignKey:"village_id",
+  as:"belongs_to_village"
+})
+
+ImportantPerson.belongsTo(Village,{
+  foreignKey:'village_id',
+  as:"important_persons_in_village"
+})
 
 
 
@@ -286,7 +305,8 @@ const models = {
  SchemeCategory,
  Schemes,
  Benificary,
- BenificaryImages
+ BenificaryImages,
+ ImportantPerson
 };
 
 // Sync models after initializing associations

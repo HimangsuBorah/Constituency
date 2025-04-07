@@ -100,7 +100,7 @@ class CommunityServiceRepository{
     }
 
 
-    async getDevelopementProjectsByCategory(categoryId,page,pageSize,year){
+    async getDevelopementProjectsByCategory(categoryId,page,pageSize,year,is_existing){
         try {
             const offset = (page-1)*pageSize
             const category = await models.Category.findByPk(categoryId)
@@ -245,9 +245,13 @@ class CommunityServiceRepository{
         }
     }
 
-    async getAllCategories(){
+    async getAllCategories(is_existing){
         try {
-            const categories = await models.Category.findAll()
+            const categories = await models.Category.findAll({
+                where:{
+                    is_existing:is_existing
+                }
+            })
             return categories
         } catch (error) {
             throw error
@@ -303,6 +307,7 @@ class CommunityServiceRepository{
                     as:'images'
                 }],
             })
+            return developement
         } catch (error) {
             throw error
         }

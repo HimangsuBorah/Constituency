@@ -100,6 +100,20 @@ class BenificiaryRepository{
             throw error
         }
     }
+
+    async getAllSchemeByCategory(categoryid){
+        try {
+            const schemes = await models.Schemes.findAll({
+                where:{
+                    scheme_catgory_id:categoryid
+                }
+            })
+
+            return schemes
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 module.exports= new BenificiaryRepository()

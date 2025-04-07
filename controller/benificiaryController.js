@@ -91,5 +91,20 @@ const uploadBenificiaryImagesController = async (req, res) => {
     }
   };
 
+  const getSchemeByCategory = async(req,res)=>{
+    try {
+        const categoryid=req.params.id
+        const schemes = await benificiaryService.getAllSchemeByCategory(categoryid)
+        return res.status(200).json({
+            success:true,
+            schemes,
+            message:"Schemes fetched successfully"
 
-module.exports = {createSchemeCategoryController,getAllSchemeCategory,createBenificary,createSchemeController,uploadBenificiaryImagesController}
+        })
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+  }
+
+
+module.exports = {createSchemeCategoryController,getAllSchemeCategory,createBenificary,createSchemeController,uploadBenificiaryImagesController,getSchemeByCategory}

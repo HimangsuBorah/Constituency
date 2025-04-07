@@ -18,6 +18,10 @@ Category.init(
     },
     description:{
         type:DataTypes.STRING
+    },
+    is_existing:{
+      type:DataTypes.BOOLEAN,
+      defaultValue:false
     }
   },
   {

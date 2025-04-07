@@ -179,7 +179,7 @@ class CommunityService {
     }
   }
 
-  async getDevelopementProjectsByCategory(categoryId, page, pageSize, year) {
+  async getDevelopementProjectsByCategory(categoryId, page, pageSize, year,is_existing) {
     try {
       const { projects, remaining } =
         await communityRepository.getDevelopementProjectsByCategory(
@@ -282,9 +282,9 @@ class CommunityService {
     }
   }
 
-  async getAllCategories() {
+  async getAllCategories(is_existing) {
     try {
-      const categories = await communityRepository.getAllCategories();
+      const categories = await communityRepository.getAllCategories(is_existing);
       return categories;
     } catch (error) {
       throw error;

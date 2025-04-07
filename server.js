@@ -6,6 +6,7 @@ const authRoute = require('./routes/authRoute')
 const housedataRoute = require('./routes/houseDataRoute')
 const communityServiceRoute=require('./routes/communityServiceRoutes')
 const benificiaryServiceRoute = require('./routes/benificiaryRoutes')
+const importantPersonRoute = require('./routes/importantPersonRoutes')
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./swagger");
 
@@ -64,6 +65,7 @@ app.use('/api/auth',authRoute)
 app.use('/api/housedata',housedataRoute)
 app.use('/api/community',communityServiceRoute)
 app.use('/api/benificary',benificiaryServiceRoute)
+app.use('/api/importantperson',importantPersonRoute)
 
 // Global Error Handling Middleware
 app.use((err, req, res, next) => {

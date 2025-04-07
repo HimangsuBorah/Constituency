@@ -36,6 +36,7 @@ router.get('/get-all-scheme-categories',benficiaryController.getAllSchemeCategor
 router.post('/create-scheme',benficiaryController.createSchemeController)
 router.post('/create-benificiary',isAuthenticated,benficiaryController.createBenificary)
 router.post('/upload-benificiary-image/:id',upload.array('images', 10), benficiaryController.uploadBenificiaryImagesController);
+router.get('/all-schemes/:id',benficiaryController.getSchemeByCategory)
 
 
 module.exports = router;

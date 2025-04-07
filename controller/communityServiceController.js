@@ -293,7 +293,8 @@ const getCompletedProjectBudgetByCategory = async(req,res)=>{
 
 const getAllCategories = async(req,res)=>{
   try {
-    const categories = await communityService.getAllCategories()
+    const {is_existing} = req.body
+    const categories = await communityService.getAllCategories(is_existing)
     return res.status(200).json({
       success:true,
       categories,
@@ -332,4 +333,7 @@ const getInprogressProjectsByCategoryController = async(req,res)=>{
     res.status(500).json({message:error.message})
   }
 }
+
+
+
 module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid,getTotalProjects,getTotalBudgetController,getTotalCompletedProjects,getCompletedProjectsByCategory,getCompletedProjectBudgetByCategory,getAllCategories,getTotalInprogressProjectsController,getInprogressProjectsByCategoryController}

@@ -76,6 +76,15 @@ class BenificiaryService{
           throw err;
         }
       }
+
+      async getAllSchemeByCategory(categoryid){
+        try {
+            const schemes = await BenificiaryRepository.getAllSchemeByCategory(categoryid)
+            return schemes
+        } catch (error) {
+            throw error
+        }
+      }
         
 
 }
