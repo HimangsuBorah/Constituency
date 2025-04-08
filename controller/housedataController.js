@@ -92,12 +92,12 @@ const getAllBooth = async(req,res)=>{
 
 const addHeadController = async(req,res)=>{
     try {
-        const { head_member_id,house_no, name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme,is_head,community,ration_card,electricty_water_available,mode_of_communication } = req.body;
+        const { head_member_id,house_no, name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation,is_head,community,ration_card,electricty_water_available,mode_of_communication,scheme_ids } = req.body;
 
         const entered_by = req.user.id
        
       
-        const data = {head_member_id,house_no, name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme,entered_by,is_head,community,ration_card,electricty_water_available,mode_of_communication}
+        const data = {head_member_id,house_no, name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation,entered_by,is_head,community,ration_card,electricty_water_available,mode_of_communication,scheme_ids}
         const headmember = await houseDataService.addHeadMember(data)
       
         return res.status(201).json({
@@ -114,19 +114,19 @@ const addHeadController = async(req,res)=>{
 const addFamilyMember = async(req,res)=>{
     try {
         
-        const { name,house_no, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme,community,ration_card,electricty_water_available,mode_of_communication } = req.body;
+        const { name,house_no, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation,community,ration_card,electricty_water_available,mode_of_communication,scheme_ids } = req.body;
     
         const entered_by = req.user.id
         const head_member_id=req.params.id
       
-        const data = {head_member_id, name,house_no, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation, government_scheme,entered_by,community,ration_card,electricty_water_available,mode_of_communication}
+        const data = {head_member_id, name,house_no, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, caste, religion, education, annual_income,relation,entered_by,community,ration_card,electricty_water_available,mode_of_communication,scheme_ids}
         
         const member = await houseDataService.addMember(data)
         
         return res.status(201).json({
             success:true,
             member,
-            message:"Member created sucessfully"
+            message:"Member created successfully"
         })
 
 

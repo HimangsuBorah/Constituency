@@ -41,7 +41,7 @@ const createAssetTypeController = async(req,res)=>{
         const data = req.body
         const assetType = await communityService.createAssetType(data)
         return res.status(201).json({
-            sucess:true,
+            success:true,
             assetType,
             message:"Assset Type Created successfully"
         })
@@ -58,7 +58,7 @@ const createAssetController = async(req,res)=>{
         const data = {name,lat,long,status,government_scheme,issues,asset_type_id,user_id}
         const asset = await communityService.createAsset(data)
         return res.status(201).json({
-            sucess:true,
+            success:true,
             asset,
             message:"Asset created successfully"
         })
@@ -71,7 +71,7 @@ const getAssetController = async(req,res)=>{
     try {
         const assetTypeList = await communityService.getAllAssetTypes()
         return res.status(200).json({
-            sucess:true,
+            success:true,
             assetTypeList,
             message:"Asset type get successfully"
         })
@@ -87,7 +87,7 @@ const createDevelopementController = async(req,res)=>{
         const data = {scheme_name,lat,long,status,amount,feedback,assigned_person,user_id}
         const asset = await communityService.createdevelopement(data)
         return res.status(201).json({
-            sucess:true,
+            success:true,
             asset,
             message:"Developement Project created successfully"
         })

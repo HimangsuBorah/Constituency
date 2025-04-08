@@ -16,5 +16,49 @@ const createImportantPersonController = async(req,res)=>{
     }
 }
 
+const getAllImportantPerson = async(req,res)=>{
+    try {
+        const importantpersons = await importantPersonServices.getAllImportantPerson()
+        return res.status(200).json({
+            success:true,
+            importantpersons,
+            message:"Important Persons Fetched successfully"
+        })
+    } catch (error) {
+        res.status(500).json({message:error.message})
+        
+    }
+}
 
-module.exports = {createImportantPersonController}
+const getImportantPersonById =async(req,res)=>{
+    try {
+        const id = req.params.id
+        const person = await importantPersonServices.getImportantPersonById(id)
+        return res.status(200).json({
+            success:true,
+            person,
+            message:"Important Person fetched successfully"
+
+        })
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+}
+
+const getImportantPersonByVillage = async(req,res)=>{
+    try {
+        const id = req.params.villageid
+        const persons = await importantPersonServices.getImportantPersonByVillage(id)
+        return res.status(200).json({
+            success:true,
+            persons,
+            message:"Important Persons List Fetched Successfully"
+        })
+
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+}
+
+
+module.exports = {createImportantPersonController,getAllImportantPerson,getImportantPersonById,getImportantPersonByVillage}

@@ -49,7 +49,7 @@ ImportantPerson.init(
   {
     sequelize,
     modelName: 'ImportantPerson',
-    tableName: 'importanr_persons',
+    tableName: 'important_persons',
     timestamps: true
   }
 );

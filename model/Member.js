@@ -63,9 +63,6 @@ Member.init(
     relation:{
         type:DataTypes.STRING
     },
-    government_scheme:{
-        type:DataTypes.JSONB
-    },
     community:{
         type:DataTypes.STRING
     },
@@ -73,7 +70,7 @@ Member.init(
         type:DataTypes.BOOLEAN,
         defaultValue:false
     },
-    electricty_available:{
+    electricity_available:{
         type:DataTypes.BOOLEAN,
         defaultValue:false
     },

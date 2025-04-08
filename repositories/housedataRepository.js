@@ -58,26 +58,53 @@ class HouseDataRepository{
         }
     }
 
-    async addHeadMember(data){
+    async addHeadMember(data) {
         try {
-            const member = await models.Member.create(data)
-            return member
+            const { scheme_ids, ...memberData } = data;
+    
+            const member = await models.Member.create(memberData); // scheme_ids excluded
+    
+            if (scheme_ids && Array.isArray(scheme_ids)) {
+                const memberSchemeRecords = scheme_ids.map((scheme_id) => ({
+                    member_id: member.id,
+                    scheme_id,
+                }));
+
+                
+    
+                await models.MemberScheme.bulkCreate(memberSchemeRecords);
+            }
+    
+            return member;
         } catch (error) {
-            throw error
+            console.error("Validation Error:", error);
+            throw error;
         }
     }
 
     async addMember(data){
         try {
             
-            const { head_member_id, name, voter_id, mobile_number, date_of_birth, email, marital_status, gender, employment_status, employment_source, cast, religion, education, annual_income,relation, government_scheme } = data;
+            const { head_member_id, scheme_ids, ...memberdata } = data;
             const head_member = await models.Member.findByPk(head_member_id)
             
             if(!head_member){
                 throw new Error("Head member does not exist")
             }
        
-            const member = await models.Member.create(data)
+            const member = await models.Member.create({
+                ...memberdata,
+                head_member_id
+            })
+
+            if (scheme_ids && Array.isArray(scheme_ids)) {
+                const memberSchemeRecords = scheme_ids.map((scheme_id) => ({
+                    member_id: member.id,
+                    scheme_id,
+                }));
+    
+                await models.MemberScheme.bulkCreate(memberSchemeRecords);
+            }
             
             return member
         } catch (error) {

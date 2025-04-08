@@ -21,6 +21,7 @@ const SchemeCategory = require('./SchemeCategory')
 const Benificary = require('./Beneficiary')
 const BenificaryImages = require('./BenficiaryImages')
 const ImportantPerson = require('./ImportantPerson')
+const MemberScheme = require('./MemberScheme')
 
 
 
@@ -235,6 +236,21 @@ CommunityGroups.belongsTo(CommunityGroups,{
   allowNull:true
 })
 
+Member.belongsToMany(Schemes, {
+  through: MemberScheme,
+  foreignKey: 'member_id',
+  otherKey: 'scheme_id',
+  onDelete:'CASCADE'
+});
+
+Schemes.belongsToMany(Member, {
+  through: MemberScheme,
+  foreignKey: 'scheme_id',
+  otherKey: 'member_id',
+  onDelete:'CASCADE'
+});
+
+
 SchemeCategory.hasMany(Schemes,{
   foreignKey:'scheme_catgory_id',
   as:'schemes'
@@ -306,7 +322,8 @@ const models = {
  Schemes,
  Benificary,
  BenificaryImages,
- ImportantPerson
+ ImportantPerson,
+ MemberScheme
 };
 
 // Sync models after initializing associations
