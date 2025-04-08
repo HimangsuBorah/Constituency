@@ -313,6 +313,15 @@ class CommunityServiceRepository{
         }
     }
 
+    async getAllCommunityGroupCategory(){
+        try {
+            const groups = await models.CommunityGroupCategory.findAll()
+            return groups
+        } catch (error) {
+            throw error
+        }
+    }
+
 
 
 }

@@ -309,6 +309,15 @@ class CommunityService {
       throw error;
     }
   }
+
+  async getCommunityGroupCategory(){
+    try {
+      const groups = await communityRepository.getAllCommunityGroupCategory()
+      return groups
+    } catch (error) {
+      throw error
+    }
+  }
 }
 
 module.exports = new CommunityService();

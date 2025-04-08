@@ -335,5 +335,19 @@ const getInprogressProjectsByCategoryController = async(req,res)=>{
 }
 
 
+const getAllCommunityGroupCategory = async(req,res)=>{
+  try {
+    const groups = await communityService.getCommunityGroupCategory()
+    return res.status(200).json({
+      success:true,
+      groups,
+      message:"Groups fetched successfully"
+    })
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+}
 
-module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid,getTotalProjects,getTotalBudgetController,getTotalCompletedProjects,getCompletedProjectsByCategory,getCompletedProjectBudgetByCategory,getAllCategories,getTotalInprogressProjectsController,getInprogressProjectsByCategoryController}
+
+
+module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid,getTotalProjects,getTotalBudgetController,getTotalCompletedProjects,getCompletedProjectsByCategory,getCompletedProjectBudgetByCategory,getAllCategories,getTotalInprogressProjectsController,getInprogressProjectsByCategoryController,getAllCommunityGroupCategory}
