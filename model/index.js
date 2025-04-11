@@ -271,6 +271,16 @@ BenificaryImages.belongsTo(Benificary,{
   as:'beneficiaries'
 })
 
+Schemes.hasMany(BenificaryImages,{
+  foreignKey:'beneficiary_id',
+  as:'schemes'
+})
+
+BenificaryImages.belongsTo(Schemes,{
+  foreignKey:'beneficiary_id',
+  as:'scheme_images'
+})
+
 Booth.hasMany(Benificary,{
   foreignKey:'booth_id',
   as:'beneficiaries_booth'

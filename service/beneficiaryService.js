@@ -50,7 +50,7 @@ class BenificiaryService{
         }
     }
 
-    async uploadfilescheme(benificiaryid, file, description, isPrimary,isBefore) {
+    async uploadfilescheme(benificiaryid, file, description, isPrimary,isBefore,scheme_id) {
         try {
           const scheme = await BenificiaryRepository.getBenificiaryById(benificiaryid);
     
@@ -67,7 +67,8 @@ class BenificiaryService{
             imageUrl,
             description,
             isPrimary,
-            isBefore
+            isBefore,
+            scheme_id
           );
           
           return record;
@@ -81,6 +82,15 @@ class BenificiaryService{
         try {
             const schemes = await BenificiaryRepository.getAllSchemeByCategory(categoryid)
             return schemes
+        } catch (error) {
+            throw error
+        }
+      }
+
+      async getBeneficiraiesBySchemeId(schemeid){
+        try {
+            const beneficiaries = await BenificiaryRepository.getAllBeneficiariesBySchemeId(schemeid)
+            return beneficiaries
         } catch (error) {
             throw error
         }

@@ -74,17 +74,21 @@ const uploadBenificiaryImagesController = async (req, res) => {
       const description = req.body.description;
       const isPrimary = req.body.is_primary;
       const isBefore = req.body.isBefore
+      const scheme_id=req.body.scheme_id
   
       const uploadPromises = files.map((file) =>
-        benificiaryService.uploadfilescheme(benificiaryid, file, description, isPrimary,isBefore)
+        benificiaryService.uploadfilescheme(benificiaryid, file, description, isPrimary,isBefore,scheme_id)
       );
   
       const uploadedImages = await Promise.all(uploadPromises);
+      
   
       res.status(201).json({
         success: true,
         message: 'Images uploaded successfully!',
-        images: uploadedImages.map(image => image.img_url)
+        images: uploadedImages.map(image => ({img_url:image.img_url,
+            scheme_id:image.scheme_id
+        }))
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -106,5 +110,18 @@ const uploadBenificiaryImagesController = async (req, res) => {
     }
   }
 
+  const getBeneficiaryBySchemeId = async(req,res)=>{
+    try {
+        const schemeid = req.params.id
+        const beneficiaries = await benificiaryService.getBeneficiraiesBySchemeId(schemeid)
+        return res.status(200).json({
+            success:true,
+            beneficiaries,
+            message:"Beneficaires created successfully"
+        })
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+  }
 
-module.exports = {createSchemeCategoryController,getAllSchemeCategory,createBenificary,createSchemeController,uploadBenificiaryImagesController,getSchemeByCategory}
+module.exports = {createSchemeCategoryController,getAllSchemeCategory,createBenificary,createSchemeController,uploadBenificiaryImagesController,getSchemeByCategory,getBeneficiaryBySchemeId}

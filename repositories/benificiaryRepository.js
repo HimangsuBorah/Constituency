@@ -1,4 +1,5 @@
 const {models}=require('../model/index');
+const { Op } = require('sequelize');
 
 class BenificiaryRepository{
 
@@ -49,7 +50,7 @@ class BenificiaryRepository{
         }
     }
 
-    async createBenificaryImage(beneficiaryid,url,description,isPrimary,isBefore){
+    async createBenificaryImage(beneficiaryid,url,description,isPrimary,isBefore,scheme_id){
         try {
             
             const benificaryimage = await models.BenificaryImages.create({
@@ -57,8 +58,11 @@ class BenificiaryRepository{
                 img_url:url,
                 description:description,
                 is_primary:isPrimary,
-                isBefore:isBefore
+                isBefore:isBefore,
+                scheme_id:scheme_id
             })
+
+            console.log(scheme_id)
 
             return benificaryimage
         } catch (error) {
@@ -110,6 +114,21 @@ class BenificiaryRepository{
             })
 
             return schemes
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getAllBeneficiariesBySchemeId(schemeid){
+        try {
+            const beneficiaries = await models.Benificary.findAll({
+                where:{
+                    scheme_id: {
+                        [Op.contains]: [schemeid]  // Matches if the array contains this schemeId
+                     }
+                }
+            })
+            return beneficiaries
         } catch (error) {
             throw error
         }
