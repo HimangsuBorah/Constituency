@@ -22,7 +22,7 @@ class BenificiaryRepository{
 
     async createScheme(data){
         try {
-            console.log(data)
+            
             const scheme = await models.Schemes.create(data)
             
             return scheme

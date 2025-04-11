@@ -19,6 +19,9 @@ Scheme.init(
     },
     scheme_catgory_id:{
         type:DataTypes.INTEGER
+    },
+    desc:{
+      type:DataTypes.TEXT
     }
   },
   {
