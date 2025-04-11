@@ -31,9 +31,9 @@ const getAllSchemeCategory = async(req,res)=>{
 const createBenificary = async(req,res)=>{
     try {
         const user_id = req.user.id
-        const {enrollment_date,scheme_id,note} = req.body
+        const {enrollment_date,scheme_id,note,booth_id,village_id} = req.body
         
-        const data = {enrollment_date,scheme_id,note,user_id}
+        const data = {enrollment_date,scheme_id,note,user_id,booth_id,village_id}
         
         const beneficiary = await benificiaryService.createBenificiary(data)
         return res.status(201).json({

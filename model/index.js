@@ -80,7 +80,7 @@ User.belongsTo(Village,{
   as:'users',
   allowNull:true
 })
-Booth.hasOne(GaonPanchayat,{
+Booth.belongsTo(GaonPanchayat,{
   foreignKey:'gaon_panchayat_id',
   as:'booths',
   onDelete:"RESTRICT",
@@ -271,6 +271,24 @@ BenificaryImages.belongsTo(Benificary,{
   as:'beneficiaries'
 })
 
+Booth.hasMany(Benificary,{
+  foreignKey:'booth_id',
+  as:'beneficiaries_booth'
+})
+
+Village.hasMany(Benificary,{
+  foreignKey:'village_id',
+  as:'beneficiaries_village'
+})
+Benificary.belongsTo(Booth,{
+  foreignKey:'booth_id',
+  as:'booth_number_beneficiaries'
+})
+
+Benificary.belongsTo(Booth,{
+  foreignKey:'village_id',
+  as:'village_number_beneficiaries'
+})
 User.hasMany(Benificary,{
   foreignKey:'user_id',
   as:'scheme_benficiaries'

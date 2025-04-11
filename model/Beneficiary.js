@@ -17,6 +17,18 @@ Benificary.init(
       allowNull:true,
       required:true
     },
+    name:{
+      type:DataTypes.STRING
+    },
+    gender:{
+      type:DataTypes.STRING
+    },
+    booth_id:{
+      type:DataTypes.INTEGER
+    },
+    village_id:{
+      type:DataTypes.INTEGER
+    },
     scheme_id:{
         type:DataTypes.ARRAY(DataTypes.INTEGER)
     },
