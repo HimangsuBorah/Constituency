@@ -53,6 +53,6 @@ router.get('/get-verified-households/:id',adminController.getVerifiedHouseholdBy
 
 router.put('/update-member-details/:id',adminController.updateMemberController)
 
-router.put('/verify-household/:id',adminController.verifyMemberBYHousehold)
+router.put('/verify-household/:id',isAuthenticated,adminController.verifyMemberBYHousehold)
 
 module.exports = router;

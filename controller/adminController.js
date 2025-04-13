@@ -60,8 +60,9 @@ const updateMemberController = async(req,res)=>{
 
 const verifyMemberBYHousehold = async(req,res)=>{
     try {
+        const verifiedby = req.user.id
         const headid= req.params.id
-        const verifiedmembers = await adminService.verifyMemberBYHouseHold(headid)
+        const verifiedmembers = await adminService.verifyMemberBYHouseHold(headid,verifiedby)
         return res.status(200).json({
             success:true,
             verifiedmembers,

@@ -80,7 +80,7 @@ class AdminRepository{
 
     
 
-    async verifyMemberByHousehold(headid){
+    async verifyMemberByHousehold(headid,verifiedby){
         try {
             const members = await models.Member.findAll({
                 where: {
@@ -105,13 +105,13 @@ class AdminRepository{
               const updated = await Promise.all(
                 members.map(async (m) => {
                   // Update head
-                  await m.update({ is_verified: true });
+                  await m.update({ is_verified: true,verified_by:verifiedby });
               
                   // Update each family member
                   if (Array.isArray(m.familyMembers)) {
                     await Promise.all(
                       m.familyMembers.map(async (fm) => {
-                        await fm.update({ is_verified: true });
+                        await fm.update({ is_verified: true,verified_by:verifiedby });
                       })
                     );
                   }

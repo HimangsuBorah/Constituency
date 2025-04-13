@@ -38,9 +38,9 @@ class AdminService{
         }
     }
 
-    async verifyMemberBYHouseHold(headid){
+    async verifyMemberBYHouseHold(headid,verifiedby){
         try {
-            const updated = await adminRepository.verifyMemberByHousehold(headid)
+            const updated = await adminRepository.verifyMemberByHousehold(headid,verifiedby)
             return updated
         } catch (error) {
             throw error
