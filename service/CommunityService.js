@@ -318,6 +318,16 @@ class CommunityService {
       throw error
     }
   }
+
+  async getAllDevelopementProjects(page,pageSize){
+    try {
+      const {projects,remaining}= await communityRepository.getAllDevelopementProjects(page,pageSize)
+      return {projects,remaining}
+    } catch (error) {
+      throw error
+    }
+
+  }
 }
 
 module.exports = new CommunityService();

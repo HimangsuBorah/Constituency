@@ -349,5 +349,21 @@ const getAllCommunityGroupCategory = async(req,res)=>{
 }
 
 
+const getAllDevelopementProejctController = async(req,res)=>{
+  try {
+    const {page,pageSize}=req.body
+    const {projects,remaining}=await communityService.getAllDevelopementProjects(page,pageSize)
+    return res.status(200).json({
+      success:true,
+      remaining,
+      projects,
+      message:"Developement projects fetched successfully"
+    })
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+}
 
-module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid,getTotalProjects,getTotalBudgetController,getTotalCompletedProjects,getCompletedProjectsByCategory,getCompletedProjectBudgetByCategory,getAllCategories,getTotalInprogressProjectsController,getInprogressProjectsByCategoryController,getAllCommunityGroupCategory}
+
+
+module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid,getTotalProjects,getTotalBudgetController,getTotalCompletedProjects,getCompletedProjectsByCategory,getCompletedProjectBudgetByCategory,getAllCategories,getTotalInprogressProjectsController,getInprogressProjectsByCategoryController,getAllCommunityGroupCategory,getAllDevelopementProejctController}

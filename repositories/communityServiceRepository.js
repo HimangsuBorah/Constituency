@@ -325,6 +325,20 @@ class CommunityServiceRepository{
         }
     }
 
+    async getAllDevelopementProjects(page,pageSize){
+        try {
+            const offset = (page-1)*pageSize
+            const {rows,count} = await models.Developement.findAndCountAll({
+                offset:offset,
+                limit:pageSize
+            })
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+            return {projects:rows,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
 
 
 }
