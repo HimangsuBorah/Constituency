@@ -47,6 +47,33 @@ class AdminService{
         }
     }
 
+    async getAllhouseholddetails(page,pageSize){
+        try {
+           const {members,remaining}= await adminRepository.getAllHouseholdDetails(page,pageSize)
+           return {members,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async deleteMemberById(memberid){
+        try {
+            const deletedmember = await adminRepository.deleteMemberById(memberid)
+            return deletedmember
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async deleteHouseholdBYhead(headid){
+        try {
+            const deletedhousehold = await adminRepository.deleteHouseholdByHeadid(headid)
+            return deletedhousehold
+        } catch (error) {
+            throw error
+        }
+    }
+
 
    
 

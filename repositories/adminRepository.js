@@ -127,6 +127,86 @@ class AdminRepository{
 
     }
 
+
+    async getAllHouseholdDetails(page,pageSize){
+        try {
+
+            const offset = (page-1)*pageSize
+            const {rows,count} = await models.Member.findAndCountAll({
+                where:{
+                    is_head:true
+                },
+                include: [
+                    {
+                      model: models.Member,
+                      as: 'familyMembers',
+                      where: {
+                        is_head: false
+                      },
+                      required: false // allow head even if no family members
+                    }
+                ],
+                offset:offset,
+                limit:pageSize
+
+            })
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+            return {members:rows,remaining}
+            
+        } catch (error) {
+            throw error
+        }
+    }
+
+
+    async deleteMemberById(memberid){
+        try {
+            const member = await models.Member.findByPk(memberid)
+            if(!member){
+                throw new Error("Member does not exists")
+            }
+            if(member.is_head){
+               throw new Error("Head cannot be deleted") 
+            }
+            const deletedMember = member
+            await member.destroy()
+            return deletedMember
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async deleteHouseholdByHeadid(headid){
+        try {
+            const member = await models.Member.findByPk({
+                where:{
+                    id:headid
+                },
+                include: [
+                    {
+                      model: models.Member,
+                      as: 'familyMembers',
+                      where: {
+                        is_head: false
+                      },
+                      required: false // allow head even if no family members
+                    }
+                ],
+            })
+            if(!member){
+                throw new Error("Member does not exists")
+            }
+            if(!member.is_head){
+                throw new Error("Cannot delete the household by member id")
+            }
+            const deletedMember = member
+            await member.destroy()
+            return deletedMember
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 
 module.exports =  new AdminRepository()

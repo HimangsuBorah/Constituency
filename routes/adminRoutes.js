@@ -55,4 +55,8 @@ router.put('/update-member-details/:id',adminController.updateMemberController)
 
 router.put('/verify-household/:id',isAuthenticated,adminController.verifyMemberBYHousehold)
 
+router.get('/get-all-household',adminController.getAllHouseholdDetailsController)
+router.delete('/delete-member/:id',adminController.deleteMemberById)
+router.delete('/delete-household/:id',adminController.deleteHouseholdByHeadid)
+
 module.exports = router;

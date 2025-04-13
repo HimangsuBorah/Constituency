@@ -109,7 +109,8 @@ User.belongsTo(Booth,{
 Member.belongsTo(Member,{
   foreignKey:'head_member_id',
   as:'headMember',
-  allowNull:true
+  allowNull:true,
+  onDelete:'CASCADE'
 })
 
 Member.hasMany(Member,{

@@ -74,5 +74,49 @@ const verifyMemberBYHousehold = async(req,res)=>{
     }
 }
 
+const getAllHouseholdDetailsController = async(req,res)=>{
+    try {
+        const {page,pageSize}=req.body
+        const {members,remaining} = await adminService.getAllhouseholddetails(page,pageSize)
+        return res.status(200).json({
+            success:true,
+            members,
+            remaining,
+            message:"Household details fetched successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
 
-module.exports = {getUserByBoothId,getVerifiedHouseholdByUserId,getNonVerifiedHouseholdByUserId,updateMemberController,verifyMemberBYHousehold}
+const deleteMemberById = async(req,res)=>{
+    try {
+       const memberid=req.params.id
+       const deletedmember = await adminService.deleteMemberById(memberid)
+       return res.status(200).json({
+        success:true,
+        deletedmember,
+        message:"Member deleted successfully"
+       }) 
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+const deleteHouseholdByHeadid = async(req,res)=>{
+    try {
+        const headid=req.params.id
+        const deletedmember = await adminService.deleteMemberById(headid)
+        return res.status(200).json({
+         success:true,
+         deletedmember,
+         message:"Household deleted successfully"
+        }) 
+        
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+
+module.exports = {getUserByBoothId,getVerifiedHouseholdByUserId,getNonVerifiedHouseholdByUserId,updateMemberController,verifyMemberBYHousehold,getAllHouseholdDetailsController,deleteMemberById,deleteHouseholdByHeadid}
