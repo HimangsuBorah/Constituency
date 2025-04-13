@@ -73,6 +73,7 @@ router.post('/all-developement-categories',communityController.getAllCategories)
 router.get('/get-total-inprogressprojects',communityController.getTotalInprogressProjectsController)
 router.get('/get-total-projectsbycategory/:id',communityController.getInprogressProjectsByCategoryController)
 
-router.get('/get-all-communitygroups',communityController.getAllCommunityGroupCategory)
+router.get('/get-all-communitygroups/categories',communityController.getAllCommunityGroupCategory)
 router.get('/get-all-developement-projects',communityController.getAllDevelopementProejctController)
+router.get('/get-all-community-groups',communityController.getAllCommunitygroupsController)
 module.exports = router;

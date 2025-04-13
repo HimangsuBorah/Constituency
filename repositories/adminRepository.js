@@ -207,6 +207,62 @@ class AdminRepository{
         }
     }
 
+    async getVerifiedDevelopementProjectsBYCategory(categoryid,page,pageSize){
+        try {
+            const offset = (page-1)*pageSize
+            const {rows,couunt} = await models.Developement.findAndCountAll({
+                where:{
+                    is_verified:true,
+                    category_id:categoryid
+                },
+                offset:offset,
+                limit:pageSize
+            })
+
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+            return {projects:rows,remaining}
+
+
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getNotVerifiedDevelopementProjectsByCategory(categoryid,page,pageSize){
+        try {
+            const offset = (page-1)*pageSize
+            const {rows,couunt} = await models.Developement.findAndCountAll({
+                where:{
+                    is_verified:false,
+                    category_id:categoryid
+                },
+                offset:offset,
+                limit:pageSize
+            })
+
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+            return {projects:rows,remaining}
+
+
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getTotalVerifiedProjectsCount(userid){
+        try {
+            const verifiedProjects = await models.Developement.count({
+                where:{
+                    is_verified:true,
+                    verified_by:userid
+                }
+            })
+            return verifiedProjects
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 
 module.exports =  new AdminRepository()

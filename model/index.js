@@ -234,7 +234,13 @@ CommunityGroups.belongsTo(User,{
 CommunityGroups.belongsTo(CommunityGroups,{
   foreignKey:'leader_id',
   as:'leader',
-  allowNull:true
+  allowNull:true,
+  onDelete:"CASCADE"
+})
+
+CommunityGroups.hasMany(CommunityGroups,{
+  foreignKey:'leader_id',
+  as:'group_members'
 })
 
 Member.belongsToMany(Schemes, {

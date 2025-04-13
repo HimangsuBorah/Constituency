@@ -176,8 +176,12 @@ class CommunityServiceRepository{
             }
             const members = await models.CommunityGroups.findAll({
                 where:{
-                    leader_id:id
-                }
+                    leader_id:id,
+                },
+                include: [{
+                    model:models.CommunityGroups,
+                    as:'group_members'
+                }],
             })
             return {leader,members}
         } catch (error) {
@@ -334,6 +338,30 @@ class CommunityServiceRepository{
             })
             let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
             return {projects:rows,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
+
+    async getAllCommunityGroups(page,pageSize){
+        try {
+            const offset = (page-1)*pageSize
+            const {rows,count} = await models.CommunityGroups.findAndCountAll({
+                include: [{
+                    model:models.CommunityGroups,
+                    as:'group_members'
+                }],
+                offset:offset,
+                limit:pageSize
+
+            })
+            
+
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+           
+            return {groups:rows,remaining}
+
         } catch (error) {
             throw error
         }
