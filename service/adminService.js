@@ -13,7 +13,7 @@ class AdminService{
 
     async getNonVerifiedHouseholdsByUserid(userid){
         try {
-            const members = await adminRepository.getHouseholdsByUserid(userid)
+            const members = await adminRepository.getNonVerifiedHouseholdsByUserid(userid)
             return members
         } catch (error) {
             throw error
@@ -22,7 +22,7 @@ class AdminService{
 
     async getVerifiedHouseholdsByUserid(userid){
         try {
-            const members = await adminRepository.getHouseholdsByUserid(userid)
+            const members = await adminRepository.getVerifiedHouseholdsByUserid(userid)
             return members
         } catch (error) {
             throw error

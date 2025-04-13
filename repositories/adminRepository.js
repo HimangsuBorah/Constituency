@@ -23,10 +23,19 @@ class AdminRepository{
                 where:{
                     entered_by:userid,
                     is_head:true,
-                    is_verfied:false
+                    is_verified:false
                 
-                }
+                },
+                include:[{
+                    model:models.Member,
+                    as:'familyMembers',
+                    where:{
+                        is_head:false,
+                        is_verified:false
+                    }
+                }]
             })
+           
             return households
         } catch (error) {
             throw error
@@ -39,10 +48,19 @@ class AdminRepository{
                 where:{
                     entered_by:userid,
                     is_head:true,
-                    is_verfied:true
+                    is_verified:true
                 
-                }
+                },
+                include:[{
+                    model:models.Member,
+                    as:'familyMembers',
+                    where:{
+                        is_head:false,
+                        is_verified:true
+                    }
+                }]
             })
+            
             return households
         } catch (error) {
             throw error
@@ -64,15 +82,45 @@ class AdminRepository{
 
     async verifyMemberByHousehold(headid){
         try {
-            const members = await houseDataRepository.getFamilyBYHeadid(headid)
-            if(!members.length) throw new Error("members not found")
-            
-            const updated = await Promise.all(
-                members.map((m)=>{
-                    m.update({is_verfied:true},{returning:true})
+            const members = await models.Member.findAll({
+                where: {
+                  id: headid
+                },
+                include: [
+                  {
+                    model: models.Member,
+                    as: 'familyMembers',
+                    where: {
+                      is_head: false
+                    },
+                    required: false // allow head even if no family members
+                  }
+                ]
+              });
+              
+              if (members.length === 0) {
+                throw new Error("Members not found or invalid head member ID");
+              }
+              
+              const updated = await Promise.all(
+                members.map(async (m) => {
+                  // Update head
+                  await m.update({ is_verified: true });
+              
+                  // Update each family member
+                  if (Array.isArray(m.familyMembers)) {
+                    await Promise.all(
+                      m.familyMembers.map(async (fm) => {
+                        await fm.update({ is_verified: true });
+                      })
+                    );
+                  }
+              
+                  return m;
                 })
-            )
-            return updated
+              );
+              
+              return updated;
         } catch (error) {
             throw error
         }
