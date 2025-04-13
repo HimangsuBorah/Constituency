@@ -379,5 +379,22 @@ const getAllCommunitygroupsController = async(req,res)=>{
   }
 }
 
+const getAllCommunityGroupsByCategory = async(req,res)=>{
+  try {
+    const {page,pageSize}=req.body
+    const categoryid=req.params.id
+   
+    const {groups,remaining}= await communityService.getAllCommunityGroupsByCategory(categoryid,page,pageSize)
+    return res.status(200).json({
+      success:true,
+      remaining,
+      groups,
+      message:"Groups fetched successfully"
+    })
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+}
 
-module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid,getTotalProjects,getTotalBudgetController,getTotalCompletedProjects,getCompletedProjectsByCategory,getCompletedProjectBudgetByCategory,getAllCategories,getTotalInprogressProjectsController,getInprogressProjectsByCategoryController,getAllCommunityGroupCategory,getAllDevelopementProejctController,getAllCommunitygroupsController}
+
+module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid,getTotalProjects,getTotalBudgetController,getTotalCompletedProjects,getCompletedProjectsByCategory,getCompletedProjectBudgetByCategory,getAllCategories,getTotalInprogressProjectsController,getInprogressProjectsByCategoryController,getAllCommunityGroupCategory,getAllDevelopementProejctController,getAllCommunitygroupsController,getAllCommunityGroupsByCategory}

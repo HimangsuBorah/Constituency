@@ -367,6 +367,31 @@ class CommunityServiceRepository{
         }
     }
 
+    async getAllCommunityGroupsByCategory(categoryid,page,pageSize){
+        try {
+            const offset = (page-1)*pageSize
+
+            const {rows,count}= await models.CommunityGroups.findAndCountAll({
+                where:{
+                    community_category_id:categoryid
+                },
+                include: [{
+                    model:models.CommunityGroups,
+                    as:'group_members'
+                }],
+                offset:offset,
+                limit:pageSize
+            })
+
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+           
+            return {groups:rows,remaining}
+            
+        } catch (error) {
+            throw error
+        }
+    }
+
 
 
 }

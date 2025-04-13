@@ -337,6 +337,15 @@ class CommunityService {
       throw error
     }
   }
+
+  async getAllCommunityGroupsByCategory(categoryid,page,pageSize){
+    try {
+      const {groups,remaining}= await communityRepository.getAllCommunityGroupsByCategory(categoryid,page,pageSize)
+      return {groups,remaining}
+    } catch (error) {
+      throw error
+    }
+  }
 }
 
 module.exports = new CommunityService();

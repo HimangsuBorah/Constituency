@@ -74,6 +74,15 @@ class AdminService{
         }
     }
 
+    async getTotalVerfiedProjectsByUser(userid){
+        try {
+            const verifiedprojects = await adminRepository.getTotalVerifiedProjectsByUserCount(userid)
+            return verifiedprojects
+        } catch (error) {
+            throw error
+        }
+    }
+
 
    
 

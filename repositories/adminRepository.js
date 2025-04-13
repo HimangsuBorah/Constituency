@@ -249,7 +249,7 @@ class AdminRepository{
         }
     }
 
-    async getTotalVerifiedProjectsCount(userid){
+    async getTotalVerifiedProjectsByUserCount(userid){
         try {
             const verifiedProjects = await models.Developement.count({
                 where:{
@@ -258,6 +258,20 @@ class AdminRepository{
                 }
             })
             return verifiedProjects
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async totalMembersVerifiedByUserCount(userid){
+        try {
+            const membercount= await models.Member.count({
+                where:{
+                    is_verified:true,
+                    verified_by:userid
+                }
+            })
+            return membercount
         } catch (error) {
             throw error
         }
