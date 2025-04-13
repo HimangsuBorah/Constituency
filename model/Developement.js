@@ -41,12 +41,19 @@ Developement.init(
       type:DataTypes.STRING
     },
    phone_no:{
-        type:DataTypes.INTEGER
+        type:DataTypes.STRING
     },
     user_id:{
       type:DataTypes.INTEGER
     },
     category_id:{
+      type:DataTypes.INTEGER
+    },
+    is_verified:{
+      type:DataTypes.BOOLEAN,
+      defaultValue:false
+    },
+    verified_by:{
       type:DataTypes.INTEGER
     }
   },

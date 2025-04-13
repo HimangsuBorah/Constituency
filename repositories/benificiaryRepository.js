@@ -62,7 +62,7 @@ class BenificiaryRepository{
                 scheme_id:scheme_id
             })
 
-            console.log(scheme_id)
+            
 
             return benificaryimage
         } catch (error) {

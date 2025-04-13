@@ -329,6 +329,74 @@ ImportantPerson.belongsTo(Village,{
   as:"important_persons_in_village"
 })
 
+Assets.hasMany(User,{
+  foreignKey:'verified_by',
+  as:"verified_asset_by_user",
+  allowNull:true
+})
+
+Benificary.hasMany(User,{
+  foreignKey:'verified_by',
+  as:"verified_beneficiary_by_user",
+  allowNull:true
+})
+
+CommunityGroups.hasMany(User,{
+  foreignKey:'verified_by',
+  as:"verified_community_by_user",
+  allowNull:true
+})
+
+Developement.hasMany(User,{
+  foreignKey:'verified_by',
+  as:"verified_developement_by_user",
+  allowNull:true
+})
+
+Member.hasMany(User,{
+  foreignKey:"verified_by",
+  as:"verified_member_by_user",
+  allowNull:true
+})
+
+
+
+ImportantPerson.hasMany(User,{
+  foreignKey:'verified_by',
+  as:"verified_member_by_user",
+  allowNull:true
+})
+
+User.belongsTo(Assets,{
+  foreignKey:'verified_by',
+  as:"verfied_assets",
+  allowNull:true
+})
+
+User.belongsTo(CommunityGroups,{
+  foreignKey:'verified_by',
+  as:'verified_community',
+  allowNull:true
+})
+
+
+User.belongsTo(Developement,{
+  foreignKey:'verified_by',
+  as:"verified_projects",
+  allowNull:true
+})
+
+User.belongsTo(Member,{
+  foreignKey:'verified_by',
+  as:"verified_members",
+  allowNull:true
+})
+
+User.belongsTo(ImportantPerson,{
+  foreignKey:'verified_by',
+  as:'verified_important_persons',
+  allowNull:true
+})
 
 
 const models = {

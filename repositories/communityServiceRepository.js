@@ -59,9 +59,12 @@ class CommunityServiceRepository{
     async creteDevelopement(data){
         try {
            const developement = await models.Developement.create(data)
+          
            return developement
         } catch (error) {
+            
             throw error
+            
         }
     }
 

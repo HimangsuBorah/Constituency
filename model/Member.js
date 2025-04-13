@@ -94,6 +94,9 @@ Member.init(
     },
     mode_of_communication:{
         type:DataTypes.STRING
+    },
+    verified_by:{
+        type:DataTypes.INTEGER
     }
   },
   {

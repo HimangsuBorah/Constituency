@@ -37,6 +37,13 @@ Benificary.init(
     },
     user_id:{
         type:DataTypes.INTEGER
+    },
+    is_verified:{
+      type:DataTypes.BOOLEAN,
+      defaultValue:false
+    },
+    verified_by:{
+      type:DataTypes.INTEGER
     }
   },
   {

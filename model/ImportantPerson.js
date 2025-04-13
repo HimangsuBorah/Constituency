@@ -44,6 +44,13 @@ ImportantPerson.init(
     },
     mode_of_communication:{
         type:DataTypes.STRING
+    },
+    is_verified:{
+      type:DataTypes.BOOLEAN,
+      defaultValue:false
+    },
+    verified_by:{
+      type:DataTypes.INTEGER
     }
   },
   {

@@ -83,8 +83,8 @@ const getAssetController = async(req,res)=>{
 const createDevelopementController = async(req,res)=>{
     try {
         const user_id=req.user.id
-        const {scheme_name,lat,long,status,amount,feedback,assigned_person}=req.body
-        const data = {scheme_name,lat,long,status,amount,feedback,assigned_person,user_id}
+        const {scheme_name,lat,long,status,amount,feedback,assigned_person,phone_no,category_id}=req.body
+        const data = {scheme_name,lat,long,status,amount,feedback,assigned_person,user_id,phone_no,category_id}
         const asset = await communityService.createdevelopement(data)
         return res.status(201).json({
             success:true,
