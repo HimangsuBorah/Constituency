@@ -32,9 +32,12 @@ class AdminRepository{
                     where:{
                         is_head:false,
                         is_verified:false
-                    }
+                    },
+                    required: false,
                 }]
             })
+            console.log(households)
+            
            
             return households
         } catch (error) {
@@ -57,9 +60,11 @@ class AdminRepository{
                     where:{
                         is_head:false,
                         is_verified:true
-                    }
+                    },
+                    required: false,
                 }]
             })
+            console.log(households)
             
             return households
         } catch (error) {
