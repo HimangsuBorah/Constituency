@@ -119,4 +119,129 @@ const deleteHouseholdByHeadid = async(req,res)=>{
 }
 
 
-module.exports = {getUserByBoothId,getVerifiedHouseholdByUserId,getNonVerifiedHouseholdByUserId,updateMemberController,verifyMemberBYHousehold,getAllHouseholdDetailsController,deleteMemberById,deleteHouseholdByHeadid}
+const totalVerifiedProjectsByUser = async(req,res)=>{
+    try {
+        const userid=req.user.id
+        const projectscount = await adminService.getTotalVerfiedProjectsByUser(userid)
+        return res.status(200).json({
+            success:true,
+            projectscount,
+            message:"Count fetched successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+const totalVerifiedMembersByUser = async(req,res)=>{
+    try {
+        const userid = req.user.id
+        const membercount = await adminService.getTotalVerifiedMembersByUserCount(userid)
+        return res.status(200).json({
+            success:true,
+            membercount,
+            message:"Count fetched successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+const getAllVerifiedProjectsByCategory = async(req,res)=>{
+    try {
+        const {page,pageSize}=req.body
+        const categoryid=req.params.id
+
+        const {projects,remaining}= await adminService.getVerifiedDevelopementProjectsByCategory(categoryid,page,pageSize)
+        return res.status(200).json({
+            success:true,
+            remaining,
+            projects,
+            message:"Verified projects fetched successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+const getAllNotVerifiedProjectsByCategory = async(req,res)=>{
+    try {
+        const {page,pageSize}=req.body
+        const categoryid=req.params.id
+
+        const {projects,remaining}= await adminService.getNotVerifiedDevelopementProjectsByCategory(categoryid,page,pageSize)
+        return res.status(200).json({
+            success:true,
+            remaining,
+            projects,
+            message:"Not Verified projects fetched successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+const totalVerifiedDevelopementProjects = async(req,res)=>{
+    try {
+        const {page,pageSize}=req.body
+        const {projects,remaining}= await adminService.getTotalVerifiedDevelopementProjects(page,pageSize)
+        return res.status(200).json({
+            success:true,
+            remaining,
+            projects,
+            message:"All Verified projects fetched successfully"
+        })
+        
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+const totalNotVerifiedDevelopementProjects =async(req,res)=>{
+    try {
+        const {page,pageSize}=req.body
+        const {projects,remaining}= await adminService.getTotalNotVerifiedDevelopementProjects(page,pageSize)
+        return res.status(200).json({
+            success:true,
+            remaining,
+            projects,
+            message:"All Not Verified projects fetched successfully"
+        }) 
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+const updateProjectDetails = async(req,res)=>{
+    try {
+        const developementid=req.params.id
+        const project = await adminService.updateProjectDetails(developementid)
+        return res.status(200).json({
+            success:true,
+            project,
+            message:"Project details updated"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+
+const verifyProject = async(req,res)=>{
+    try {
+        const developementid = req.params.id
+        const project = await adminService.verifyProjectById(developementid)
+        return res.status(200).json({
+            success:true,
+            project,
+            message:"Project details verified"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+
+module.exports = {getUserByBoothId,getVerifiedHouseholdByUserId,getNonVerifiedHouseholdByUserId,updateMemberController,verifyMemberBYHousehold,getAllHouseholdDetailsController,deleteMemberById,deleteHouseholdByHeadid,totalVerifiedProjectsByUser,totalVerifiedMembersByUser,
+    getAllVerifiedProjectsByCategory,getAllNotVerifiedProjectsByCategory,totalVerifiedDevelopementProjects,totalNotVerifiedDevelopementProjects,updateProjectDetails,verifyProject
+}

@@ -210,11 +210,18 @@ class AdminRepository{
     async getVerifiedDevelopementProjectsBYCategory(categoryid,page,pageSize){
         try {
             const offset = (page-1)*pageSize
-            const {rows,couunt} = await models.Developement.findAndCountAll({
+            const {rows,count} = await models.Developement.findAndCountAll({
                 where:{
                     is_verified:true,
                     category_id:categoryid
                 },
+                include: [
+                    {
+                      model: models.DevelopementImage,
+                      as: 'images',
+                      required: false // allow head even if no family members
+                    }
+                ],
                 offset:offset,
                 limit:pageSize
             })
@@ -231,11 +238,19 @@ class AdminRepository{
     async getNotVerifiedDevelopementProjectsByCategory(categoryid,page,pageSize){
         try {
             const offset = (page-1)*pageSize
-            const {rows,couunt} = await models.Developement.findAndCountAll({
+            const {rows,count} = await models.Developement.findAndCountAll({
                 where:{
+                    category_id:categoryid,
                     is_verified:false,
-                    category_id:categoryid
+                    
                 },
+                include: [
+                    {
+                      model: models.DevelopementImage,
+                      as: 'images',
+                      required: false // allow head even if no family members
+                    }
+                ],
                 offset:offset,
                 limit:pageSize
             })
@@ -272,6 +287,108 @@ class AdminRepository{
                 }
             })
             return membercount
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getTotalVerifiedDevelopementProject(page,pageSize){
+        try {
+            const offset = (page-1)*pageSize
+            const {rows,count} = await models.Developement.findAndCountAll({
+                where:{
+                    is_verified:true
+                },
+                include: [
+                    {
+                      model: models.DevelopementImage,
+                      as: 'images',
+                      required: false // allow head even if no family members
+                    }
+                ],
+                offset:offset,
+                limit:pageSize
+            })
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+            return {projects:rows,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getTotalNotVerifiedDevelopementProject(page,pageSize){
+        try {
+            const offset = (page-1)*pageSize
+            const {rows,count} = await models.Developement.findAndCountAll({
+                where:{
+                    is_verified:false
+                },
+                include: [
+                    {
+                      model: models.DevelopementImage,
+                      as: 'images',
+                      required: false // allow head even if no family members
+                    }
+                ],
+                offset:offset,
+                limit:pageSize
+            })
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+            return {projects:rows,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getTotalNotVerifiedDevelopementProject(page,pageSize){
+        try {
+            const offset = (page-1)*pageSize
+            const {rows,count} = await models.Developement.findAndCountAll({
+                where:{
+                    is_verified:false
+                },
+                include: [
+                    {
+                      model: models.DevelopementImage,
+                      as: 'images',
+                      required: false // allow head even if no family members
+                    }
+                ],
+                offset:offset,
+                limit:pageSize
+            })
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+            return {projects:rows,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async updateProjectDetails(developementid,updateData){
+        try {
+            const project = await models.Developement.findByPk(developementid)
+            if(!project){
+                throw new Error("Project not found")
+            }
+
+            await project.update(updateData)
+            await project.reload()
+            return project
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async verifyProject(developementid,userid){
+        try {
+            const project = await models.Developement.findByPk(developementid)
+            if(!project){
+                throw new Error("Projects not found")
+            }
+
+            await project.update({is_verified:true},{verified_by:userid})
+            await project.reload()
+            return project
         } catch (error) {
             throw error
         }

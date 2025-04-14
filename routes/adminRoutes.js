@@ -47,16 +47,24 @@ const router = express.Router();
 
 router.get('/get-user-by-boothid/:boothid', adminController.getUserByBoothId);
 
-router.get('/get-nonverified-households/:userid',adminController.getNonVerifiedHouseholdByUserId)
+router.post('/get-nonverified-households/:userid',adminController.getNonVerifiedHouseholdByUserId)
 
-router.get('/get-verified-households/:id',adminController.getVerifiedHouseholdByUserId)
+router.post('/get-verified-households/:id',adminController.getVerifiedHouseholdByUserId)
 
 router.put('/update-member-details/:id',adminController.updateMemberController)
 
 router.put('/verify-household/:id',isAuthenticated,adminController.verifyMemberBYHousehold)
 
-router.get('/get-all-household',adminController.getAllHouseholdDetailsController)
+router.post('/get-all-household',adminController.getAllHouseholdDetailsController)
 router.delete('/delete-member/:id',adminController.deleteMemberById)
 router.delete('/delete-household/:id',adminController.deleteHouseholdByHeadid)
+router.post('/get-total-verified-projects-by-user',isAuthenticated,adminController.totalVerifiedProjectsByUser)
+router.post('/get-total-verified-members-by-user',isAuthenticated,adminController.totalVerifiedMembersByUser)
+router.post('/get-verified-developementprojects-by-category/:id',adminController.getAllVerifiedProjectsByCategory)
+router.post('/get-notverified-developementprojects-by-category/:id',adminController.getAllNotVerifiedProjectsByCategory)
+router.post('/get-all-verified-projects',adminController.totalVerifiedDevelopementProjects)
+router.post('/get-all-not-verified-projects',adminController.totalNotVerifiedDevelopementProjects)
+router.put('/update-project-details/:id',adminController.updateProjectDetails)
+router.put('/verify-project',adminController.verifyProject)
 
 module.exports = router;

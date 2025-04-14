@@ -83,6 +83,73 @@ class AdminService{
         }
     }
 
+    async getTotalVerifiedMembersByUserCount(userid){
+        try {
+            const verifiedmembers = await adminRepository.totalMembersVerifiedByUserCount(userid)
+            return verifiedmembers
+            
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getVerifiedDevelopementProjectsByCategory(categoryid,page,pageSize){
+        try {
+            const {projects,remaining}= await adminRepository.getVerifiedDevelopementProjectsBYCategory(categoryid,page,pageSize)
+            return {projects,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getNotVerifiedDevelopementProjectsByCategory(categoryid,page,pageSize){
+        try {
+            const {projects,remaining}= await adminRepository.getNotVerifiedDevelopementProjectsByCategory(categoryid,page,pageSize)
+            return {projects,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
+
+    async getTotalVerifiedDevelopementProjects(page,pageSize){
+        try {
+            const {projects,remaining}= await adminRepository.getTotalVerifiedDevelopementProject(page,pageSize)
+            return {projects,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getTotalNotVerifiedDevelopementProjects(page,pageSize){
+        try {
+            const {projects,remaining}= await adminRepository.getTotalNotVerifiedDevelopementProject(page,pageSize)
+            return {projects,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async updateProjectDetails(developementid,updateData){
+        try {
+            const project = await adminRepository.updateProjectDetails(developementid,updateData)
+            return project
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async verifyProjectById(developementid){
+        try {
+            const project = await adminRepository.verifyProject(developementid)
+            return project
+        } catch (error) {
+            throw error
+        }
+    }
+
+
+
 
    
 
