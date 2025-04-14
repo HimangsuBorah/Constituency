@@ -47,9 +47,9 @@ const router = express.Router();
 
 router.get('/get-user-by-boothid/:boothid', adminController.getUserByBoothId);
 
-router.post('/get-nonverified-households/:userid',adminController.getNonVerifiedHouseholdByUserId)
+router.get('/get-nonverified-households/:userid',adminController.getNonVerifiedHouseholdByUserId)
 
-router.post('/get-verified-households/:id',adminController.getVerifiedHouseholdByUserId)
+router.get('/get-verified-households/:id',adminController.getVerifiedHouseholdByUserId)
 
 router.put('/update-member-details/:id',adminController.updateMemberController)
 
