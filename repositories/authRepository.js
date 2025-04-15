@@ -93,7 +93,19 @@ class AuthRepository{
 
     async getUserById(userId){
         try {
-            const user = await models.User.findByPk(userId)
+            const user = await models.User.findAll({
+                where:{
+                    id:userId
+                },
+                include: [
+                    {
+                      model: models.SMW,
+                      as: 'smw',
+                      required: false // allow head even if no family members
+                    }
+                ],
+
+            })
 
             return user
         } catch (error) {
@@ -123,6 +135,15 @@ class AuthRepository{
             return user
         } catch (error) {
             console.error(`Error in adding demographic data user,error`)
+            throw error
+        }
+    }
+
+    async registerAsSMW(user_id){
+        try {
+            const smw = await models.SMW.create({user_id:user_id})
+            return smw
+        } catch (error) {
             throw error
         }
     }

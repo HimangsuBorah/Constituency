@@ -139,15 +139,33 @@ class AdminService{
         }
     }
 
-    async verifyProjectById(developementid){
+    async verifyProjectById(developementid,userid){
         try {
-            const project = await adminRepository.verifyProject(developementid)
+            const project = await adminRepository.verifyProject(developementid,userid)
             return project
         } catch (error) {
             throw error
         }
     }
 
+    async deleteProject(developementid){
+        try {
+            const project = await adminRepository.deleteProject(developementid)
+            return project
+        } catch (error) {
+            throw error
+        }
+    }
+
+
+    async getProjectById(developementid){
+        try {
+            const project = await adminRepository.getProjectById(developementid)
+            return project
+        } catch (error) {
+            throw error
+        }
+    }
 
 
 

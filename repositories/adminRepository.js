@@ -36,7 +36,7 @@ class AdminRepository{
                     required: false,
                 }]
             })
-            console.log(households)
+            
             
            
             return households
@@ -64,7 +64,7 @@ class AdminRepository{
                     required: false,
                 }]
             })
-            console.log(households)
+            
             
             return households
         } catch (error) {
@@ -391,8 +391,43 @@ class AdminRepository{
                 throw new Error("Projects not found")
             }
 
-            await project.update({is_verified:true},{verified_by:userid})
+            await project.update({is_verified:true,verified_by:userid})
             await project.reload()
+            return project
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async deleteProject(developementid){
+        try {
+            const project = await models.Developement.findByPk(developementid)
+            if(!project){
+                throw new Error("Project does not exists")
+            }
+            const deletedproject = project
+            await project.destroy()
+            return deletedproject
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getProjectById(developementid){
+        try {
+            console.log(developementid)
+            const project = await models.Developement.findAll({
+                where:{
+                    id:developementid
+                },
+                include: [
+                    {
+                      model: models.DevelopementImage,
+                      as: 'images',
+                      required: false // allow head even if no family members
+                    }
+                ],
+            })
             return project
         } catch (error) {
             throw error

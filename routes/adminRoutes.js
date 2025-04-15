@@ -65,6 +65,8 @@ router.post('/get-notverified-developementprojects-by-category/:id',adminControl
 router.post('/get-all-verified-projects',adminController.totalVerifiedDevelopementProjects)
 router.post('/get-all-not-verified-projects',adminController.totalNotVerifiedDevelopementProjects)
 router.put('/update-project-details/:id',adminController.updateProjectDetails)
-router.put('/verify-project',adminController.verifyProject)
+router.put('/verify-project/:id',isAuthenticated,adminController.verifyProject)
+router.delete('/delete-project-byid/:id',adminController.deleteProjectByIdController)
+router.get('/get-project-by-id/:id',adminController.getProjectById)
 
 module.exports = router;

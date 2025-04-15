@@ -157,6 +157,15 @@ class AuthService{
         }
     }
 
+    async registerAsSMW(user_id){
+        try {
+            const smw = await authRepository.registerAsSMW(user_id)
+            return smw
+        } catch (error) {
+            throw error
+        }
+    }
+
 
     
 

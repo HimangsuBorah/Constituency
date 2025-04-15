@@ -22,6 +22,12 @@ const Benificary = require('./Beneficiary')
 const BenificaryImages = require('./BenficiaryImages')
 const ImportantPerson = require('./ImportantPerson')
 const MemberScheme = require('./MemberScheme')
+const SMW = require('./SMW')
+const Task = require('./Tasks')
+const Submission = require('./Submissions')
+const SubmissionImages = require('./SubmissionImages')
+const TaskCategory = require('./Taskcategory')
+const UserTasks = require('./UserTasks')
 
 
 
@@ -44,6 +50,44 @@ GaonPanchayat.hasMany(Booth,{
   onDelete:"SET NULL",
  
 })
+
+User.hasMany(SMW,{
+  foreignKey:'user_id',
+  as:'smw',
+  onDelete:'CASCADE'
+})
+
+SMW.belongsTo(User,{
+  foreignKey:'user_id',
+  as:'user_details'
+})
+
+Task.belongsTo(User, { as: 'creator', foreignKey: 'created_by' });
+
+
+SMW.belongsToMany(Task, {
+  through: 'UserTasks',
+  foreignKey: 'smw_id'
+});
+
+SMW.belongsToMany(User, {
+  through: 'UserTasks',
+  foreignKey: 'smw_id'
+});
+
+TaskCategory.hasMany(Task, { foreignKey: 'category_id', as: 'tasks' });
+Task.belongsTo(TaskCategory, { foreignKey: 'category_id', as: 'category' });
+
+Task.hasMany(Submission, { foreignKey: 'task_id', as: 'submissions' });
+Submission.belongsTo(Task, { foreignKey: 'task_id', as: 'task' });
+
+SMW.hasMany(Submission, { foreignKey: 'smw_id', as: 'submissions' });
+Submission.belongsTo(User, { foreignKey: 'smw_id', as: 'smw_submissions' });
+
+Submission.hasMany(SubmissionImages, { foreignKey: 'submission_id', as: 'images',onDelete:'CASCADE' });
+SubmissionImages.belongsTo(Submission, { foreignKey: 'submission_id', as: 'submission' });
+
+
 
 ZPC.hasMany(GaonPanchayat,{
   foreignKey:'zpc_id',
@@ -95,6 +139,7 @@ User.belongsTo(Booth,{
   foreignKey:'booth_id',
   as:'boothpresident_booth'
 })
+
 
 // GaonPanchayat.hasOne(User,{
 //   foreignKey:'gaon_panchayat_id',
@@ -426,7 +471,13 @@ const models = {
  Benificary,
  BenificaryImages,
  ImportantPerson,
- MemberScheme
+ MemberScheme,
+ SMW,
+ SubmissionImages,
+ Submission,
+ TaskCategory,
+ Task,
+ UserTasks
 };
 
 // Sync models after initializing associations

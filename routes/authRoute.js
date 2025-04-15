@@ -55,6 +55,7 @@ router.get('/getuserbyId',isAuthenticated,authController.getUserByIdController)
 router.put('/deleteaccount/:id',isAuthenticated,authController.disableUserController)
 router.put('/deleteuser',authController.disableUserByForm)
 router.put('/add-data-profile',authController.addDemographicDataController)
+router.post('/register-as-smw',isAuthenticated,authController.registerAsSMWController)
 
 
 module.exports = router;

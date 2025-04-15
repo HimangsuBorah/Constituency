@@ -141,8 +141,23 @@ const addDemographicDataController = async(req,res)=>{
   }
 }
 
+const registerAsSMWController = async(req,res)=>{
+  try {
+    const user_id= req.user.id
+    const smw = await authService.registerAsSMW(user_id)
+    return res.status(201).json({
+      success:true,
+      smw,
+      message:"SMW added successfully"
+    })
+
+  } catch (error) {
+    res.status(400).json({message:error.message})
+  }
+}
 
 
 
 
-module.exports = {signupController,loginController,refreshTokenController,getUserByIdController,disableUserController,disableUserByForm,addDemographicDataController};
+
+module.exports = {signupController,loginController,refreshTokenController,getUserByIdController,disableUserController,disableUserByForm,addDemographicDataController,registerAsSMWController};

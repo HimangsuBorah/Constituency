@@ -75,6 +75,43 @@ async function uploadImageToBunny({id, file,folder }) {
   return publicUrl;
 }
 
+async function deleteImageFromBunny(filePath) {
+  if (!filePath || typeof filePath !== 'string') {
+    throw new Error('Invalid file path for Bunny delete');
+  }
+  if (!STORAGE_ZONE || !ACCESS_KEY) {
+    throw new Error('Bunny config missing from environment');
+  }
+
+  const remotePath = `/${STORAGE_ZONE}/${filePath}`;
+
+  const options = {
+    method: 'DELETE',
+    host: HOSTNAME,
+    path: remotePath,
+    headers: {
+      AccessKey: ACCESS_KEY
+    }
+  };
+
+  return new Promise((resolve, reject) => {
+    const req = https.request(options, (res) => {
+      if (res.statusCode !== 200) {
+        return reject(new Error(`Failed to delete file. HTTP ${res.statusCode}`));
+      }
+
+      resolve({ success: true, message: `Deleted: ${filePath}` });
+    });
+
+    req.on('error', (err) => {
+      reject(new Error(`Request error: ${err.message}`));
+    });
+
+    req.end();
+  });
+}
+
+
 
 function safeJson(str) {
   try {
@@ -86,4 +123,5 @@ function safeJson(str) {
 
 module.exports = {
   uploadImageToBunny,
+  deleteImageFromBunny
 };

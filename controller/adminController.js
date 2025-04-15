@@ -215,7 +215,8 @@ const totalNotVerifiedDevelopementProjects =async(req,res)=>{
 const updateProjectDetails = async(req,res)=>{
     try {
         const developementid=req.params.id
-        const project = await adminService.updateProjectDetails(developementid)
+        const updateData = req.body
+        const project = await adminService.updateProjectDetails(developementid,updateData)
         return res.status(200).json({
             success:true,
             project,
@@ -230,7 +231,8 @@ const updateProjectDetails = async(req,res)=>{
 const verifyProject = async(req,res)=>{
     try {
         const developementid = req.params.id
-        const project = await adminService.verifyProjectById(developementid)
+        const userid=req.user.id
+        const project = await adminService.verifyProjectById(developementid,userid)
         return res.status(200).json({
             success:true,
             project,
@@ -241,7 +243,35 @@ const verifyProject = async(req,res)=>{
     }
 }
 
+const deleteProjectByIdController = async(req,res)=>{
+    try {
+        const developementid = req.params.id
+        const project = await adminService.deleteProject(developementid)
+        return  res.status(200).json({
+            success:true,
+            project,
+            message:"Project deleted successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+const getProjectById = async(req,res)=>{
+    try {
+        const developementid = req.params.id
+        const project = await adminService.getProjectById(developementid)
+        return res.status(200).json({
+            success:true,
+            project,
+            message:"Project fetched successfully"
+        }) 
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
 
 module.exports = {getUserByBoothId,getVerifiedHouseholdByUserId,getNonVerifiedHouseholdByUserId,updateMemberController,verifyMemberBYHousehold,getAllHouseholdDetailsController,deleteMemberById,deleteHouseholdByHeadid,totalVerifiedProjectsByUser,totalVerifiedMembersByUser,
-    getAllVerifiedProjectsByCategory,getAllNotVerifiedProjectsByCategory,totalVerifiedDevelopementProjects,totalNotVerifiedDevelopementProjects,updateProjectDetails,verifyProject
+    getAllVerifiedProjectsByCategory,getAllNotVerifiedProjectsByCategory,totalVerifiedDevelopementProjects,totalNotVerifiedDevelopementProjects,updateProjectDetails,verifyProject,deleteProjectByIdController,getProjectById
 }
