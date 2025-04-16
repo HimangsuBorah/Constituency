@@ -396,5 +396,39 @@ const getAllCommunityGroupsByCategory = async(req,res)=>{
   }
 }
 
+const getAllCommunityGroupsByCategoryByUser = async(req,res)=>{
+  try {
+    const {page,pageSize}=req.body
+    const categoryid=req.params.id
+    const userid = req.user.id
+   
+    const {groups,remaining}= await communityService.getAllCommunityGroupsByCategoryByUser(userid,categoryid,page,pageSize)
+    return res.status(200).json({
+      success:true,
+      remaining,
+      groups,
+      message:"Groups fetched successfully"
+    })
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+}
 
-module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid,getTotalProjects,getTotalBudgetController,getTotalCompletedProjects,getCompletedProjectsByCategory,getCompletedProjectBudgetByCategory,getAllCategories,getTotalInprogressProjectsController,getInprogressProjectsByCategoryController,getAllCommunityGroupCategory,getAllDevelopementProejctController,getAllCommunitygroupsController,getAllCommunityGroupsByCategory}
+const getAllCommunitygroupsByUserController = async(req,res)=>{
+  try {
+    const {page,pageSize} = req.body
+    const userid=req.user.id
+    const {groups,remaining}= await communityService.getAllCommunityGroupsByUser(userid,page,pageSize)
+    return res.status(200).json({
+      success:true,
+      remaining,
+      groups,
+      message:"Community groups fetched successfully"
+    })
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+}
+
+
+module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid,getTotalProjects,getTotalBudgetController,getTotalCompletedProjects,getCompletedProjectsByCategory,getCompletedProjectBudgetByCategory,getAllCategories,getTotalInprogressProjectsController,getInprogressProjectsByCategoryController,getAllCommunityGroupCategory,getAllDevelopementProejctController,getAllCommunitygroupsController,getAllCommunityGroupsByCategory,getAllCommunityGroupsByCategoryByUser,getAllCommunitygroupsByUserController}

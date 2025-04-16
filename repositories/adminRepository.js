@@ -430,6 +430,66 @@ class AdminRepository{
         }
     }
 
+    async deleteCommunityGroupsByLeaderId(leaderid){
+        try {
+            const group = await models.CommunityGroups.findOne({
+                where:{
+                    id:leaderid
+                },
+                include: [
+                    {
+                      model: models.CommunityGroups,
+                      as: 'group_members',
+                      required: false // allow head even if no family members
+                    }
+                ],
+            })
+
+            if(!group){
+                throw new Error("Group does not exists")
+            }
+
+            if(!group.is_leader){
+                throw new Error("Cannot delete a group by member")
+            }
+            const deletedgroup = group
+            try {
+                await group.destroy({ individualHooks: true });
+              } catch (error) {
+                console.error("❌ DB Error:", error.original || error);
+                throw error;
+              }
+            return deletedgroup
+
+        } catch (error) {
+            throw error
+        }
+    }
+
+
+    async deletegroupmemberbyId(memberid){
+        try {
+            const groupmember = await models.CommunityGroups.findOne({
+                where:{
+                    id:memberid,
+                    is_leader:false
+                }
+            })
+            const deletedmember = groupmember
+            try {
+                await groupmember.destroy();
+              } catch (error) {
+                console.error("❌ DB Error:", error.original || error);
+                throw error;
+              }
+
+              return deletedmember
+
+        } catch (error) {
+           throw error 
+        }
+    }
+
 }
 
 module.exports =  new AdminRepository()

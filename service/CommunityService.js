@@ -346,6 +346,24 @@ class CommunityService {
       throw error
     }
   }
+
+  async getAllCommunityGroupsByCategoryByUser(userid,categoryid,page,pageSize){
+    try {
+      const {groups,remaining}= await communityRepository.getAllCommunityGroupsByCategoryByUser(userid,categoryid,page,pageSize)
+      return {groups,remaining}
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async getAllCommunityGroupsByUser(userid,page,pageSize){
+    try {
+      const {groups,remaining}= await communityRepository.getAllCommunityGroupsByUser(userid,page,pageSize)
+      return {groups,remaining}
+    } catch (error) {
+      throw error
+    }
+  }
 }
 
 module.exports = new CommunityService();

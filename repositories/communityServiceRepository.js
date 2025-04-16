@@ -392,6 +392,59 @@ class CommunityServiceRepository{
         }
     }
 
+    async getAllCommunityGroupsByCategoryByUser(userid,categoryid,page,pageSize){
+        try {
+            const offset = (page-1)*pageSize
+
+            const {rows,count}= await models.CommunityGroups.findAndCountAll({
+                where:{
+                    community_category_id:categoryid,
+                    user_id:userid
+                },
+                include: [{
+                    model:models.CommunityGroups,
+                    as:'group_members'
+                }],
+                offset:offset,
+                limit:pageSize
+            })
+
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+           
+            return {groups:rows,remaining}
+            
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getAllCommunityGroupsByUser(userid,page,pageSize){
+        try {
+            const offset = (page-1)*pageSize
+            const {rows,count} = await models.CommunityGroups.findAndCountAll({
+                where:{
+                    user_id:userid
+                },
+                include: [{
+                    model:models.CommunityGroups,
+                    as:'group_members'
+                }],
+                offset:offset,
+                limit:pageSize
+
+            })
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+           
+            return {groups:rows,remaining}
+
+        } catch (error) {
+            throw error
+        }
+    }
+
+
+   
+
 
 
 }
