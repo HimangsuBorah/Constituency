@@ -167,7 +167,54 @@ class AdminService{
         }
     }
 
+    async getAllNotverifiedAssetsByUser(userid,page,pageSize){
+        try {
 
+            const {assets,remaining} = await adminRepository.getAllNotVerifiedAssetsByUser(userid,page,pageSize)
+            return {assets,remaining}
+            
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getAllverifiedAssetsByUser(userid,page,pageSize){
+        try {
+
+            const {assets,remaining} = await adminRepository.getAllVerifiedAssetsByUser(userid,page,pageSize)
+            return {assets,remaining}
+            
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async deleteAssetByid(assetid){
+        try {
+            const asset = await adminRepository.deleteAssetById(assetid)
+            return asset
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async verifyAssetById(assetid,userid){
+        try {
+            const asset = await adminRepository.verifyAssetsById(assetid,userid)
+            return asset
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async updateAssetdetails(assetid,updateData){
+        try {
+            const asset = await adminRepository.updateAssetDetails(assetid,updateData)
+            return asset
+        } catch (error) {
+            throw error
+        }
+    }
 
    
 

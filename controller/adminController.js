@@ -274,6 +274,87 @@ const getProjectById = async(req,res)=>{
 }
 
 
+const getAllNotVerifiedAssetsByUser = async(req,res)=>{
+    try {
+        const userid = req.user.id
+        const {page,pageSize}=req.body
+        const {assets,remaining}= await adminService.getAllNotverifiedAssetsByUser(userid,page,pageSize)
+        return res.status(200).json({
+            success:true,
+            remaining,
+            assets,
+            message:"Assets fetched successfully"
+        }) 
+        
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+const getAllVerifiedAssetsByUser = async(req,res)=>{
+    try {
+        const userid = req.user.id
+        const {page,pageSize}=req.body
+        const {assets,remaining}= await adminService.getAllverifiedAssetsByUser(userid,page,pageSize)
+        return res.status(200).json({
+            success:true,
+            remaining,
+            assets,
+            message:"Assets fetched successfully"
+        }) 
+        
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+const deleteAssetByIdController = async(req,res)=>{
+    try {
+        const assetid = req.params.id
+        const asset = await adminService.deleteAssetByid(assetid)
+        return res.status(200).json({
+            success:true,
+            asset,
+            message:"Asset deleted successfully"
+        }) 
+
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+const updateAssetDetailsController = async(req,res)=>{
+    try {
+        const assetid=req.params.id
+        const updateData = req.body
+        const asset = await adminService.updateAssetdetails(assetid,updateData)
+        return res.status(200).json({
+            success:true,
+            asset,
+            message:"Asset updated successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+const verifyAssetDetailsController = async(req,res)=>{
+    try {
+        const assetid=req.params.id
+        const userid=req.user.id
+        const asset = await adminService.verifyAssetById(assetid,userid)
+        return res.status(200).json({
+            success:true,
+            asset,
+            message:"Asset verified successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+}
+
+
 module.exports = {getUserByBoothId,getVerifiedHouseholdByUserId,getNonVerifiedHouseholdByUserId,updateMemberController,verifyMemberBYHousehold,getAllHouseholdDetailsController,deleteMemberById,deleteHouseholdByHeadid,totalVerifiedProjectsByUser,totalVerifiedMembersByUser,
-    getAllVerifiedProjectsByCategory,getAllNotVerifiedProjectsByCategory,totalVerifiedDevelopementProjects,totalNotVerifiedDevelopementProjects,updateProjectDetails,verifyProject,deleteProjectByIdController,getProjectById
+    getAllVerifiedProjectsByCategory,getAllNotVerifiedProjectsByCategory,totalVerifiedDevelopementProjects,totalNotVerifiedDevelopementProjects,updateProjectDetails,verifyProject,deleteProjectByIdController,getProjectById,getAllVerifiedAssetsByUser,getAllNotVerifiedAssetsByUser,
+    deleteAssetByIdController,updateAssetDetailsController,verifyAssetDetailsController
 }
