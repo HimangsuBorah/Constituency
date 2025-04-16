@@ -14,7 +14,8 @@ Member.init(
     },
     voter_id:{
         type:DataTypes.STRING,
-        unique:true
+        unique:true,
+        allowNull:false
       },
     name: {
       type: DataTypes.STRING,

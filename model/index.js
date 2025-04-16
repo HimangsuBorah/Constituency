@@ -153,16 +153,29 @@ User.belongsTo(Booth,{
 
 Member.belongsTo(Member,{
   foreignKey:'head_member_id',
-  as:'headMember',
-  allowNull:true,
-  onDelete:'CASCADE'
+  as:'headMember'
 })
 
 Member.hasMany(Member,{
   foreignKey:'head_member_id',
   as:'familyMembers',
-  onDelete:'SET NULL'
+  onDelete:'CASCADE',
+  hooks:true
 })
+
+Member.belongsToMany(Schemes, {
+  through: MemberScheme,
+  foreignKey: 'member_id',
+  otherKey: 'scheme_id',
+  onDelete:'CASCADE'
+});
+
+Schemes.belongsToMany(Member, {
+  through: MemberScheme,
+  foreignKey: 'scheme_id',
+  otherKey: 'member_id',
+  onDelete:'CASCADE'
+});
 
 User.hasMany(Member,{
   foreignKey:'entered_by',
@@ -279,28 +292,17 @@ CommunityGroups.belongsTo(User,{
 CommunityGroups.belongsTo(CommunityGroups,{
   foreignKey:'leader_id',
   as:'leader',
-  allowNull:true,
-  onDelete:"CASCADE"
+  allowNull:true
 })
 
 CommunityGroups.hasMany(CommunityGroups,{
   foreignKey:'leader_id',
-  as:'group_members'
+  as:'group_members',
+  onDelete:"CASCADE",
+  hooks:true
 })
 
-Member.belongsToMany(Schemes, {
-  through: MemberScheme,
-  foreignKey: 'member_id',
-  otherKey: 'scheme_id',
-  onDelete:'CASCADE'
-});
 
-Schemes.belongsToMany(Member, {
-  through: MemberScheme,
-  foreignKey: 'scheme_id',
-  otherKey: 'member_id',
-  onDelete:'CASCADE'
-});
 
 
 SchemeCategory.hasMany(Schemes,{

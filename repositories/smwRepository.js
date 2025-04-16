@@ -173,14 +173,14 @@ class SMWRepository{
             
             const submission = await models.Submission.findByPk(id)
             const task = await models.Task.findByPk(submission.task_id)
-            const user = await models.SMW.findByPk(submission.smw_id)
+            const smw = await models.SMW.findByPk(submission.smw_id)
             
-            if(!task || !user){
+            if(!task || !smw){
                 throw new Error("Task or user does not exists")
             }
             const taskPoints = task.reward_points
-            smw.points = user.points+taskPoints
-            await user.save()
+            smw.reward_points = user.reward_points+taskPoints
+            await smw.save()
 
             await submission.update({status:status,reviewed_by:reviewerId,rewarded:true})
             await submission.reload()

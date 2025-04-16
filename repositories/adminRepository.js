@@ -183,21 +183,12 @@ class AdminRepository{
 
     async deleteHouseholdByHeadid(headid){
         try {
-            const member = await models.Member.findByPk({
-                where:{
-                    id:headid
-                },
-                include: [
-                    {
-                      model: models.Member,
-                      as: 'familyMembers',
-                      where: {
-                        is_head: false
-                      },
-                      required: false // allow head even if no family members
-                    }
-                ],
-            })
+            const member = await models.Member.findOne({
+                where: { id: headid, is_head: true },
+                include: [{ model: models.Member, as: 'familyMembers' }]
+              });
+
+              
             if(!member){
                 throw new Error("Member does not exists")
             }
@@ -205,7 +196,12 @@ class AdminRepository{
                 throw new Error("Cannot delete the household by member id")
             }
             const deletedMember = member
-            await member.destroy()
+            try {
+                await member.destroy({ individualHooks: true });
+              } catch (error) {
+                console.error("❌ DB Error:", error.original || error);
+                throw error;
+              }
             return deletedMember
         } catch (error) {
             throw error

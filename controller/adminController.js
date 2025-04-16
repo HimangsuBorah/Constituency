@@ -106,7 +106,9 @@ const deleteMemberById = async(req,res)=>{
 const deleteHouseholdByHeadid = async(req,res)=>{
     try {
         const headid=req.params.id
-        const deletedmember = await adminService.deleteMemberById(headid)
+      
+        const deletedmember = await adminService.deleteHouseholdBYhead(headid)
+        console.log(deletedmember)
         return res.status(200).json({
          success:true,
          deletedmember,
