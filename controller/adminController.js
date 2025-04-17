@@ -353,8 +353,22 @@ const verifyAssetDetailsController = async(req,res)=>{
     }
 }
 
+const getAllCategories = async(req,res)=>{
+  try {
+  
+    const categories = await adminService.getAllCategories()
+    return res.status(200).json({
+      success:true,
+      categories,
+      message:"Categories fetched successfully"
+    })
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+}
+
 
 module.exports = {getUserByBoothId,getVerifiedHouseholdByUserId,getNonVerifiedHouseholdByUserId,updateMemberController,verifyMemberBYHousehold,getAllHouseholdDetailsController,deleteMemberById,deleteHouseholdByHeadid,totalVerifiedProjectsByUser,totalVerifiedMembersByUser,
     getAllVerifiedProjectsByCategory,getAllNotVerifiedProjectsByCategory,totalVerifiedDevelopementProjects,totalNotVerifiedDevelopementProjects,updateProjectDetails,verifyProject,deleteProjectByIdController,getProjectById,getAllVerifiedAssetsByUser,getAllNotVerifiedAssetsByUser,
-    deleteAssetByIdController,updateAssetDetailsController,verifyAssetDetailsController
+    deleteAssetByIdController,updateAssetDetailsController,verifyAssetDetailsController,getAllCategories
 }

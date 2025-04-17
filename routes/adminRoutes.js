@@ -74,6 +74,7 @@ router.post('/get-all-verified-assets-byuser',isAuthenticated,adminController.ge
 router.delete('/delete-asset-by-id/:id',adminController.deleteAssetByIdController)
 router.put('/update-asset-by-id/:id',isAuthenticated,adminController.updateAssetDetailsController)
 router.put('/verify-asset/:id',isAuthenticated,adminController.verifyAssetDetailsController)
+router.post('/all-developement-categories',adminController.getAllCategories)
 
 
 module.exports = router;

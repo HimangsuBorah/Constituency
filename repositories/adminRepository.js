@@ -681,6 +681,15 @@ class AdminRepository {
       throw error;
     }
   }
+
+  async getAllCategories(){
+    try {
+        const categories = await models.Category.findAll()
+        return categories
+    } catch (error) {
+        throw error
+    }
+}
 }
 
 module.exports = new AdminRepository();

@@ -216,6 +216,15 @@ class AdminService{
         }
     }
 
+    async getAllCategories() {
+        try {
+          const categories = await adminRepository.getAllCategories();
+          return categories;
+        } catch (error) {
+          throw error;
+        }
+      }
+
    
 
 }
