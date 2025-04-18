@@ -364,6 +364,17 @@ class CommunityService {
       throw error
     }
   }
+
+
+  async getAllAssetsByCategory(categoryid,page,pageSize){
+    try {
+      const {assets,remaining} = await communityRepository.getAllAssetsByCategory(categoryid,page,pageSize)
+     
+      return {assets,remaining}
+    } catch (error) {
+      throw error
+    }
+  }
 }
 
 module.exports = new CommunityService();

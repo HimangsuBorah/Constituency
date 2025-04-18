@@ -442,6 +442,36 @@ class CommunityServiceRepository{
         }
     }
 
+    async getAllAssetsByCategory(categoryid,page,pageSize){
+        try {
+            const offset = (page-1)*pageSize
+            const whereClause = {}
+            if(categoryid){
+                whereClause.asset_type_id=categoryid
+            }
+            const {rows,count} = await models.Assets.findAndCountAll({
+                where:whereClause,
+                include:[{
+                    model:models.AssetType,
+                    as:'assetType'
+                },
+                {
+                    model:models.AssetsImage,
+                    as:"assetImages"
+                }],
+                offset:offset,
+                limit:pageSize
+
+            })
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+            
+           
+            return {assets:rows,remaining} 
+        } catch (error) {
+            throw error
+        }
+    }
+
 
    
 

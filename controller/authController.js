@@ -144,7 +144,9 @@ const addDemographicDataController = async(req,res)=>{
 const registerAsSMWController = async(req,res)=>{
   try {
     const user_id= req.user.id
-    const smw = await authService.registerAsSMW(user_id)
+    const {instagram_link,facebook_link,twitter_link}=req.body
+    const data = {instagram_link,facebook_link,twitter_link,user_id}
+    const smw = await authService.registerAsSMW(data)
     return res.status(201).json({
       success:true,
       smw,

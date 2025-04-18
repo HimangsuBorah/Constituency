@@ -276,7 +276,7 @@ const getProjectById = async(req,res)=>{
 
 const getAllNotVerifiedAssetsByUser = async(req,res)=>{
     try {
-        const userid = req.user.id
+        const userid = req.params.id
         const {page,pageSize}=req.body
         const {assets,remaining}= await adminService.getAllNotverifiedAssetsByUser(userid,page,pageSize)
         return res.status(200).json({
@@ -293,7 +293,7 @@ const getAllNotVerifiedAssetsByUser = async(req,res)=>{
 
 const getAllVerifiedAssetsByUser = async(req,res)=>{
     try {
-        const userid = req.user.id
+        const userid = req.params.id
         const {page,pageSize}=req.body
         const {assets,remaining}= await adminService.getAllverifiedAssetsByUser(userid,page,pageSize)
         return res.status(200).json({

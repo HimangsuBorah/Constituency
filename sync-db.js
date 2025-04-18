@@ -1,6 +1,6 @@
 // sync-db.js
 require('dotenv').config();
-const { sequelize } = require('./models'); // Adjust path to your sequelize instance
+const sequelize  = require('./config/db'); // Adjust path to your sequelize instance
 
 (async () => {
   try {

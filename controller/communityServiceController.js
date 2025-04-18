@@ -430,5 +430,21 @@ const getAllCommunitygroupsByUserController = async(req,res)=>{
   }
 }
 
+const getAllAssetsByCategory = async(req,res)=>{
+  try {
+  
+    const {categoryid,page,pageSize}=req.body
+    const {assets,remaining} = await communityService.getAllAssetsByCategory(categoryid,page,pageSize)
+    return res.status(200).json({
+      success:true,
+      remaining,
+      assets,
+      message:"Community groups fetched successfully"
+    })
 
-module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid,getTotalProjects,getTotalBudgetController,getTotalCompletedProjects,getCompletedProjectsByCategory,getCompletedProjectBudgetByCategory,getAllCategories,getTotalInprogressProjectsController,getInprogressProjectsByCategoryController,getAllCommunityGroupCategory,getAllDevelopementProejctController,getAllCommunitygroupsController,getAllCommunityGroupsByCategory,getAllCommunityGroupsByCategoryByUser,getAllCommunitygroupsByUserController}
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+}
+
+module.exports= {uploadAssetImagesController,createAssetTypeController,createAssetController,getAssetController,createDevelopementController,uploadDevelopementImagesController,categoryController,getProjectsByCategoryController,addCommunityCategoryController,addCommunityLeader,addCommunityMemberController,getCommunityByLeaderid,getTotalProjects,getTotalBudgetController,getTotalCompletedProjects,getCompletedProjectsByCategory,getCompletedProjectBudgetByCategory,getAllCategories,getTotalInprogressProjectsController,getInprogressProjectsByCategoryController,getAllCommunityGroupCategory,getAllDevelopementProejctController,getAllCommunitygroupsController,getAllCommunityGroupsByCategory,getAllCommunityGroupsByCategoryByUser,getAllCommunitygroupsByUserController,getAllAssetsByCategory}

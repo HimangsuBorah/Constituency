@@ -80,4 +80,6 @@ router.get('/get-all-communitygroups-bycategory/:id',communityController.getAllC
 router.post('/get-community-groups-by-category-by-user/:id',isAuthenticated,communityController.getAllCommunityGroupsByCategoryByUser)
 router.post('/get-all-community-groups-by-user',isAuthenticated,communityController.getAllCommunitygroupsByUserController)
 
+router.post('/get-all-assets-by-category',communityController.getAllAssetsByCategory)
+
 module.exports = router;

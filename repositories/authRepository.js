@@ -139,9 +139,9 @@ class AuthRepository{
         }
     }
 
-    async registerAsSMW(user_id){
+    async registerAsSMW(data){
         try {
-            const smw = await models.SMW.create({user_id:user_id})
+            const smw = await models.SMW.create(data)
             return smw
         } catch (error) {
             throw error

@@ -18,6 +18,24 @@ SMW.init(
     },
     user_id:{
         type:DataTypes.INTEGER
+    },
+    instagram_link:{
+      type:DataTypes.STRING,
+      validate:{
+        isUrl:true
+      }
+    },
+    facebook_link:{
+      type:DataTypes.STRING,
+      validate:{
+        isUrl:true
+      }
+    },
+    twitter_link:{
+      type:DataTypes.STRING,
+      validate:{
+        isUrl:true
+      }
     }
 
   },
