@@ -211,7 +211,38 @@ const deleteSubmissionController = async(req,res)=>{
     }
 }
 
+const getAllSubmissionByTaskIdController = async(req,res)=>{
+    try {
+        const taskid = req.params.id
+        const {page,pageSize}= req.body
+        const result = await smwService.getAllSubmissionsBytaskId(taskid,page,pageSize)
+        return res.status(200).json({
+            success:true,
+            result,
+            message:"Submissions fetched successfully"
+        })
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+const getAllSmwAccounts = async(req,res)=>{
+    try {
+        const {page,pageSize}=req.body
+        const {smws,remaining} = await smwService.getAllSMWaccounts(page,pageSize)
+        return res.status(200).json({
+            success:true,
+            remaining,
+            smws,
+            message:"Accounts fetched successfully"
+        })
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
 
 
-module.exports = {createTaskController,getTaskByIdController,getAllTaskListController,getTaskListByStatus,updateTaskController,deleteTaskController,createSubmission,getSubmissionById,reviewSubmissionController,uploadSubmissionImagesController,createTaskCategory,deleteSubmissionController}
+
+module.exports = {createTaskController,getTaskByIdController,getAllTaskListController,getTaskListByStatus,updateTaskController,deleteTaskController,createSubmission,getSubmissionById,reviewSubmissionController,uploadSubmissionImagesController,createTaskCategory,deleteSubmissionController,getAllSubmissionByTaskIdController,getAllSmwAccounts}
 

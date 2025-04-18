@@ -137,6 +137,24 @@ class SMWService{
         }
     }
 
+    async getAllSubmissionsBytaskId(taskid,page,pageSize){
+        try {
+            const result = await smwRepository.getSubmissionsByTaskId(taskid,page,pageSize)
+            return result
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getAllSMWaccounts(page,pageSize){
+        try {
+            const {smws,remaining}= await smwRepository.getAllSMWAccounts(page,pageSize)
+            return {smws,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 
 

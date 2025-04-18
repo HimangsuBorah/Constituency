@@ -45,6 +45,7 @@ router.put('/review-submission/:id',isAuthenticated,smwController.reviewSubmissi
 router.post('/upload-submission-image/:id',upload.array('images', 10), smwController.uploadSubmissionImagesController);
 router.post('/create-task-category',smwController.createTaskCategory)
 router.delete('/delete-submission/:id',smwController.deleteSubmissionController)
-
+router.post('/get-submissions-by-taskid/:id',smwController.getAllSubmissionByTaskIdController)
+router.post('/get-all-smw-accounts',smwController.getAllSmwAccounts)
 
 module.exports = router;

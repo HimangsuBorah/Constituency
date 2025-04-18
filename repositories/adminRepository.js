@@ -690,6 +690,15 @@ class AdminRepository {
         throw error
     }
 }
+
+async getAllUserCount(){
+  try {
+      const users = await models.User.findAll()
+      return users
+  } catch (error) {
+      throw error
+  }
+}
 }
 
 module.exports = new AdminRepository();

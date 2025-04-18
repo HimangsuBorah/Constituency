@@ -263,6 +263,89 @@ class SMWRepository{
           throw error;
         }
     }
+
+
+    async getSubmissionsByTaskId(taskid,page,pageSize){
+        
+        try {
+            const offset = (page - 1) * pageSize;
+            const {rows,count} = await models.Submission.findAndCountAll({
+                where:{
+                    task_id:taskid
+                },
+                include: [
+                    {
+                      model: models.SubmissionImages,
+                      as: 'images',
+                      required: false
+                    }
+                ],
+                offset: offset,
+                limit: pageSize,      
+            })
+
+            
+
+            if(!rows || rows.length ===0){
+                throw new Error("No submission existed")
+            }
+
+            const [pending,reviewed,rejected] = await Promise.all([
+                models.Submission.count({where: {task_id:taskid,status:'pending'}}),
+                models.Submission.count({where: {task_id:taskid,status:'reviewed'}}),
+                models.Submission.count({where: {task_id:taskid,status:'rejected'}})
+
+            ])
+
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+            return { submissions: rows, remaining,
+                counts:{
+                    pending,
+                    reviewed,
+                    rejected
+                }
+             };
+        } catch (error) {
+            throw error
+        }
+    }
+
+
+    async getAllSMWAccounts(page,pageSize){
+        try {
+            const offset = (page-1)*pageSize
+            const {rows,count} = await models.SMW.findAndCountAll({
+                include:[
+                    {
+                        model:models.User,
+                        as:'user_details',
+                    }
+                ],
+                offset,
+                limit:pageSize
+            })
+
+            if(!rows || rows.length === 0){
+                throw new Error("No SMW profile")
+            }
+
+            let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+
+            return {smws:rows,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
+
+    async dashboardCounts(){
+
+    }
+
+
+    
+
+    
       
       
       

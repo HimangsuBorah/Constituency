@@ -71,7 +71,7 @@ SMW.belongsToMany(Task, {
 });
 
 SMW.belongsToMany(User, {
-  through: 'UserTasks',
+  through: 'user',
   foreignKey: 'smw_id'
 });
 
