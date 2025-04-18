@@ -131,7 +131,7 @@ const reviewSubmissionController = async(req,res)=>{
     try {
         const submissionId = req.params.id
         const reviewerId = req.user.id
-        console.log(req.user.id)
+        
         const review = req.body.status
         const reviewdSubmission = await smwService.reviewSubmission(submissionId,review,reviewerId)
         return res.status(200).json({

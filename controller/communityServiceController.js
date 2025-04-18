@@ -54,8 +54,8 @@ const createAssetController = async(req,res)=>{
     try {
         const user_id=req.user.id
         const asset_type_id = req.params.id
-        const {name,lat,long,status,government_scheme,issues}=req.body
-        const data = {name,lat,long,status,government_scheme,issues,asset_type_id,user_id}
+        const {name,lat,long,status,government_scheme,issues,incharge_person_name,incharge_person_phonenumber,incharge_person_designation}=req.body
+        const data = {name,lat,long,status,government_scheme,issues,incharge_person_name,incharge_person_phonenumber,incharge_person_designation,asset_type_id,user_id}
         const asset = await communityService.createAsset(data)
         return res.status(201).json({
             success:true,

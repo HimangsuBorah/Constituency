@@ -104,7 +104,7 @@ class SMWRepository{
                     smw_id:userId
                 }
             })
-            console.log(submission)
+            
 
             if(submission){
                 throw new Error("Submission already exists")
@@ -172,21 +172,34 @@ class SMWRepository{
         try {
             
             const submission = await models.Submission.findByPk(id)
+
+            if(!submission){
+                throw new Error("Submission not found")
+            }
+            
+            if(submission.status === 'reviewed'){
+                throw new Error('Submission is already reviewed')
+            }
             const task = await models.Task.findByPk(submission.task_id)
+            
             const smw = await models.SMW.findByPk(submission.smw_id)
             
             if(!task || !smw){
                 throw new Error("Task or user does not exists")
             }
-            const taskPoints = task.reward_points
-            smw.reward_points = user.reward_points+taskPoints
-            await smw.save()
+            if (status === 'reviewed' && !submission.rewarded) {
+                smw.reward_points += task.reward_points;
+                await smw.save();
+              }
+            
 
             await submission.update({status:status,reviewed_by:reviewerId,rewarded:true})
             await submission.reload()
             return submission
         } catch (error) {
+           
             throw error
+         
         }
     }
 
