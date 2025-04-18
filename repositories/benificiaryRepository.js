@@ -125,8 +125,16 @@ class BenificiaryRepository{
                 where:{
                     scheme_id: {
                         [Op.contains]: [schemeid]  // Matches if the array contains this schemeId
-                     }
-                }
+                     },
+
+                },
+                include: [
+                    {
+                      model: models.BenificaryImages,
+                      as: "beneficiary_images",
+                      required: false, // allow head even if no family members
+                    },
+                ]
             })
             return beneficiaries
         } catch (error) {
