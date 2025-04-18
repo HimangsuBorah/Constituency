@@ -17,7 +17,7 @@ User.init(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM('admin','superadmin','boothpresident','mla','smw','volunteer'),
+      type: DataTypes.ENUM('admin','superadmin','boothpresident','mla','smw','volunteer','narishakti'),
       defaultValue: 'boothpresident',
     },
     name:{
