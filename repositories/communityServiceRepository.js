@@ -107,15 +107,17 @@ class CommunityServiceRepository{
         try {
             const offset = (page-1)*pageSize
             const category = await models.Category.findByPk(categoryId)
+            const whereClause = {}
+            whereClause.category_id=categoryId
+            if(year){
+                whereClause.year = year
+            }
             
             if(!category){
                 throw new Error('Category does not exist')
             } 
             const {rows,count} = await models.Developement.findAndCountAll({
-                where:{
-                    category_id:categoryId,
-                    year:year
-                },
+                where: whereClause,
                 include: [{
                     model:models.DevelopementImage,
                     as:'images'

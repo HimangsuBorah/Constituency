@@ -45,6 +45,9 @@ Task.init(
     },
     category_id:{
       type:DataTypes.INTEGER
+    },
+    post_link:{
+      type:DataTypes.STRING
     }
   },
   {
