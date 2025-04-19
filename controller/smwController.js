@@ -273,7 +273,7 @@ const dashboardUser = async(req,res)=>{
 
 const getUserSubmissionHistory = async(req,res)=>{
     try {
-        const userid = req.user.id
+        const userid = req.body.smwid
         const submissions = await smwService.userSubmissionHistory(userid)
         return res.status(200).json({
             success:true,
