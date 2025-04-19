@@ -155,6 +155,36 @@ class SMWService{
         }
     }
 
+    async dashboardCounts(userid){
+        try {
+            const result = await smwRepository.dashboardCounts(userid)
+            return result
+        } catch (error) {
+            throw error
+        }
+
+    }
+
+    async dashboardCountUser(userid){
+        try {
+            const result = await smwRepository.dashboardcountByUser(userid)
+            return result
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async userSubmissionHistory(userid){
+        try {
+            const submissions = await smwRepository.userSubmissionHistory(userid)
+            return submissions
+        } catch (error) {
+            throw error
+        }
+    }
+
+
+
 }
 
 

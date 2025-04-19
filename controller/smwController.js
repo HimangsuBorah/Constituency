@@ -242,7 +242,53 @@ const getAllSmwAccounts = async(req,res)=>{
     }
 }
 
+const dashboardCounts = async(req,res)=>{
+    try {
+        const userid = req.user.id
+        const result = await smwService.dashboardCounts(userid)
+        return res.status(200).json({
+            success:true,
+            result,
+            message:"Accounts fetched successfully"
+        }) 
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+const dashboardUser = async(req,res)=>{
+    try {
+        const userid = req.user.id
+        const result = await smwService.dashboardCountUser(userid)
+        return res.status(200).json({
+            success:true,
+            result,
+            message:"Accounts fetched successfully"
+        })
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+const getUserSubmissionHistory = async(req,res)=>{
+    try {
+        const userid = req.user.id
+        const submissions = await smwService.userSubmissionHistory(userid)
+        return res.status(200).json({
+            success:true,
+            submissions,
+            message:"Accounts fetched successfully"
+        })
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
 
 
-module.exports = {createTaskController,getTaskByIdController,getAllTaskListController,getTaskListByStatus,updateTaskController,deleteTaskController,createSubmission,getSubmissionById,reviewSubmissionController,uploadSubmissionImagesController,createTaskCategory,deleteSubmissionController,getAllSubmissionByTaskIdController,getAllSmwAccounts}
+
+module.exports = {createTaskController,getTaskByIdController,getAllTaskListController,getTaskListByStatus,updateTaskController,deleteTaskController,createSubmission,getSubmissionById,reviewSubmissionController,uploadSubmissionImagesController,createTaskCategory,deleteSubmissionController,getAllSubmissionByTaskIdController,getAllSmwAccounts,dashboardCounts,
+    dashboardUser,   getUserSubmissionHistory
+}
 

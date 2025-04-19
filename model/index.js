@@ -71,7 +71,7 @@ SMW.belongsToMany(Task, {
 });
 
 SMW.belongsToMany(User, {
-  through: 'user',
+  through: 'UserTasks',
   foreignKey: 'smw_id'
 });
 
@@ -82,7 +82,7 @@ Task.hasMany(Submission, { foreignKey: 'task_id', as: 'submissions' });
 Submission.belongsTo(Task, { foreignKey: 'task_id', as: 'task' });
 
 SMW.hasMany(Submission, { foreignKey: 'smw_id', as: 'submissions' });
-Submission.belongsTo(User, { foreignKey: 'smw_id', as: 'smw_submissions' });
+Submission.belongsTo(SMW, { foreignKey: 'smw_id', as: 'smw_submissions' });
 
 Submission.hasMany(SubmissionImages, { foreignKey: 'submission_id', as: 'images',onDelete:'CASCADE' });
 SubmissionImages.belongsTo(Submission, { foreignKey: 'submission_id', as: 'submission' });

@@ -278,7 +278,22 @@ class SMWRepository{
                       model: models.SubmissionImages,
                       as: 'images',
                       required: false
+                    },
+                    {
+                        model:models.Task,
+                        as:'task'
+                    },
+                    {
+                        model:models.SMW,
+                        as:'smw_submissions',
+                        include:[
+                            {
+                                model:models.User,
+                                as:'user_details'
+                            }
+                        ]
                     }
+
                 ],
                 offset: offset,
                 limit: pageSize,      
@@ -338,8 +353,97 @@ class SMWRepository{
     }
 
 
-    async dashboardCounts(){
+    async dashboardCounts(userid){
+        try {
 
+            const [pendingTask,reviewdTask]= await Promise.all([
+                 models.Submission.count({
+                    where:{
+                        status:'pending'
+                    }
+                }),
+
+                 models.Submission.count({
+                    where:{
+                        status:'reviewed',
+                        reviewed_by:userid
+                    }
+                }),
+            ])
+
+            return {counts:{
+                pendingTask,
+                reviewdTask,
+                
+            }}
+            
+        } catch (error) {
+            throw error
+        }
+
+    }
+
+
+    async dashboardcountByUser(userid){
+        try {
+            const [completedTasks,acceptedTask,rejectedTasks]= await Promise.all([
+                models.Submission.count({
+                    where:{
+                        smw_id:userid
+                    }
+                }),
+                models.Submission.count({
+                    where:{
+                        smw_id:userid,
+                        status:'reviewed'
+                    }
+                }),
+                models.Submission.count({
+                    where:{
+                        smw_id:userid,
+                        status:'rejected'
+                    }
+                }),
+            ])
+
+            return {counts:{
+                completedTasks,acceptedTask,rejectedTasks
+            }}
+        } catch (error) {
+            throw error
+        }
+    }
+
+
+    async userSubmissionHistory(userid){
+        try {
+            const submissions = await models.Submission.findAll({
+                where:{
+                    smw_id:userid
+                },
+                order: [['createdAt', 'DESC']],
+                limit: 5,
+                include: [
+                  {
+                    model: models.Task,
+                    as: 'task', // assuming alias
+                    required: false
+                  },
+                  {
+                    model: models.SubmissionImages,
+                    as: 'images',
+                    required: false
+                  }
+                ]
+            })
+
+            if(!submissions || submissions.length === 0){
+                throw new Error("No submission history available")
+            }
+            return submissions
+        } catch (error) {
+            throw error
+        }
     }
 
 

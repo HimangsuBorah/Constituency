@@ -47,5 +47,8 @@ router.post('/create-task-category',smwController.createTaskCategory)
 router.delete('/delete-submission/:id',smwController.deleteSubmissionController)
 router.post('/get-submissions-by-taskid/:id',smwController.getAllSubmissionByTaskIdController)
 router.post('/get-all-smw-accounts',smwController.getAllSmwAccounts)
+router.get('/get-admin-dashboard-count',isAuthenticated,smwController.dashboardCounts)
+router.get('/get-user-dashboard-counts',isAuthenticated,smwController.dashboardUser)
+router.get('/get-user-submission',isAuthenticated,smwController.getUserSubmissionHistory)
 
 module.exports = router;
