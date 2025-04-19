@@ -184,6 +184,16 @@ class SMWService{
     }
 
 
+    async getAllTaskCategories(){
+        try {
+            const categories = await smwRepository.getAllTaskcategories()
+            return categories
+        } catch (error) {
+            throw error
+        }
+    }
+
+
 
 }
 

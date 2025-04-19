@@ -448,6 +448,41 @@ class SMWRepository{
         }
     }
 
+    async getAllTaskcategories(){
+        try {
+            const categories = await models.TaskCategory.findAll()
+            return categories
+        } catch (error) {
+            throw error
+        }
+    }
+
+
+    async getTheSMWrewardsReports(){
+        try {
+            const rewardslist = await models.SMW.findAll({
+                include:[
+                    {
+                        model:models.User,
+                        as:'user_details'
+                    }
+                ]
+            })
+
+            return rewardslist
+        } catch (error) {
+            throw error
+        }
+    }
+
+    // async getSMWProfileAnalysis(userid){
+    //     try {
+    //         const smw = await 
+    //     } catch (error) {
+            
+    //     }
+    // }
+
 
     
 
