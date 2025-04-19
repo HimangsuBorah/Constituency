@@ -97,11 +97,13 @@ class SMWRepository{
             if(task.submission_requirements !== submission_type){
                 throw new Error("The submission types donot match")
             }
+            console.log(userId)
 
             const submission = await models.Submission.findOne({
                 where:{
+                    
+                    smw_id:userId,
                     task_id:taskId,
-                    smw_id:userId
                 }
             })
             
@@ -437,9 +439,9 @@ class SMWRepository{
                 ]
             })
 
-            if(!submissions || submissions.length === 0){
-                throw new Error("No submission history available")
-            }
+            // if(!submissions || submissions.length === 0){
+            //     throw new Error("No submission history available")
+            // }
             return submissions
         } catch (error) {
             throw error
