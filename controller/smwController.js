@@ -299,9 +299,24 @@ const getAllTaskCategories = async(req,res)=>{
     }
 }
 
+const getrecentSubmissionHistory = async(req,res)=>{
+    try {
+       
+        const submissions = await smwService.recentSubmissionHistory()
+        return res.status(200).json({
+            success:true,
+            submissions,
+            message:"Submissions fetched successfully"
+        })
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 
 
 module.exports = {createTaskController,getTaskByIdController,getAllTaskListController,getTaskListByStatus,updateTaskController,deleteTaskController,createSubmission,getSubmissionById,reviewSubmissionController,uploadSubmissionImagesController,createTaskCategory,deleteSubmissionController,getAllSubmissionByTaskIdController,getAllSmwAccounts,dashboardCounts,
-    dashboardUser,getUserSubmissionHistory,getAllTaskCategories
+    dashboardUser,getUserSubmissionHistory,getAllTaskCategories,getrecentSubmissionHistory
 }
 

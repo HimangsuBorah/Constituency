@@ -193,6 +193,15 @@ class SMWService{
         }
     }
 
+    async recentSubmissionHistory(){
+        try {
+            const submissions = await smwRepository.recentSubmissionHistory()
+            return submissions
+        } catch (error) {
+            throw error
+        }
+    }
+
 
 
 }

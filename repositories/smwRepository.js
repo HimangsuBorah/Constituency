@@ -483,6 +483,34 @@ class SMWRepository{
     //     }
     // }
 
+    async recentSubmissionHistory(){
+        try {
+            const submissions = await models.Submission.findAll({
+                order: [['createdAt', 'DESC']],
+                limit: 5,
+                include: [
+                  {
+                    model: models.Task,
+                    as: 'task', // assuming alias
+                    required: false
+                  },
+                  {
+                    model: models.SubmissionImages,
+                    as: 'images',
+                    required: false
+                  }
+                ]
+            })
+
+            // if(!submissions || submissions.length === 0){
+            //     throw new Error("No submission history available")
+            // }
+            return submissions
+        } catch (error) {
+            throw error
+        }
+    }
+
 
     
 

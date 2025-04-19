@@ -50,6 +50,7 @@ router.post('/get-all-smw-accounts',smwController.getAllSmwAccounts)
 router.get('/get-admin-dashboard-count',isAuthenticated,smwController.dashboardCounts)
 router.get('/get-user-dashboard-counts',isAuthenticated,smwController.dashboardUser)
 router.get('/get-user-submission',isAuthenticated,smwController.getUserSubmissionHistory)
+router.get('/get-recent-submission',smwController.getrecentSubmissionHistory)
 router.get('/get-all-task-categories',smwController.getAllTaskCategories)
 
 module.exports = router;
