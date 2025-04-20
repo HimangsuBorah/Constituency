@@ -564,7 +564,7 @@ class SMWRepository{
                 ]
             })
 
-            const [totalTask,reviewedTask,rejectedTask] = await Promise.all([
+            const [pendingTask,reviewedTask,rejectedTask] = await Promise.all([
                 models.Submission.count({where: {smw_id:userid,status:'pending'}}),
                 models.Submission.count({where: {smw_id:userid,status:'reviewed'}}),
                 models.Submission.count({where: {smw_id:userid,status:'rejected'}})
@@ -572,7 +572,7 @@ class SMWRepository{
 
             return {smw,
                 count:{
-                    totalTask,
+                    pendingTask,
                     reviewedTask,
                     rejectedTask
                 }
