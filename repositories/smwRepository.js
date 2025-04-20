@@ -24,7 +24,17 @@ class SMWRepository{
 
     async getTaskById(id){
         try {
-            const task = await models.Task.findByPk(id)
+            const task = await models.Task.findOne({
+                where:{
+                    id:id
+                },
+                include:[
+                    {
+                        model:models.TaskImages,
+                        as:'task_images'
+                    }
+                ]
+            })
             return task
         } catch (error) {
             throw error
