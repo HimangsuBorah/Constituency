@@ -20,7 +20,7 @@ Task.init(
       allowNull: true,
     },
     hashtags:{
-      type:DataTypes.TEXT
+      type:DataTypes.JSONB
     },
     instructions:{
       type:DataTypes.JSONB

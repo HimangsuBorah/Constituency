@@ -70,7 +70,7 @@ Task.hasMany(TaskImages,{
   as:'task_images'
 })
 
-TaskImages.hasMany(Task,{
+TaskImages.belongsTo(Task,{
   foreignKey:'task_id',
   as:'related_tasks'
 })
