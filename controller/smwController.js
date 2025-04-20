@@ -3,9 +3,9 @@ const smwService = require('../service/smwService')
 
 const createTaskController = async(req,res)=>{
     try {
-        const {title,description,reward_points,due_date,submission_requirements,competition_type,demographic_criteria,category_id} = req.body
+        const {title,description,reward_points,due_date,submission_requirements,competition_type,demographic_criteria,category_id,instructions,hashtags,platform} = req.body
         const created_by = req.user.id
-        const data = {title,description,reward_points,due_date,submission_requirements,competition_type,demographic_criteria,category_id,created_by}
+        const data = {title,description,reward_points,due_date,submission_requirements,competition_type,demographic_criteria,category_id,created_by,instructions,hashtags,platform}
         const createdTask = await smwService.createTask(data)
         return res.status(200).json({
             success:true,
