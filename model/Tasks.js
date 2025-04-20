@@ -37,6 +37,9 @@ Task.init(
         type:DataTypes.ENUM('link','image'),
         allowNull:false
     },
+    platform:{
+      type:DataTypes.ENUM('instagram','facebook','twitter','others')
+    },
     status:{
         type:DataTypes.ENUM('active','inactive','completed'),
         defaultValue:'active'
