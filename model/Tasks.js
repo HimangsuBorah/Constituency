@@ -19,9 +19,6 @@ Task.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    instructions:{
-      type:DataTypes.JSONB,
-    },
     hashtags:{
       type:DataTypes.TEXT
     },
