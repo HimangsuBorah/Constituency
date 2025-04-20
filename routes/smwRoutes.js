@@ -53,5 +53,6 @@ router.get('/get-user-submission',isAuthenticated,smwController.getUserSubmissio
 router.get('/get-recent-submission',smwController.getrecentSubmissionHistory)
 router.get('/get-all-task-categories',smwController.getAllTaskCategories)
 router.post('/upload-task-image/:id',upload.array('images', 10), smwController.uploadTaskImagesController);
+router.get('/get-smw-performance/:id',smwController.getSMWPerformance)
 
 module.exports = router;

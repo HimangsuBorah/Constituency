@@ -233,6 +233,16 @@ class SMWService{
       }
 
 
+      async getSMWPerformance(userid){
+        try {
+            const result = await smwRepository.getSMWPerformance(userid)
+            return result
+        } catch (error) {
+            throw error
+        }
+      }
+
+
 
 }
 

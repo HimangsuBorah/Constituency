@@ -1,4 +1,5 @@
-const {models}= require('../model/index')
+const {models}= require('../model/index');
+const { count } = require('../model/User');
 const { deleteImageFromBunny } = require("../utils/bunnyUploader");
 
 
@@ -539,6 +540,43 @@ class SMWRepository{
             //     throw new Error("No submission history available")
             // }
             return submissions
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getSMWPerformance(userid){
+        try {
+            const smw = await models.Submission.findAll({
+                where:{
+                    smw_id:userid
+                },
+                include:[
+                    // {
+                    //     model:models.User,
+                    //     as:'user_details'
+                    // },
+                    {
+                        model:models.Task,
+                        as:'task'
+                    }
+
+                ]
+            })
+
+            const [totalTask,reviewedTask,rejectedTask] = await Promise.all([
+                models.Submission.count({where: {smw_id:userid,status:'pending'}}),
+                models.Submission.count({where: {smw_id:userid,status:'reviewed'}}),
+                models.Submission.count({where: {smw_id:userid,status:'rejected'}})
+            ])
+
+            return {smw,
+                count:{
+                    totalTask,
+                    reviewedTask,
+                    rejectedTask
+                }
+            }
         } catch (error) {
             throw error
         }

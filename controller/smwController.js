@@ -348,9 +348,23 @@ const uploadTaskImagesController = async (req, res) => {
     }
   };
 
+  const getSMWPerformance = async(req,res)=>{
+    try {
+        const userid = req.params.id
+        const result = await smwService.getSMWPerformance(userid)
+        return res.status(200).json({
+            success:true,
+            result,
+            message:"Result fetched successfully"
+        })
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
 
 
 module.exports = {createTaskController,getTaskByIdController,getAllTaskListController,getTaskListByStatus,updateTaskController,deleteTaskController,createSubmission,getSubmissionById,reviewSubmissionController,uploadSubmissionImagesController,createTaskCategory,deleteSubmissionController,getAllSubmissionByTaskIdController,getAllSmwAccounts,dashboardCounts,
-    dashboardUser,getUserSubmissionHistory,getAllTaskCategories,getrecentSubmissionHistory,uploadTaskImagesController
+    dashboardUser,getUserSubmissionHistory,getAllTaskCategories,getrecentSubmissionHistory,uploadTaskImagesController,getSMWPerformance
 }
 
