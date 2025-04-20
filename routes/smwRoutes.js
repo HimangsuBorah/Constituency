@@ -52,5 +52,6 @@ router.get('/get-user-dashboard-counts',isAuthenticated,smwController.dashboardU
 router.get('/get-user-submission',isAuthenticated,smwController.getUserSubmissionHistory)
 router.get('/get-recent-submission',smwController.getrecentSubmissionHistory)
 router.get('/get-all-task-categories',smwController.getAllTaskCategories)
+router.post('/upload-task-image/:id',upload.array('images', 10), smwController.uploadTaskImagesController);
 
 module.exports = router;

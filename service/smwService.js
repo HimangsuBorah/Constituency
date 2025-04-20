@@ -202,6 +202,36 @@ class SMWService{
         }
     }
 
+    async taskfileattachment(taskid, file, description, isPrimary) {
+        try {
+          const task = await smwRepository.getTaskById(taskid);
+    
+          if (!task) throw new Error("Invalid task ID");
+
+        //   if(submission.submission_type=== 'link'){
+        //     throw new Error("Submission type does not allow to upload image")
+        //   }
+          const folder = "tasks"
+          const imageUrl = await uploadImageToBunny({
+            id:taskid,
+            file,
+            folder
+          });
+    
+          const record = await smwRepository.createTaskImage(
+            taskid,
+            imageUrl,
+            description,
+            isPrimary
+          );
+          
+          return record;
+        } catch (err) {
+          console.error("❌ UploadFile Error:", err.message);
+          throw err;
+        }
+      }
+
 
 
 }

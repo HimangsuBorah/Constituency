@@ -27,7 +27,8 @@ const Task = require('./Tasks')
 const Submission = require('./Submissions')
 const SubmissionImages = require('./SubmissionImages')
 const TaskCategory = require('./Taskcategory')
-const UserTasks = require('./UserTasks')
+const UserTasks = require('./UserTasks');
+const TaskImages = require('./TaskImages');
 
 
 
@@ -63,6 +64,16 @@ SMW.belongsTo(User,{
 })
 
 Task.belongsTo(User, { as: 'creator', foreignKey: 'created_by' });
+
+Task.hasMany(TaskImages,{
+  foreignKey:'task_id',
+  as:'task_images'
+})
+
+TaskImages.hasMany(Task,{
+  foreignKey:'task_id',
+  as:'related_tasks'
+})
 
 
 SMW.belongsToMany(Task, {
@@ -479,6 +490,7 @@ const models = {
  Submission,
  TaskCategory,
  Task,
+ TaskImages,
  UserTasks
 };
 

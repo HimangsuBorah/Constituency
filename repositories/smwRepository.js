@@ -47,6 +47,12 @@ class SMWRepository{
                 where:{
                     status:status
                 },
+                include:[
+                    {
+                        model:models.TaskImages,
+                        as:'task_images'
+                    }
+                ],
                 offset:offset,
                 limit:pageSize,
             })
@@ -140,6 +146,23 @@ class SMWRepository{
             
 
             return submissionimage
+        } catch (error) {
+            throw error
+        }
+    }
+    async createTaskImage(taskid,url,description,isPrimary){
+        try {
+            
+            const taskimage = await models.TaskImages.create({
+                task_id:taskid,
+                img_url:url,
+                description:description,
+                is_primary:isPrimary
+            })
+
+            
+
+            return taskimage
         } catch (error) {
             throw error
         }
