@@ -44,8 +44,8 @@ Task.init(
         type:DataTypes.ENUM('active','inactive','completed'),
         defaultValue:'active'
     },
-    demographic_criteria:{
-        type:DataTypes.JSONB,
+    caption:{
+        type:DataTypes.STRING,
         allowNull:true
     },
     created_by:{
