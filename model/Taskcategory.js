@@ -16,6 +16,9 @@ Taskcategory.init(
       type: DataTypes.STRING,
       allowNull:true,
       required:true
+    },
+    description:{
+      type:DataTypes.TEXT
     }
   },
   {

@@ -583,6 +583,20 @@ class SMWRepository{
     }
 
 
+    async getAllTaskByCategory(categoryid){
+        try {
+            const tasks = await models.Task.findAll({
+                where:{
+                    category_id:categoryid
+                }
+            })
+            return tasks
+        } catch (error) {
+            throw error
+        }
+    }
+
+
     
 
     
