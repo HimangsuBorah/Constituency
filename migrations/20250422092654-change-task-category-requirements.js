@@ -9,8 +9,8 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    queryInterface.addColumn('tasks','hashtags',{
-      type:Sequelize.JSONB
+    queryInterface.addColumn('task_categories','requirements',{
+      type:Sequelize.ENUM('link','image')
     })
   },
 
@@ -21,8 +21,8 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    queryInterface.removeColumn('tasks','hashtags',{
-      type:Sequelize.JSONB
+    queryInterface.removeColumn('task_categories','requirements',{
+      type:Sequelize.ENUM('link','image')
     })
   }
 };

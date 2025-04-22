@@ -19,7 +19,8 @@ Taskcategory.init(
     },
     description:{
       type:DataTypes.TEXT
-    }
+    },
+
   },
   {
     sequelize,
