@@ -20,6 +20,12 @@ Taskcategory.init(
     description:{
       type:DataTypes.TEXT
     },
+    instruction:{
+      type:DataTypes.JSONB
+    },
+    requirements:{
+      type:DataTypes.ENUM('link','image')
+    }
 
   },
   {
