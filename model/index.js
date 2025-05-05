@@ -282,12 +282,12 @@ Developement.belongsTo(Category,{
 
 CommunityGroupCategory.hasMany(CommunityGroups,{
   foreignKey:'community_category_id',
-  as:'community_category'
+  as:'community_groups'
 })
 
 CommunityGroups.belongsTo(CommunityGroupCategory,{
   foreignKey:'community_category_id',
-  as:'community_groups'
+  as:'community_category'
 })
 
 User.hasMany(CommunityGroups,{

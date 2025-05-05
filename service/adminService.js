@@ -167,10 +167,10 @@ class AdminService{
         }
     }
 
-    async getAllNotverifiedAssetsByUser(userid,page,pageSize){
+    async getAllNotverifiedAssetsByUser(page,pageSize){
         try {
 
-            const {assets,remaining} = await adminRepository.getAllNotVerifiedAssetsByUser(userid,page,pageSize)
+            const {assets,remaining} = await adminRepository.getAllNotVerifiedAssetsByUser(page,pageSize)
             return {assets,remaining}
             
         } catch (error) {
@@ -178,10 +178,10 @@ class AdminService{
         }
     }
 
-    async getAllverifiedAssetsByUser(userid,page,pageSize){
+    async getAllverifiedAssetsByUser(page,pageSize){
         try {
 
-            const {assets,remaining} = await adminRepository.getAllVerifiedAssetsByUser(userid,page,pageSize)
+            const {assets,remaining} = await adminRepository.getAllVerifiedAssetsByUser(page,pageSize)
             return {assets,remaining}
             
         } catch (error) {
@@ -224,6 +224,42 @@ class AdminService{
           throw error;
         }
       }
+
+    async getAllCommunityGroupsByStatus(status,page,pageSize){
+        try {
+            const {community_groups,remaining}= await adminRepository.getAllCommunityGroupsByStatus(status,page,pageSize)
+            return {community_groups,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async verifyCommunityGroups(leaderid,userid){
+        try {
+            const verified_group = await adminRepository.verifyCommunityGroups(leaderid,userid)
+            return verified_group
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async editCommunityGroupDetails(memberid,updateData){
+        try {
+            const group = await adminRepository.editCommunityGroupDetails(memberid,updateData)
+            return group
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async deleteCommunityGroup(memberid){
+        try {
+            const deleted_group = await adminRepository.deleteCommunityMember(memberid)
+            return deleted_group
+        } catch (error) {
+            throw error
+        }
+    }
 
    
 

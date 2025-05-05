@@ -69,12 +69,16 @@ router.put('/verify-project/:id',isAuthenticated,adminController.verifyProject)
 router.delete('/delete-project-byid/:id',adminController.deleteProjectByIdController)
 router.get('/get-project-by-id/:id',adminController.getProjectById)
 
-router.post('/get-all-notverified-assets-byuser/:id',isAuthenticated,adminController.getAllNotVerifiedAssetsByUser)
-router.post('/get-all-verified-assets-byuser/:id',isAuthenticated,adminController.getAllVerifiedAssetsByUser)
+router.post('/get-all-notverified-assets',isAuthenticated,adminController.getAllNotVerifiedAssetsByUser)
+router.post('/get-all-verified-assets',isAuthenticated,adminController.getAllVerifiedAssetsByUser)
 router.delete('/delete-asset-by-id/:id',adminController.deleteAssetByIdController)
 router.put('/update-asset-by-id/:id',isAuthenticated,adminController.updateAssetDetailsController)
 router.put('/verify-asset/:id',isAuthenticated,adminController.verifyAssetDetailsController)
 router.post('/all-developement-categories',adminController.getAllCategories)
 
+router.post('/get-all-community-groups-by-status',adminController.getAllCommunityGroups)
+router.put('/verify-community-group/:id',isAuthenticated,adminController.verifyCommunityGroup)
+router.put('/update-community-group-member/:id',adminController.updateCommunityMemberDetails)
+router.delete('/delete-community-group-member/:id',adminController.deleteCommunityGroupMembers)
 
 module.exports = router;

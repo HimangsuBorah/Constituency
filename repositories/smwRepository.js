@@ -583,11 +583,12 @@ class SMWRepository{
     }
 
 
-    async getAllTaskByCategory(categoryid){
+    async getAllTaskByCategory(categoryid,constituency_id){
         try {
             const tasks = await models.Task.findAll({
                 where:{
-                    category_id:categoryid
+                    category_id:categoryid,
+                    constituency_id:constituency_id
                 }
             })
             return tasks

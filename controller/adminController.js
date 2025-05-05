@@ -276,9 +276,9 @@ const getProjectById = async(req,res)=>{
 
 const getAllNotVerifiedAssetsByUser = async(req,res)=>{
     try {
-        const userid = req.params.id
+      
         const {page,pageSize}=req.body
-        const {assets,remaining}= await adminService.getAllNotverifiedAssetsByUser(userid,page,pageSize)
+        const {assets,remaining}= await adminService.getAllNotverifiedAssetsByUser(page,pageSize)
         return res.status(200).json({
             success:true,
             remaining,
@@ -293,9 +293,9 @@ const getAllNotVerifiedAssetsByUser = async(req,res)=>{
 
 const getAllVerifiedAssetsByUser = async(req,res)=>{
     try {
-        const userid = req.params.id
+       
         const {page,pageSize}=req.body
-        const {assets,remaining}= await adminService.getAllverifiedAssetsByUser(userid,page,pageSize)
+        const {assets,remaining}= await adminService.getAllverifiedAssetsByUser(page,pageSize)
         return res.status(200).json({
             success:true,
             remaining,
@@ -367,8 +367,72 @@ const getAllCategories = async(req,res)=>{
   }
 }
 
+const getAllCommunityGroups = async(req,res)=>{
+    try {
+        const status = req.body.is_verified
+        const {page,pageSize}=req.body
+
+        const {community_groups,remaining} = await adminService.getAllCommunityGroupsByStatus(status,page,pageSize)
+        return res.status(200).json({
+            success:true,
+            remaining,
+            community_groups,
+            message:"Groups fetched successfully"
+          })
+
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+}
+
+const verifyCommunityGroup = async(req,res)=>{
+    try {
+        const userid=req.user.id
+        const leaderid = req.params.id
+        const verified_group = await adminService.verifyCommunityGroups(leaderid,userid)
+        return res.status(200).json({
+            success:true,
+            verified_group,
+            message:"Group verified successfully"
+          })
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+}
+
+const updateCommunityMemberDetails = async(req,res)=>{
+    try {
+        const memberid = req.params.id
+        const updateData = req.body
+
+        const updated_group = await adminService.editCommunityGroupDetails(memberid,updateData)
+        return res.status(200).json({
+            success:true,
+            updated_group,
+            message:"Group updated successfully"
+          })
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+}
+
+const deleteCommunityGroupMembers = async(req,res)=>{
+    try {
+        const memberid = req.params.id
+
+        const deleted_group = await adminService.deleteCommunityGroup(memberid)
+        return res.status(200).json({
+            success:true,
+            deleted_group,
+            message:"Group updated successfully"
+          })
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+}
+
 
 module.exports = {getUserByBoothId,getVerifiedHouseholdByUserId,getNonVerifiedHouseholdByUserId,updateMemberController,verifyMemberBYHousehold,getAllHouseholdDetailsController,deleteMemberById,deleteHouseholdByHeadid,totalVerifiedProjectsByUser,totalVerifiedMembersByUser,
     getAllVerifiedProjectsByCategory,getAllNotVerifiedProjectsByCategory,totalVerifiedDevelopementProjects,totalNotVerifiedDevelopementProjects,updateProjectDetails,verifyProject,deleteProjectByIdController,getProjectById,getAllVerifiedAssetsByUser,getAllNotVerifiedAssetsByUser,
-    deleteAssetByIdController,updateAssetDetailsController,verifyAssetDetailsController,getAllCategories
+    deleteAssetByIdController,updateAssetDetailsController,verifyAssetDetailsController,getAllCategories,getAllCommunityGroups,verifyCommunityGroup,updateCommunityMemberDetails,deleteCommunityGroupMembers
 }

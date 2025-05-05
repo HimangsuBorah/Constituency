@@ -533,12 +533,12 @@ class AdminRepository {
     }
   }
 
-  async getAllNotVerifiedAssetsByUser(userid, page, pageSize) {
+  async getAllNotVerifiedAssetsByUser( page, pageSize) {
     try {
       const offset = (page - 1) * pageSize;
       const { rows, count } = await models.Assets.findAndCountAll({
         where: {
-          user_id: userid,
+          
           is_verified: false,
         },
         include: [
@@ -565,12 +565,11 @@ class AdminRepository {
     }
   }
 
-  async getAllVerifiedAssetsByUser(userid, page, pageSize) {
+  async getAllVerifiedAssetsByUser( page, pageSize) {
     try {
       const offset = (page - 1) * pageSize;
       const { rows, count } = await models.Assets.findAndCountAll({
         where: {
-          user_id: userid,
           is_verified: true,
         },
         include: [
@@ -697,6 +696,128 @@ async getAllUserCount(){
       return users
   } catch (error) {
       throw error
+  }
+}
+
+
+async getAllCommunityGroupsByStatus(status,page,pageSize){
+  try {
+
+    const offset = (page - 1) * pageSize;
+    const {rows,count} = await models.CommunityGroups.findAndCountAll({
+      where:{
+        is_verified:status
+      },
+      include:[
+        {
+          model: models.CommunityGroups,
+          as:'group_members'
+        },
+        {
+          model: models.CommunityGroupCategory,
+          as:'community_category'
+        }
+      ],
+      offset: offset,
+      limit: pageSize,
+    })
+
+    let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+    return { community_groups: rows, remaining };
+  } catch (error) {
+      throw error
+  }
+}
+
+async verifyCommunityGroups(leaderid,userid){
+  try {
+    const community_group = await models.CommunityGroups.findAll({
+      where:{
+        id:leaderid,
+        is_leader:true
+      },
+      include:[
+        {
+          model: models.CommunityGroups,
+          as:'group_members',
+          required: false
+        }
+      ],
+    })
+
+    if (community_group.length === 0) {
+      throw new Error("Members not found or invalid Leader ID");
+    }
+
+    const updated = await Promise.all(
+      community_group.map(async (m) => {
+        // Update head
+        await m.update({ is_verified: true, verified_by: userid });
+
+        // Update each family member
+        if (Array.isArray(m.group_members)) {
+          await Promise.all(
+            m.group_members.map(async (fm) => {
+              await fm.update({ is_verified: true, verified_by: userid });
+            })
+          );
+        }
+
+        return m;
+      })
+    )
+
+    return updated;
+   
+
+  } catch (error) {
+    throw error
+  }
+}
+
+async editCommunityGroupDetails(memberid,updateData){
+  try {
+    const community_group = await models.CommunityGroups.findByPk(memberid)
+    if(!memberid){
+      throw new Error("Member does not exists")
+    }
+    await community_group.update(updateData)
+    await community_group.reload()
+    return community_group
+  } catch (error) {
+    throw error
+  }
+}
+
+async deleteCommunityMember(memberid){
+  try {
+    const community_group = await models.CommunityGroups.findOne({
+      where:{
+        id:memberid
+      },
+      include:[
+        {
+          model: models.CommunityGroups,
+          as:'group_members',
+          required: false
+        }
+      ]
+    })
+    if(!community_group){
+      throw new Error("Member does not exists")
+    }
+
+    if( community_group.is_leader && community_group.length.group_members !==0){
+      throw new Error("First delete the members")
+    }
+
+   
+
+    const deletedCommunityGroups = community_group
+    await community_group.destroy()
+    return deletedCommunityGroups
+  } catch (error) {
+    throw error
   }
 }
 }

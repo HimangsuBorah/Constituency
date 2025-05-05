@@ -243,9 +243,9 @@ class SMWService{
       }
 
 
-      async getTaskByCategory(categoryid){
+      async getTaskByCategory(categoryid,constituency_id){
         try {
-            const tasks = await smwRepository.getAllTaskByCategory(categoryid)
+            const tasks = await smwRepository.getAllTaskByCategory(categoryid,constituency_id)
             return tasks
         } catch (error) {
             throw error

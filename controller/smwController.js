@@ -366,7 +366,8 @@ const uploadTaskImagesController = async (req, res) => {
 const getTaskByCategory = async(req,res)=>{
     try {
         const categoryid = req.params.id
-        const tasks = await smwService.getTaskByCategory(categoryid)
+        const constituency_id = req.body.constituency_id
+        const tasks = await smwService.getTaskByCategory(categoryid,constituency_id)
         return res.status(200).json({
             success:true,
             tasks,
