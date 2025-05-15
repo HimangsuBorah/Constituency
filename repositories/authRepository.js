@@ -81,13 +81,6 @@ class AuthRepository {
         where: {
           id: userId,
         },
-        include: [
-          {
-            model: models.SMW,
-            as: "smw",
-            required: false, // allow head even if no family members
-          },
-        ],
       });
 
       return user;
