@@ -261,6 +261,15 @@ class AdminService{
         }
     }
 
+    async userLeaderboard(){
+        try {
+            const leaderboard = await adminRepository.userleaderboard()
+            return leaderboard
+        } catch (error) {
+            throw error
+        }
+    }
+
    
 
 }

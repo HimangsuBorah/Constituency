@@ -51,35 +51,35 @@ const upload = multer({
   
 
 router.post('/upload-image/:id',upload.array('images', 10), communityController.uploadAssetImagesController);
-router.post('/create-asset-type', communityController.createAssetTypeController);
+router.post('/create-asset-type',isAuthenticated, communityController.createAssetTypeController);
 router.post('/create-asset/:id',isAuthenticated, communityController.createAssetController);
-router.get('/getall-assettypes',communityController.getAssetController)
+router.get('/getall-assettypes',isAuthenticated,communityController.getAssetController)
 router.post('/create-developement', isAuthenticated,communityController.createDevelopementController);
-router.post('/upload-developement-image/:id',upload.array('images', 10), communityController.uploadDevelopementImagesController);
-router.get('/getall-assettypes',communityController.getAssetController)
-router.post('/create-category',communityController.categoryController)
-router.post('/getprojectsbycategory/:id',communityController.getProjectsByCategoryController)
-router.post('/create-communitycategory',communityController.addCommunityCategoryController)
+router.post('/upload-developement-image/:id',upload.array('images', 10), isAuthenticated,communityController.uploadDevelopementImagesController);
+router.get('/getall-assettypes',isAuthenticated,communityController.getAssetController)
+router.post('/create-category',isAuthenticated,communityController.categoryController)
+router.post('/getprojectsbycategory/:id',isAuthenticated,communityController.getProjectsByCategoryController)
+router.post('/create-communitycategory',isAuthenticated,communityController.addCommunityCategoryController)
 router.post('/add-communitylead',isAuthenticated,communityController.addCommunityLeader)
 router.post('/add-communitymember',isAuthenticated,communityController.addCommunityMemberController)
-router.get('/getcommunitygroup/:id',communityController.getCommunityByLeaderid)
+router.get('/getcommunitygroup/:id',isAuthenticated,communityController.getCommunityByLeaderid)
 
-router.get('/total-projects-count',communityController.getTotalProjects)
-router.get('/total-budget',communityController.getTotalBudgetController)
-router.get('/total-completed-projects',communityController.getTotalCompletedProjects)
-router.get('/completedprojects-category/:id',communityController.getCompletedProjectsByCategory)
-router.get('/completedprojects-budget-category/:id',communityController.getCompletedProjectBudgetByCategory)
-router.post('/all-developement-categories',communityController.getAllCategories)
-router.get('/get-total-inprogressprojects',communityController.getTotalInprogressProjectsController)
-router.get('/get-total-projectsbycategory/:id',communityController.getInprogressProjectsByCategoryController)
+router.get('/total-projects-count',isAuthenticated,communityController.getTotalProjects)
+router.get('/total-budget',isAuthenticated,communityController.getTotalBudgetController)
+router.get('/total-completed-projects',isAuthenticated,communityController.getTotalCompletedProjects)
+router.get('/completedprojects-category/:id',isAuthenticated,communityController.getCompletedProjectsByCategory)
+router.get('/completedprojects-budget-category/:id',isAuthenticated,communityController.getCompletedProjectBudgetByCategory)
+router.post('/all-developement-categories',isAuthenticated,communityController.getAllCategories)
+router.get('/get-total-inprogressprojects',isAuthenticated,communityController.getTotalInprogressProjectsController)
+router.get('/get-total-projectsbycategory/:id',isAuthenticated,communityController.getInprogressProjectsByCategoryController)
 
-router.get('/get-all-communitygroups/categories',communityController.getAllCommunityGroupCategory)
-router.get('/get-all-developement-projects',communityController.getAllDevelopementProejctController)
-router.get('/get-all-community-groups',communityController.getAllCommunitygroupsController)
-router.get('/get-all-communitygroups-bycategory/:id',communityController.getAllCommunityGroupsByCategory)
+router.get('/get-all-communitygroups/categories',isAuthenticated,communityController.getAllCommunityGroupCategory)
+router.get('/get-all-developement-projects',isAuthenticated,communityController.getAllDevelopementProejctController)
+router.get('/get-all-community-groups',isAuthenticated,communityController.getAllCommunitygroupsController)
+router.get('/get-all-communitygroups-bycategory/:id',isAuthenticated,communityController.getAllCommunityGroupsByCategory)
 router.post('/get-community-groups-by-category-by-user/:id',isAuthenticated,communityController.getAllCommunityGroupsByCategoryByUser)
 router.post('/get-all-community-groups-by-user',isAuthenticated,communityController.getAllCommunitygroupsByUserController)
 
-router.post('/get-all-assets-by-category',communityController.getAllAssetsByCategory)
+router.post('/get-all-assets-by-category',isAuthenticated,communityController.getAllAssetsByCategory)
 
 module.exports = router;

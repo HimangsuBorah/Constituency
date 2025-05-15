@@ -166,6 +166,15 @@ class AuthService{
         }
     }
 
+    async verifyUser(userid,verifierid){
+        try {
+            const user = await authRepository.verifyUserProfile(userid,verifierid)
+            return user
+        } catch (error) {
+            throw error
+        }
+    }
+
 
     
 

@@ -432,7 +432,20 @@ const deleteCommunityGroupMembers = async(req,res)=>{
 }
 
 
+const userleaderBoard = async(req,res)=>{
+    try {
+        const leaderboard = await adminService.userLeaderboard()
+        return res.status(200).json({
+            leaderboard,
+            message:"Leaderboard fetched successfully"
+        })
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+}
+
+
 module.exports = {getUserByBoothId,getVerifiedHouseholdByUserId,getNonVerifiedHouseholdByUserId,updateMemberController,verifyMemberBYHousehold,getAllHouseholdDetailsController,deleteMemberById,deleteHouseholdByHeadid,totalVerifiedProjectsByUser,totalVerifiedMembersByUser,
     getAllVerifiedProjectsByCategory,getAllNotVerifiedProjectsByCategory,totalVerifiedDevelopementProjects,totalNotVerifiedDevelopementProjects,updateProjectDetails,verifyProject,deleteProjectByIdController,getProjectById,getAllVerifiedAssetsByUser,getAllNotVerifiedAssetsByUser,
-    deleteAssetByIdController,updateAssetDetailsController,verifyAssetDetailsController,getAllCategories,getAllCommunityGroups,verifyCommunityGroup,updateCommunityMemberDetails,deleteCommunityGroupMembers
+    deleteAssetByIdController,updateAssetDetailsController,verifyAssetDetailsController,getAllCategories,getAllCommunityGroups,verifyCommunityGroup,updateCommunityMemberDetails,deleteCommunityGroupMembers,userleaderBoard
 }

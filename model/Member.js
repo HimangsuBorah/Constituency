@@ -79,7 +79,7 @@ Member.init(
         type:DataTypes.BOOLEAN,
         defaultValue:false
     },
-    entered_by:{
+    user_id:{
         type:DataTypes.INTEGER
     },
     is_head:{

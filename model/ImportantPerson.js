@@ -32,7 +32,7 @@ ImportantPerson.init(
     village_id:{
         type:DataTypes.INTEGER
     },
-    entered_by:{
+    user_id:{
         type:DataTypes.INTEGER
     },
     description:{

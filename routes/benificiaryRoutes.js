@@ -31,13 +31,13 @@ const upload = multer({
 
 const router = express.Router();
 
-router.post('/add-scheme-category',benficiaryController.createSchemeCategoryController);
-router.get('/get-all-scheme-categories',benficiaryController.getAllSchemeCategory)
-router.post('/create-scheme',benficiaryController.createSchemeController)
-router.post('/create-benificiary',isAuthenticated,benficiaryController.createBenificary)
-router.post('/upload-benificiary-image/:id',upload.array('images', 10), benficiaryController.uploadBenificiaryImagesController);
-router.get('/all-schemes/:id',benficiaryController.getSchemeByCategory)
-router.get('/get-beneficiaries-by-scheme/:id',benficiaryController.getBeneficiaryBySchemeId)
+router.post('/add-scheme-category',isAuthenticated,benficiaryController.createSchemeCategoryController);
+router.get('/get-all-scheme-categories',isAuthenticated,benficiaryController.getAllSchemeCategory)
+router.post('/create-scheme',isAuthenticated,benficiaryController.createSchemeController)
+router.post('/create-benificiary',isAuthenticated,isAuthenticated,benficiaryController.createBenificary)
+router.post('/upload-benificiary-image/:id',isAuthenticated,upload.array('images', 10), benficiaryController.uploadBenificiaryImagesController);
+router.get('/all-schemes/:id',isAuthenticated,benficiaryController.getSchemeByCategory)
+router.get('/get-beneficiaries-by-scheme/:id',isAuthenticated,benficiaryController.getBeneficiaryBySchemeId)
 
 
 module.exports = router;

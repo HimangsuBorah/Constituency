@@ -52,6 +52,18 @@ GaonPanchayat.hasMany(Booth,{
  
 })
 
+// User.hasMany(User,{
+//   foreignKey:'verified_by',
+//   as:'verified_users',
+//   allowNull:true
+// })
+
+// User.belongsTo(User,{
+//   foreignKey:'verified_by',
+//   as:'verified_by_user',
+//   allowNull:true
+// })
+
 User.hasMany(SMW,{
   foreignKey:'user_id',
   as:'smw',
@@ -189,12 +201,12 @@ Schemes.belongsToMany(Member, {
 });
 
 User.hasMany(Member,{
-  foreignKey:'entered_by',
+  foreignKey:'user_id',
   as:'boothpresident'
 })
 
 Member.belongsTo(User,{
-  foreignKey:'entered_by',
+  foreignKey:'user_id',
   as:'members'
 })
 
@@ -375,12 +387,12 @@ Benificary.belongsTo(User,{
 })
 
 User.hasMany(ImportantPerson,{
-  foreignKey:'entered_by',
+  foreignKey:'user_id',
   as:'entered_by'
 })
 
 ImportantPerson.belongsTo(User,{
-  foreignKey:'entered_by',
+  foreignKey:'user_id',
   as:"important_persons"
 })
 

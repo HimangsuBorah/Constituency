@@ -158,8 +158,24 @@ const registerAsSMWController = async(req,res)=>{
   }
 }
 
+const verifyUserProfile = async(req,res)=>{
+  try {
+    const verifierid = req.user.id
+    const userid = req.params.id
+
+    const user = await authService.verifyUser(userid,verifierid)
+    return res.status(201).json({
+      success:true,
+      user,
+      message:"User verified successfully"
+    })
+  } catch (error) {
+    res.status(400).json({message:error.message})
+  }
+}
 
 
 
 
-module.exports = {signupController,loginController,refreshTokenController,getUserByIdController,disableUserController,disableUserByForm,addDemographicDataController,registerAsSMWController};
+
+module.exports = {signupController,loginController,refreshTokenController,getUserByIdController,disableUserController,disableUserByForm,addDemographicDataController,registerAsSMWController,verifyUserProfile};

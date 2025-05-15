@@ -1,6 +1,8 @@
 const { models } = require("../model/index");
 const houseDataRepository = require("./housedataRepository");
 const { deleteImageFromBunny } = require("../utils/bunnyUploader");
+const { Op } = require('sequelize'); 
+
 
 class AdminRepository {
   async getUsersByBoothId(boothid) {
@@ -21,7 +23,7 @@ class AdminRepository {
     try {
       const households = await models.Member.findAll({
         where: {
-          entered_by: userid,
+          user_id: userid,
           is_head: true,
           is_verified: false,
         },
@@ -62,7 +64,7 @@ class AdminRepository {
     try {
       const households = await models.Member.findAll({
         where: {
-          entered_by: userid,
+          user_id: userid,
           is_head: true,
           is_verified: true,
         },
@@ -820,6 +822,42 @@ async deleteCommunityMember(memberid){
     throw error
   }
 }
+
+async userleaderboard(){
+  try {
+    const users = await models.User.findAll({
+      where: { role: { [Op.ne]: 'admin' } },
+      attributes:['id','name']
+    })
+    
+    const leaderboard = await Promise.all(
+      users.map(async(user)=>{
+        const [memberCount,developementCount,assetCount,communitygroupsCount,beneficiariesCount,importantpersonsCount] = await Promise.all([
+          models.Member.count({where:{user_id:user.id,is_verified:true}}),
+          models.Developement.count({where:{user_id:user.id,is_verified:true}}),
+          models.Assets.count({where:{user_id:user.id,is_verified:true}}),
+          models.CommunityGroups.count({where:{user_id:user.id,is_verified:true}}),
+          models.Benificary.count({where:{user_id:user.id,is_verified:true}}),
+          models.ImportantPerson.count({where:{user_id:user.id,is_verified:true}})
+        ])
+
+        return {
+          user_id: user.id,
+          name: user.name,
+          count: {
+            memberCount,developementCount,assetCount,communitygroupsCount,beneficiariesCount,importantpersonsCount
+          }
+        };
+      })
+    )
+
+    return leaderboard
+  } catch (error) {
+    throw error
+  }
+}
+
+
 }
 
 module.exports = new AdminRepository();
