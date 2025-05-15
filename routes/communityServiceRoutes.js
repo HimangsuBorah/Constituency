@@ -58,7 +58,7 @@ router.post('/create-developement', isAuthenticated,communityController.createDe
 router.post('/upload-developement-image/:id',upload.array('images', 10), isAuthenticated,communityController.uploadDevelopementImagesController);
 router.get('/getall-assettypes',isAuthenticated,communityController.getAssetController)
 router.post('/create-category',isAuthenticated,communityController.categoryController)
-router.post('/getprojectsbycategory/:id',isAuthenticated,communityController.getProjectsByCategoryController)
+router.post('/getprojectsbycategory/:id',communityController.getProjectsByCategoryController)
 router.post('/create-communitycategory',isAuthenticated,communityController.addCommunityCategoryController)
 router.post('/add-communitylead',isAuthenticated,communityController.addCommunityLeader)
 router.post('/add-communitymember',isAuthenticated,communityController.addCommunityMemberController)
