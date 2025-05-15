@@ -175,8 +175,23 @@ const verifyUserProfile = async(req,res)=>{
   }
 }
 
+const getAllUsersByStatus = async(req,res)=>{
+  try {
+    const {page,pageSize,status} = req.body
+    const {users,remaining} = await authService.getAllUserByStatus(page,pageSize,status)
+    return res.status(200).json({
+      success:true,
+      users,
+      remaining,
+      message:"Users fetched successfully"
+    })
+  } catch (error) {
+    res.status(400).json({message:error.message})
+  }
+}
 
 
 
 
-module.exports = {signupController,loginController,refreshTokenController,getUserByIdController,disableUserController,disableUserByForm,addDemographicDataController,registerAsSMWController,verifyUserProfile};
+
+module.exports = {signupController,loginController,refreshTokenController,getUserByIdController,disableUserController,disableUserByForm,addDemographicDataController,registerAsSMWController,verifyUserProfile,getAllUsersByStatus};

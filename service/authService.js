@@ -175,6 +175,15 @@ class AuthService{
         }
     }
 
+    async getAllUserByStatus(page,pageSize,status){
+        try {
+            const {users,remaining} = await authRepository.getAllUsersByStatus(page,pageSize,status)
+            return {users,remaining}
+        } catch (error) {
+            throw error
+        }
+    }
+
 
     
 

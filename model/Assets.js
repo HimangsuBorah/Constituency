@@ -52,6 +52,12 @@ Asset.init(
     },
     verified_by:{
       type:DataTypes.INTEGER
+    },
+    booth_id:{
+      type:DataTypes.INTEGER
+    },
+    village_id:{
+      type:DataTypes.INTEGER
     }
   },
   {

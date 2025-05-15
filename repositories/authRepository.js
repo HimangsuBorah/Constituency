@@ -150,6 +150,26 @@ class AuthRepository {
       throw error;
     }
   }
+
+  async getAllUsersByStatus(page,pageSize,status){
+    try {
+     const offset = (page - 1) * pageSize;
+     const {rows,count} = await models.User.findAndCountAll({
+        where:{
+          is_verified:status
+        },
+        offset: offset,
+      limit: pageSize,
+     })
+
+    let remaining = Math.max(Math.ceil(count / pageSize) - page, 0);
+    return { users: rows, remaining };
+
+
+    } catch (error) {
+      throw error
+    }
+  }
 }
 
 module.exports = new AuthRepository();

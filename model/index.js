@@ -487,6 +487,87 @@ User.hasMany(User,{
   allowNull:true
 })
 
+Booth.hasMany(Developement,{
+  foreignKey:'booth_id',
+  as:'developement_projects_per_booth'
+})
+
+Developement.belongsTo(Booth,{
+  foreignKey:'booth_id',
+  as:"developement_booth"
+})
+
+Village.hasMany(Developement,{
+  foreignKey:'village_id',
+  as:'developement_project_per_village'
+})
+
+Developement.belongsTo(Village,{
+  foreignKey:'village_id',
+  as:'developement_village'
+})
+
+Booth.hasMany(Member,{
+  foreignKey:'booth_id',
+  as:'members_per_booth'
+})
+
+Member.belongsTo(Booth,{
+  foreignKey:'booth_id',
+  as:"member_booth"
+})
+
+Village.hasMany(Member,{
+  foreignKey:'village_id',
+  as:'member_per_village'
+})
+
+Member.belongsTo(Village,{
+  foreignKey:'village_id',
+  as:'member_village'
+})
+
+Booth.hasMany(CommunityGroups,{
+  foreignKey:'booth_id',
+  as:'community_groups_per_booth'
+})
+
+CommunityGroups.belongsTo(Booth,{
+  foreignKey:'booth_id',
+  as:"community_group_booth"
+})
+
+Village.hasMany(CommunityGroups,{
+  foreignKey:'village_id',
+  as:'community_groups_per_village'
+})
+
+CommunityGroups.belongsTo(Village,{
+  foreignKey:'village_id',
+  as:'community_group_village'
+})
+
+Booth.hasMany(Assets,{
+  foreignKey:'booth_id',
+  as:'assets_per_booth'
+})
+
+Assets.belongsTo(Booth,{
+  foreignKey:'booth_id',
+  as:"asset_booth"
+})
+
+Village.hasMany(Assets,{
+  foreignKey:'village_id',
+  as:'assets_per_village'
+})
+
+Assets.belongsTo(Village,{
+  foreignKey:'village_id',
+  as:'assets_village'
+})
+
+
 
 const models = {
  Booth,

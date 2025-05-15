@@ -54,8 +54,8 @@ const createAssetController = async(req,res)=>{
     try {
         const user_id=req.user.id
         const asset_type_id = req.params.id
-        const {name,lat,long,status,government_scheme,issues,incharge_person_name,incharge_person_phonenumber,incharge_person_designation}=req.body
-        const data = {name,lat,long,status,government_scheme,issues,incharge_person_name,incharge_person_phonenumber,incharge_person_designation,asset_type_id,user_id}
+        const {name,lat,long,status,government_scheme,issues,incharge_person_name,incharge_person_phonenumber,incharge_person_designation,booth_id,village_id}=req.body
+        const data = {name,lat,long,status,government_scheme,issues,incharge_person_name,incharge_person_phonenumber,incharge_person_designation,asset_type_id,user_id,booth_id,village_id}
         const asset = await communityService.createAsset(data)
         return res.status(201).json({
             success:true,
@@ -83,8 +83,8 @@ const getAssetController = async(req,res)=>{
 const createDevelopementController = async(req,res)=>{
     try {
         const user_id=req.user.id
-        const {scheme_name,lat,long,status,amount,feedback,assigned_person,phone_no,category_id,year}=req.body
-        const data = {scheme_name,lat,long,status,amount,feedback,assigned_person,user_id,phone_no,category_id,year}
+        const {scheme_name,lat,long,status,amount,feedback,assigned_person,phone_no,category_id,year,booth_id,village_id}=req.body
+        const data = {scheme_name,lat,long,status,amount,feedback,assigned_person,user_id,phone_no,category_id,year,booth_id,village_id}
         const asset = await communityService.createdevelopement(data)
         return res.status(201).json({
             success:true,
@@ -173,9 +173,9 @@ const addCommunityCategoryController = async(req,res)=>{
 
 const addCommunityLeader = async(req,res)=>{
   try {
-    const {name,community_name,community_category_id,active_members,programs,phone_no,contribution,support_required,other_reason,is_leader,leader_id,booth_id,gaon_panchayat_id} = req.body
+    const {name,community_name,community_category_id,active_members,programs,phone_no,contribution,support_required,other_reason,is_leader,leader_id,booth_id,village_id,} = req.body
     const user_id = req.user.id
-    const data = {name,community_name,community_category_id,active_members,programs,phone_no,contribution,support_required,other_reason,is_leader,leader_id,user_id,booth_id,gaon_panchayat_id}
+    const data = {name,community_name,community_category_id,active_members,programs,phone_no,contribution,support_required,other_reason,is_leader,leader_id,user_id,booth_id,village_id}
     const community = await communityService.addCommunityLeader(data)
     return res.status(200).json({
       success:true,
@@ -190,9 +190,9 @@ const addCommunityLeader = async(req,res)=>{
 const addCommunityMemberController = async(req,res)=>{
   try {
     
-    const {name,community_name,community_category_id,active_members,programs,phone_no,contribution,support_required,other_reason,is_leader,leader_id} = req.body
+    const {name,community_name,community_category_id,active_members,programs,phone_no,contribution,support_required,other_reason,is_leader,leader_id,booth_id,village_id} = req.body
     const user_id = req.user.id
-    const data = {name,community_name,community_category_id,active_members,programs,phone_no,contribution,support_required,other_reason,is_leader,leader_id,user_id}
+    const data = {name,community_name,community_category_id,active_members,programs,phone_no,contribution,support_required,other_reason,is_leader,leader_id,user_id,booth_id,village_id}
   
     const community = await communityService.addCommunityMember(data)
     
