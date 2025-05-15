@@ -827,7 +827,7 @@ async userleaderboard(){
   try {
     const users = await models.User.findAll({
       where: { role: { [Op.ne]: 'admin' } },
-      attributes:['id','name']
+      attributes:['id','name','role']
     })
     
     const leaderboard = await Promise.all(
@@ -844,6 +844,7 @@ async userleaderboard(){
         return {
           user_id: user.id,
           name: user.name,
+          role:user.role,
           count: {
             memberCount,developementCount,assetCount,communitygroupsCount,beneficiariesCount,importantpersonsCount
           }
