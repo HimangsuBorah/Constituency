@@ -149,10 +149,7 @@ class AuthRepository {
         throw new Error("Verifier user does not exist.");
 
       }
-
-      
-
-      await user.update({ is_verified: true});
+        await user.update({ is_verified: true});
       await user.reload();
 
       return user;

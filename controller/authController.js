@@ -162,6 +162,7 @@ const verifyUserProfile = async(req,res)=>{
   try {
     const verifierid = req.user.id
     const userid = req.params.id
+    console.log(req.params.id)
 
     const user = await authService.verifyUser(userid,verifierid)
     return res.status(201).json({

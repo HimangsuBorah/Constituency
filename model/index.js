@@ -64,16 +64,16 @@ GaonPanchayat.hasMany(Booth,{
 //   allowNull:true
 // })
 
-User.hasMany(SMW,{
-  foreignKey:'user_id',
-  as:'smw',
-  onDelete:'CASCADE'
-})
+// User.hasMany(SMW,{
+//   foreignKey:'user_id',
+//   as:'smw',
+//   onDelete:'CASCADE'
+// })
 
-SMW.belongsTo(User,{
-  foreignKey:'user_id',
-  as:'user_details'
-})
+// SMW.belongsTo(User,{
+//   foreignKey:'user_id',
+//   as:'user_details'
+// })
 
 Task.belongsTo(User, { as: 'creator', foreignKey: 'created_by' });
 
@@ -475,6 +475,18 @@ User.belongsTo(ImportantPerson,{
   allowNull:true
 })
 
+User.belongsTo(User,{
+  foreignKey:'verified_by',
+  as:'verified_by_admin',
+  allowNull:true
+})
+
+User.hasMany(User,{
+  foreignKey:'verified_by',
+  as:'verified_users',
+  allowNull:true
+})
+
 
 const models = {
  Booth,
@@ -497,13 +509,13 @@ const models = {
  BenificaryImages,
  ImportantPerson,
  MemberScheme,
- SMW,
- SubmissionImages,
- Submission,
- TaskCategory,
- Task,
- TaskImages,
- UserTasks
+//  SMW,
+//  SubmissionImages,
+//  Submission,
+//  TaskCategory,
+//  Task,
+//  TaskImages,
+//  UserTasks
 };
 
 // Sync models after initializing associations

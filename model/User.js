@@ -38,6 +38,10 @@ User.init(
     },
     village_id:{
         type:DataTypes.INTEGER
+    },
+    verified_by:{
+      type:DataTypes.INTEGER,
+      allowNull:true
     }
 
   },
