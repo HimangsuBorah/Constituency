@@ -270,6 +270,14 @@ class AdminService{
         }
     }
 
+    async admindashboardCount(){
+        try {
+            const counts = await adminRepository.getDashboardCountAdmin()
+            return counts
+        } catch (error) {
+            throw error
+        }
+    }
    
 
 }

@@ -444,8 +444,20 @@ const userleaderBoard = async(req,res)=>{
     }
 }
 
+const adminDashboard = async(req,res)=>{
+    try {
+        const counts = await adminService.admindashboardCount()
+        return res.status(200).json({
+            counts,
+            message:"Admin count fetched successfully"
+        })
+    } catch (error) {
+         res.status(500).json({message:error.message})
+    }
+}
+
 
 module.exports = {getUserByBoothId,getVerifiedHouseholdByUserId,getNonVerifiedHouseholdByUserId,updateMemberController,verifyMemberBYHousehold,getAllHouseholdDetailsController,deleteMemberById,deleteHouseholdByHeadid,totalVerifiedProjectsByUser,totalVerifiedMembersByUser,
     getAllVerifiedProjectsByCategory,getAllNotVerifiedProjectsByCategory,totalVerifiedDevelopementProjects,totalNotVerifiedDevelopementProjects,updateProjectDetails,verifyProject,deleteProjectByIdController,getProjectById,getAllVerifiedAssetsByUser,getAllNotVerifiedAssetsByUser,
-    deleteAssetByIdController,updateAssetDetailsController,verifyAssetDetailsController,getAllCategories,getAllCommunityGroups,verifyCommunityGroup,updateCommunityMemberDetails,deleteCommunityGroupMembers,userleaderBoard
+    deleteAssetByIdController,updateAssetDetailsController,verifyAssetDetailsController,getAllCategories,getAllCommunityGroups,verifyCommunityGroup,updateCommunityMemberDetails,deleteCommunityGroupMembers,userleaderBoard,adminDashboard
 }

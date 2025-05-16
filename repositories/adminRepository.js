@@ -859,6 +859,35 @@ async userleaderboard(){
 }
 
 
+async getDashboardCountAdmin(){
+  try {
+      const [userCount,memberCount,developementCount,assetCount,communitygroupsCount,beneficiariesCount,importantpersonsCount] = await Promise.all([
+          models.User.count({where:{is_verified:true}}),
+          models.Member.count({where:{is_verified:true}}),
+          models.Developement.count({where:{is_verified:true}}),
+          models.Assets.count({where:{is_verified:true}}),
+          models.CommunityGroups.count(),
+          models.Benificary.count(),
+          models.ImportantPerson.count()
+        ])
+
+        return {
+          counts:{
+            userCount,
+            memberCount,
+            developementCount,
+            assetCount,
+            communitygroupsCount,
+            beneficiariesCount,
+            importantpersonsCount
+          }
+        }
+  } catch (error) {
+      throw error
+  }
+}
+
+
 }
 
 module.exports = new AdminRepository();

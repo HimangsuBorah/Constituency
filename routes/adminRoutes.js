@@ -82,5 +82,6 @@ router.put('/update-community-group-member/:id',isAuthenticated,adminController.
 router.delete('/delete-community-group-member/:id',isAuthenticated,adminController.deleteCommunityGroupMembers)
 
 router.get('/get-user-leaderboard',adminController.userleaderBoard)
+router.get('/admin-dashboard-count',isAuthenticated,adminController.adminDashboard)
 
 module.exports = router;
