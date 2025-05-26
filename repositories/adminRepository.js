@@ -647,30 +647,32 @@ class AdminRepository {
 
       const deletedAsset = asset;
 
-      if (asset.assetImages && asset.assetImages.length > 0) {
-        await Promise.all(
-          asset.assetImages.map(async (img, index) => {
-            if (!img.img_url) {
-              console.warn(`Skipping image ${index}, no URL`);
-              return;
-            }
+      // if (asset.assetImages && asset.assetImages.length > 0) {
+      //   await Promise.all(
+      //     asset.assetImages.map(async (img, index) => {
+      //       if (!img.img_url) {
+      //         console.warn(`Skipping image ${index}, no URL`);
+      //         return;
+      //       }
 
-            const filePath = img.img_url.replace(
-              process.env.BUNNY_CDN_URL + "/",
-              ""
-            );
+      //       const filePath = img.img_url.replace(
+      //         process.env.BUNNY_CDN_URL + "/",
+      //         ""
+      //       );
 
-            console.log("Deleting file:", filePath);
+      //       console.log("Deleting file:", filePath);
 
-            await deleteImageFromBunny(filePath);
-          })
-        );
+      //       try{await deleteImageFromBunny(filePath);}catch(err){
+      //         throw new Error(err)
+      //       }
+      //     })
+      //   );
 
-        // Step 2: Delete SubmissionImage entries from DB
-        await models.AssetsImage.destroy({
-          where: { asset_id: assetid },
-        });
-      }
+      //   // Step 2: Delete SubmissionImage entries from DB
+      //   await models.AssetsImage.destroy({
+      //     where: { asset_id: assetid },
+      //   });
+      // }
 
       // Step 3: Delete the Submission itself
       await models.Assets.destroy({
