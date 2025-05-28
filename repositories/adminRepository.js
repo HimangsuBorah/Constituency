@@ -656,15 +656,20 @@ class AdminRepository {
       //       }
 
       //       const filePath = img.img_url.replace(
-      //         process.env.BUNNY_CDN_URL + "/",
+      //         process.env.BUNNY_CDN_URL + "/asset",
       //         ""
       //       );
 
       //       console.log("Deleting file:", filePath);
 
-      //       try{await deleteImageFromBunny(filePath);}catch(err){
-      //         throw new Error(err)
+            
+      //       try{
+      //         await deleteImageFromBunny(filePath)
+      //       }catch(error){
+      //         console.log(error)
+      //         throw error
       //       }
+            
       //     })
       //   );
 
